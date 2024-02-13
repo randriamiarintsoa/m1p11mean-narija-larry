@@ -6,11 +6,17 @@ import { Page404Component } from './views/pages/page404/page404.component';
 import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
+import { AuthGuard } from './shared/providers/auth.guard';
 
 const routes: Routes = [
-  {
+ /* {
     path: '',
     redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },*/
+  {
+    path: '',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -19,11 +25,13 @@ const routes: Routes = [
     data: {
       title: 'Home'
     },
+   
     children: [
       {
         path: 'dashboard',
+        canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'theme',
@@ -69,6 +77,16 @@ const routes: Routes = [
         path: 'pages',
         loadChildren: () =>
           import('./views/pages/pages.module').then((m) => m.PagesModule)
+      },
+      {
+        path: 'forgot-email',
+        loadChildren: () =>
+        import('./views/pages/forgot-email/forgot-email.module').then((m) => m.ForgotEmailsModule)
+      },
+      {
+        path: 'forgot-password',
+        loadChildren: () =>
+          import('./views/pages/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordsModule)
       },
     ]
   },
