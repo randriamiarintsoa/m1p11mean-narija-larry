@@ -20,19 +20,12 @@ export class RegisterComponent implements OnInit {
       this.user = new User();
     });
 }
-
-  
-
-  async onSubmitregister() {
+async onSubmitregister() {
     try {
       if (this.user.lastname === '' || this.user.firstname === '' || this.user.email === '' ) {
-      //  this.utils.toastError('Veuillez compléter le champ');
-     // this.ToastRegisterUser();
-      //  return;
       }else{
         let data;
       data = await this.userService.add(this.user);
-      //console.log('data', data)
       if (data) {
         this.router.navigate(['/login']);
      //   this.isLoading = false;
