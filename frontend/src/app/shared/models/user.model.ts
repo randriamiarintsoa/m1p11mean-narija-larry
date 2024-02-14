@@ -11,9 +11,10 @@ export class User extends BaseModel {
   lastname!: string;
   email!: string;
   phone!: string;
+  username!: string;
   password!: string;
   role!: User.RoleEnum;
-  avatar!: string;
+  //avatar!: string;
   createdAt !:string;
   
   

@@ -19,11 +19,17 @@
                 </span>
                 <input type="text" [(ngModel)]="user.lastname" name="lastname" require autoComplete="name" cFormControl placeholder="lastname" />
               </c-input-group>
-              <c-input-group class="mb-3">
+              <!--c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilUser"></svg>
                 </span>
                 <input type="text" [(ngModel)]="user.firstname" name="firstname" require autoComplete="name" cFormControl placeholder="firstname" />
+              </c-input-group-->
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input type="text" [(ngModel)]="user.role" name="role" require autoComplete="name" cFormControl placeholder="role" />
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
@@ -32,20 +38,26 @@
                 <input type="text" [(ngModel)]="user.phone" name="phone" require autoComplete="name" cFormControl placeholder="phone" />
               </c-input-group>
               <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input type="text" [(ngModel)]="user.username" name="username" require autoComplete="name" cFormControl placeholder="username" />
+              </c-input-group>
+              <c-input-group class="mb-3">
                 <span cInputGroupText>&#64;</span>
-                <input autoComplete="email" cFormControl placeholder="Email" />
+                <input type="text" [(ngModel)]="user.email" name="email" autoComplete="email" cFormControl placeholder="Email" />
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input autoComplete="new-password" cFormControl placeholder="Password" type="password" />
+                <input [(ngModel)]="user.password" name="password" autoComplete="new-password" cFormControl placeholder="Password" type="password" />
               </c-input-group>
               <c-input-group class="mb-4">
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
+                <input [(ngModel)]="user.password" name="password" autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
               </c-input-group>
               <div class="d-grid">
                 <button class="btn btn-success" color="success">Create Account</button>
