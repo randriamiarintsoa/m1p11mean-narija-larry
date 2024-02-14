@@ -39,15 +39,15 @@ const userSchema = new mongoose.Schema({
     },
     firstname :{
         type: String,
-        required: true,
+        required: false,
     },
     lastname :{
         type: String,
-        required: true,
+        required: false,
     },
     phone :{
         type: String,
-        required: true,
+        required: false,
         unique: true,
     },
     email :{
@@ -55,11 +55,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-      },
       password: {
         type: String,
         required: true,
@@ -67,15 +62,9 @@ const userSchema = new mongoose.Schema({
       role: {
         type: String,
         enum: ['client', 'employer', 'manager'], 
-        default: 'user', 
+        default: 'client', 
       },
-  /*  name: String,
-    firstname: String,
-    phone: String,
-    email: String,
-    role : ,
-    age: Number,
-    password: String,*/
+  
 });
 
 // Login endpoint
