@@ -1,7 +1,7 @@
-<app-widgets-dropdown></app-widgets-dropdown>
+<!--app-widgets-dropdown></app-widgets-dropdown>
 <c-card class="mb-4">
   <c-card-body>
-    <c-row>
+    <!--c-row>
       <c-col sm="5">
         <h4 class="card-title mb-0" id="traffic">Traffic</h4>
         <div class="small text-medium-emphasis">January - December 2021</div>
@@ -361,7 +361,7 @@
       </c-card-body>
     </c-card>
   </c-col>
-</c-row>
+</c-row-->
 <c-row>
   <c-col xs>
     <c-card class="mb-4">
@@ -380,31 +380,31 @@
               <th class="text-center">
                 <svg cIcon name="cilPeople"></svg>
               </th>
-              <th>User</th>
-              <th class="text-center">Country</th>
-              <th>Usage</th>
-              <th class="text-center">Payment Method</th>
-              <th>Activity</th>
+              <th>Nom</th>
+              <th class="text-center">role</th>
+              <th>email</th>
+              <!--th class="text-center">Payment Method</th>
+              <th>Activity</th-->
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let user of users; index as i">
               <td class="text-center">
-                <c-avatar
+                <!--c-avatar
                   size="md"
                   src="{{ user.avatar }}"
                   status="{{ user.status }}"
-                ></c-avatar>
+                ></c-avatar-->
               </td>
               <td>
                 <div>{{ user.name }}</div>
                 <div class="small text-medium-emphasis text-nowrap">
-                  <span>
+                  <!--span>
                     {{ user.state }} | Registered: {{ user.registered }}
-                  </span>
+                  </span-->
                 </div>
               </td>
-              <td class="text-center">
+              <!--td class="text-center">
                 <svg
                   cIcon
                   id="{{ user.country + user.name }}"
@@ -412,8 +412,8 @@
                   size="xl"
                   title="{{ user.country }}"
                 ></svg>
-              </td>
-              <td>
+              </td-->
+              <!--td>
                 <div class="d-flex justify-content-between">
                   <div class="float-start">
                     <strong>{{ user.usage }}%</strong>
@@ -430,14 +430,14 @@
                     color="{{ user.color }}"
                   ></c-progress-bar>
                 </c-progress>
-              </td>
-              <td class="text-center">
+              </td-->
+              <!--td class="text-center">
                 <svg cIcon name="cibCc{{ user.payment }}" size="xl"></svg>
-              </td>
-              <td>
+              </td-->
+              <!--td>
                 <div class="small text-medium-emphasis">Last login</div>
                 <div class="fw-semibold text-nowrap">{{ user.activity }}</div>
-              </td>
+              </td-->
             </tr>
           </tbody>
         </table>
