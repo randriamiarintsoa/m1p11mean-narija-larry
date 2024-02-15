@@ -27,6 +27,7 @@ const routes: Routes = [
     },
    
     children: [
+    
       {
         path: 'dashboard',
         canActivate: [AuthGuard],
@@ -88,6 +89,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/pages/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordsModule)
       },
+     
+      {
+        path: 'user',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+        import('./user/user.module').then((m) => m.UserModule),
+      },
+      
     ]
   },
   {
@@ -118,6 +127,7 @@ const routes: Routes = [
       title: 'Register Page'
     }
   },
+ 
   {path: '**', redirectTo: 'dashboard'}
 ];
 
