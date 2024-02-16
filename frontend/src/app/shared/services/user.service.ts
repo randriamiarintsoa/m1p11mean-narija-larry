@@ -37,7 +37,7 @@ export class UserService {
      console.log('** options 2 ** ', options)
       const data = await this.rest.getAll('/users', options);
       console.log('** data 2** ', data)
-       data.rows = data.rows.map(i => new User(i));
+       data.rows = data.rows?.map(i => new User(i));
        resolve(data);
      } catch (e) {
        reject(e);
