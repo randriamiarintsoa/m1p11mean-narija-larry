@@ -1,4 +1,3 @@
-
 <c-row>
   <c-col xs>
     <c-card class="mb-4">
@@ -18,9 +17,9 @@
                 <svg cIcon name="cilPeople"></svg>
               </th>
               <th>Nom</th>
-              <th>email</th>
+              <th>Email</th>
               <th>Téléphone</th>
-              <th>role</th>
+              <th>Rôle</th>
             </tr>
           </thead>
           <tbody>
@@ -35,36 +34,27 @@
               <td>
                 <div>{{ user.name }}</div>
                 <div class="small text-medium-emphasis text-nowrap">
-                  <span>
-                     | Registered: 
-                  </span>
                 </div>
               </td>
-              
               <td>
-                <div class="d-flex justify-content-between">
-                  <div class="float-start">
-                    <strong>{{ user.email }}</strong>
-                  </div>
-                  <div class="float-end ms-1 text-nowrap">
-                    <small class="text-medium-emphasis">
-                     
-                    </small>
-                  </div>
+                <div>{{ user.email }}</div>
+                <div class="small text-medium-emphasis text-nowrap">
                 </div>
-                <c-progress thin>
-                  <c-progress-bar
-                    [value]="user.role"
-                    color="{{ user.color }}"
-                  ></c-progress-bar>
-                </c-progress>
-              </td>
-              <td class="text-center">
-                <svg cIcon name="cibCc{{ user.payment }}" size="xl"></svg>
               </td>
               <td>
-                <div class="small text-medium-emphasis"></div>
-                <div class="fw-semibold text-nowrap">{{ user.role }}</div>
+                <div>{{ user.email }}</div>
+                <div class="small text-medium-emphasis text-nowrap">
+                </div>
+              </td>
+              <td>
+                <div>{{ user.role }}</div>
+                <div class="small text-medium-emphasis text-nowrap">
+                </div>
+              </td>
+              <td>
+                <button mat-button [routerLink]="['/user', 'profil',  user.id]" class="btn btn-info" color="accent" >
+                  voir
+             </button>
               </td>
             </tr>
           </tbody>
