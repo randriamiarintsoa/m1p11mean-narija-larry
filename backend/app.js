@@ -33,33 +33,28 @@ connectDB();
 
 // Define user schema and model
 const userSchema = new mongoose.Schema({
-    name :{
+    nom :{
         type: String,
         required: true,
     },
-    firstname :{
+    prenom :{
         type: String,
-        required: false,
+        required: true,
     },
-    lastname :{
+    telephone :{
         type: String,
         required: false,
-    },
-    phone :{
-        type: String,
-        required: false,
-        unique: true,
     },
     email :{
         type: String,
         required: true,
         unique: true,
     },
-      password: {
+    password: {
         type: String,
         required: true,
       },
-      role: {
+    role: {
         type: String,
         enum: ['client', 'employer', 'manager'], 
         default: 'client', 
@@ -81,7 +76,7 @@ app.post('/login', async (req, res) => {
         if (!passwordMacth) {
             res.status(404).send("invalide password");
         } else {
-            const token = jwt.sign({ userId: user.id, name: user.name }, 'your_secret_key', { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user.id, nom: user.nom, prenom:user.prenom, telephone:user.telephone, email:user.email, role:user.role  }, 'your_secret_key', { expiresIn: '1h' });
             const tokenExpiration = new Date().getTime() + 3600 * 1000; 
             res.json({ token, tokenExpiration, user });
         }
@@ -114,11 +109,11 @@ const User = mongoose.model('User', userSchema);
 // Create a new user
 app.post('/users', async (req, res) => {
     try {
-        const { name, email, age, password } = req.body;
+        const { nom, prenom, telephone, email, role, password } = req.body;
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = new User({ name, email, age, password: hashedPassword });
+        const newUser = new User({ nom, nom, prenom, telephone, email, role, password: hashedPassword });
         await newUser.save();
         res.status(201).json(newUser);
     } catch (err) {
@@ -150,7 +145,11 @@ app.get('/user/:id', async (req, res) => {
 });
 // Define service schema and model
 const serviceSchema = new mongoose.Schema({
-    name :{
+    nom :{
+        type: String,
+        required: true,
+    },
+    description :{
         type: String,
         required: true,
     },
@@ -172,9 +171,9 @@ const Service = mongoose.model('Service', serviceSchema);
 // Create a new service
 app.post('/service', async (req, res) => {
     try {
-        const { name, delai, prix, image } = req.body;
+        const { nom, prenom, description, delai, prix, image } = req.body;
 
-        const newService = new Service({ name, delai, prix, image });
+        const newService = new Service({ nom, prenom, description, delai, prix, image });
         await newService.save();
         res.status(201).json(newService);
     } catch (err) {
@@ -222,7 +221,14 @@ const rendezvousSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    status :{
+        type: String,
+    },
     tarifs :{
+        type: String,
+        required: true,
+    },
+    payement :{
         type: String,
         required: true,
     },
@@ -231,9 +237,9 @@ const Rendezvous = mongoose.model('Rendezvous', rendezvousSchema);
 // Create a new Rendez vous
 app.post('/rendezvous', async (req, res) => {
     try {
-        const { clientId, employerId, serviceId, date, tarifs} = req.body;
+        const { clientId, employerId, serviceId, date, status, tarifs, payement} = req.body;
 
-        const newRendezvous = new Service({ clientId, employerId, serviceId, date, tarifs });
+        const newRendezvous = new Service({ clientId, employerId, serviceId, date, status, tarifs, payement });
         await newRendezvous.save();
         res.status(201).json(newRendezvous);
     } catch (err) {
