@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
 }
 async onSubmitregister() {
     try {
-      if (this.user.lastname === '' || this.user.firstname === '' || this.user.email === '' ) {
+      if (this.user.nom === '' || this.user.prenom === '' || this.user.email === '' ) {
       }else{
         let data;
       data = await this.userService.add(this.user);
