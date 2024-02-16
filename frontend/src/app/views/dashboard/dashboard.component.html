@@ -17,6 +17,7 @@
                 <svg cIcon name="cilPeople"></svg>
               </th>
               <th>Nom</th>
+              <th>Prenom</th>
               <th>Email</th>
               <th>Téléphone</th>
               <th>Rôle</th>
@@ -32,7 +33,12 @@
                 ></c-avatar>
               </td>
               <td>
-                <div>{{ user.name }}</div>
+                <div>{{ user.nom }}</div>
+                <div class="small text-medium-emphasis text-nowrap">
+                </div>
+              </td>
+              <td>
+                <div>{{ user.prenom }}</div>
                 <div class="small text-medium-emphasis text-nowrap">
                 </div>
               </td>
@@ -42,7 +48,7 @@
                 </div>
               </td>
               <td>
-                <div>{{ user.email }}</div>
+                <div>{{ user.telephone }}</div>
                 <div class="small text-medium-emphasis text-nowrap">
                 </div>
               </td>

@@ -6,15 +6,13 @@ export class User extends BaseModel {
   @jsonIgnore()
   private pname!: string;
   id!: string;
-  name!: string;
-  firstname!: string;
-  lastname!: string;
+  nom!: string;
+  prenom!: string;
+  telephone!: string;
   email!: string;
-  phone!: string;
-  username!: string;
   password!: string;
   role!: User.RoleEnum;
-  //avatar!: string;
+  image!: string;
   createdAt !:string;
   
   @jsonIgnore()
@@ -24,18 +22,18 @@ export class User extends BaseModel {
   }
   @jsonIgnore()
   roleLabel(): string {
-    if (this.role === User.RoleEnum.superAdmin) {
-        return 'Admin';
+    if (this.role === User.RoleEnum.manager) {
+        return 'Manager';
     } else {
-        return 'Membre';
+        return 'Client';
     }
   }
 }
 export namespace User {
       export enum RoleEnum {
-           admin ='admin',
-            user ='user',
-            standard = 'standard',
-            superAdmin = 'superadmin'
+          manager ='manager',
+          employe ='employe',
+           client ='client',
+            
           }
     }

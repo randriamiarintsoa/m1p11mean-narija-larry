@@ -47,10 +47,10 @@ export class EditComponent implements OnInit {
   }
   async onSubmit() {
     try {
-      if (this.user.lastname === '' ||
-       this.user.firstname === '' ||
+      if (this.user.nom === '' ||
+       this.user.prenom === '' ||
         this.user.email === '' ||
-        this.user.phone === null ) {
+        this.user.telephone === null ) {
      //   this.utils.toastError('Veuillez compléter le champ');
         return;
           }

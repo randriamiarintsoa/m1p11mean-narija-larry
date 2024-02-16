@@ -38,7 +38,7 @@ export class SessionService {
   }
 
   get isSuperAdmin(): boolean {
-    return this.userData.role === User.RoleEnum.superAdmin;
+    return this.userData.role === User.RoleEnum.manager;
   }
   getSessionStatus(): Observable<boolean> {
     return Observable.create(async (observer:any) => {
