@@ -1,1 +1,18 @@
-liste
+
+  <div  class="container mt-4">
+    <div class="row">
+      <!-- Cards with rounded style and full width on small screens -->
+      <div *ngFor="let service of dataSource;" class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card rounded">
+          <div class="card-body">
+            <img class="card-img-top" src="{{service.image}}" alt="Card image cap">
+            <h5 class="card-title">{{service.nom}}</h5>
+            <p class="card-text">{{service.description}}</p>
+            Prix :<span>{{service.prix}}</span> ariary<br/>
+            <a [routerLink]="['/service','details',service._id]" class="btn btn-primary">Details</a>
+            
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>  

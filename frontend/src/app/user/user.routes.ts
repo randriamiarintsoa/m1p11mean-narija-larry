@@ -9,7 +9,7 @@ export const routes: Route[] = [
         redirectTo: 'profil',
         pathMatch: 'full',
     },
-    { path: 'profil', component: ProfilComponent},
+    { path: 'profil/:id', component: ProfilComponent},
     { path: 'listing', component: ListingComponent},
     { path: 'edit/:id', component: EditComponent},
     { path: 'edit', component: EditComponent}

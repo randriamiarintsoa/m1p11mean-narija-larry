@@ -13,7 +13,8 @@ import { ListResult, ListPagination } from 'src/app/shared/models/list.interface
 })
 export class ListingComponent implements OnInit {
 
-  dataSource!: ListResult<Service>;
+ // dataSource!: ListResult<Service>;
+ dataSource!: any;
   service: Service = new Service();
   cle!: string;
   objectService: any = {};
