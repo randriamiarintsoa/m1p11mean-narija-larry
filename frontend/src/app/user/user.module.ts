@@ -5,13 +5,25 @@ import { routes } from './user.routes';
 import { ProfilComponent } from './profil/profil.component';
 import { ListingComponent } from './listing/listing.component';
 import { EditComponent } from './edit/edit.component';
-//import { MatTableModule, MatIconModule, MatButtonModule, MatGridListModule, MatCardModule } from '@angular/material';
-//import { MatFormFieldModule, MatPaginatorModule } from '@angular/material';
-//import { MatInputModule } from '@angular/material';
 import { UserService } from '../shared/services/user.service';
-//import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
-//import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import {
+  AvatarModule,
+  ButtonGroupModule,
+  ButtonModule,
+  CardModule,
+  FormModule,
+  GridModule,
+  NavModule,
+  ProgressModule,
+  TableModule,
+  TabsModule
+} from '@coreui/angular';
+import { IconModule } from '@coreui/icons-angular';
+import { ChartjsModule } from '@coreui/angular-chartjs';
+
 
 
 
@@ -23,18 +35,23 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-   /* MatGridListModule,
-    MatTableModule,
-   // MatFormFieldModule,
-   // MatPaginatorModule,
-    //MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,*/
     FormsModule,
-   // NgSelectModule,
-    //MatProgressSpinnerModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CardModule,
+    NavModule,
+    IconModule,
+    TabsModule,
+    CommonModule,
+    GridModule,
+    ProgressModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    FormModule,
+    ButtonModule,
+    ButtonGroupModule,
+    ChartjsModule,
+    AvatarModule,
+    TableModule,
   ],
   providers: [
     UserService

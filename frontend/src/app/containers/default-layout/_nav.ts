@@ -25,6 +25,11 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-drop' }
   },
   {
+    name: 'Liste utilisateur',
+    url: '/user/listing',
+    iconComponent: { name: 'cil-drop' }
+  },
+  {
     name: 'Typography',
     url: '/theme/typography',
     linkProps: { fragment: 'someAnchor' },
