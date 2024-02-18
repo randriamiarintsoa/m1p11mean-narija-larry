@@ -12,13 +12,13 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Theme'
+    name: 'Mean'
   },
-  {
+ /* {
     name: 'Colors',
     url: '/theme/colors',
     iconComponent: { name: 'cil-drop' }
-  },
+  },*/
   {
     name: 'Service',
     url: '/service/listing',
@@ -29,7 +29,7 @@ export const navItems: INavData[] = [
     url: '/user/listing',
     iconComponent: { name: 'cil-drop' }
   },
-  {
+ /* {
     name: 'Typography',
     url: '/theme/typography',
     linkProps: { fragment: 'someAnchor' },
@@ -269,4 +269,5 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-layers' },
     attributes: { target: '_blank' }
   }
+  */
 ];
