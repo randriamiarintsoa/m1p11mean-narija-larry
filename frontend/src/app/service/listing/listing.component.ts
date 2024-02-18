@@ -5,7 +5,11 @@ import { ListResult, ListPagination } from 'src/app/shared/models/list.interface
 
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
+import { AddServiceComponent } from './add-service-modal/add-service-modal.component';
+//import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
+
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-listing',
@@ -27,18 +31,18 @@ export class ListingComponent implements OnInit {
     pageSizeOptions: [2, 5, 10, 25, 100]
 };
 isLoading: boolean;
-
+service: Service = new Service();
   constructor(
     private serviceService: ServiceService,
+    private route: ActivatedRoute,
+    private router: Router
     ) {
       this.isLoading = false;
   }
-
- 
-  
-
-  ngOnInit(): void {
-   
+  ngOnInit(){
+    this.route.params.subscribe(async (p) => {
+      this.user = new User();
+    });
     this.loadData();
   }
   async loadData() {
@@ -56,8 +60,23 @@ isLoading: boolean;
     } catch (e) {
         console.error(e);
         this.isLoading = false;
-    }
-    
+    }    
 }
-  
+/*
+async pushNotif() {
+  const dialogRef = this.dialog.open(AddServiceComponent, {
+    width: '250px',
+//    data: row.name
+  });
+  dialogRef.afterClosed().subscribe(async (result: {}) => {
+    if (result) {
+      const dat = await this.serviceService.add(this.service);
+      if (dat) {
+      //  this.utils.toastSuccess();
+        this.loadData();
+      }
+    }
+  });
+}
+*/
 }

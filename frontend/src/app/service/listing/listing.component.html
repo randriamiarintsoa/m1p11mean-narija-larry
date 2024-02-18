@@ -1,5 +1,9 @@
-
-  <div  class="container mt-4">
+<button type="button" class="btn btn-primary">Ajout nouveau service</button><br/>
+<button mat-button class="btn-notification" color="accent" (click)="addService(row)">
+  Ajout nouveau service
+</button>
+<div  class="container mt-4">
+    
     <div class="row">
       <!-- Cards with rounded style and full width on small screens -->
       <div *ngFor="let service of dataSource;" class="col-sm-12 col-md-6 col-lg-4">
@@ -12,7 +16,7 @@
             <a [routerLink]="['/service','details',service._id]" class="btn btn-primary">Details</a>
             
           </div>
-        </div>
+        </div><br/>
       </div>
       </div>
     </div>  
