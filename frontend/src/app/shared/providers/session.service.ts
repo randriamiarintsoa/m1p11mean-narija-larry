@@ -180,8 +180,8 @@ export class SessionService {
             id: user._id,
             email: user.email,
             role: user.role,
-            firstname: user.name,
-            lastname: user.name
+            nom: user.nom,
+            prenom: user.prenom
           };
           this.initSession(dataAuth, () => { });
           resolve(dataAuth);

@@ -21,6 +21,7 @@
                 <th>Email</th>
                 <th>Téléphone</th>
                 <th>Rôle</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -58,8 +59,18 @@
                   </div>
                 </td>
                 <td>
-                  <button mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-info" color="accent" >
+                  <a mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-info" color="accent" >
                     voir
+                  </a> &nbsp; 
+               </td>
+               <td>
+                  <button mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-success" color="accent" >
+                    Modification status
+               </button> &nbsp;
+               </td> 
+               <td>
+                <button mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-danger" color="accent" >
+                    supprimer
                </button>
                 </td>
               </tr>

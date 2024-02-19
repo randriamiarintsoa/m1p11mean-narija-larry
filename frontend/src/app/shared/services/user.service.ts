@@ -33,7 +33,6 @@ export class UserService {
            }
          }
        }
-      // const data = await this.rest.post('/conges', options);
      console.log('** options 2 ** ', options)
       const data = await this.rest.getAll('/users', options);
       console.log('** data 2** ', data)
@@ -48,7 +47,7 @@ export class UserService {
     return new Promise(async (resolve, reject) => {
       try {
         console.log("Id service user", id);
-        const data = await this.rest.get('/users/' + id);
+        const data = await this.rest.get('/user/' + id);
         console.log("data service", data);
         this.currentUserInView.next(new User(data));
         resolve(data);
