@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       this.isLoading = true;
       const data = await this.sessionService.signin(this.user);
      // this.utils.toastSuccess('Vous êtes mainteant connecté.');
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/user/listing');
       this.isLoading = false;
     } catch (e) {
       console.error(e);
