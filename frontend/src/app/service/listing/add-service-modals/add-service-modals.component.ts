@@ -1,15 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+
+import { Service } from 'src/app/shared/models/service.model';
+
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+
+export interface DialogData {
+  nom: string;
+  description: string;
+  delai: string;
+  prix: string;
+}
+
+
 
 @Component({
-  selector: 'app-modals',
-  templateUrl: './modals.component.html',
-  styleUrls: ['./modals.component.scss']
+  selector: 'app-add-service-modals',
+  templateUrl: './add-service-modals.component.html',
+  styleUrls: ['./add-service-modals.component.scss']
 })
-export class AddServiceModalsComponent {
+export class AddServiceModalsComponent implements OnInit{
 
   public liveDemoVisible = false;
+  nom!: string;
+  description!: string;
+  delai!: string;
+  service: Service = new Service();
+  constructor(
+    public dialogRef: MatDialogRef<AddServiceModalsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-  constructor() { }
+  ngOnInit() {
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  onSubmiPushNotification() {
+    if (!this.nom) {
+      return;
+    }
+    this.dialogRef.close({title: this.nom, message: this.description});
+  }
 
   toggleLiveDemo() {
     this.liveDemoVisible = !this.liveDemoVisible;
@@ -18,4 +56,8 @@ export class AddServiceModalsComponent {
   handleLiveDemoChange(event: boolean) {
     this.liveDemoVisible = event;
   }
+  
+ 
+
+  
 }

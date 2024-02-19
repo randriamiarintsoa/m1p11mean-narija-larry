@@ -5,11 +5,11 @@ import { ListResult, ListPagination } from 'src/app/shared/models/list.interface
 
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
-import { AddServiceComponent } from './add-service-modal/add-service-modal.component';
-//import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-
-
 import { Router, ActivatedRoute } from '@angular/router';
+import { UtilsService } from 'src/app/shared/providers/utils.service';
+
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AddServiceModalsComponent } from './add-service-modals/add-service-modals.component';
 
 @Component({
   selector: 'app-listing',
@@ -35,7 +35,9 @@ service: Service = new Service();
   constructor(
     private serviceService: ServiceService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private utils: UtilsService,
+    public dialog: MatDialog
     ) {
       this.isLoading = false;
   }
@@ -62,21 +64,38 @@ service: Service = new Service();
         this.isLoading = false;
     }    
 }
-/*
-async pushNotif() {
-  const dialogRef = this.dialog.open(AddServiceComponent, {
-    width: '250px',
-//    data: row.name
+async addnewservice() {
+  const dialogRef = this.dialog.open(AddServiceModalsComponent, {
+    width: '40%',
+    height:'30%'
+   // data: row.name
   });
   dialogRef.afterClosed().subscribe(async (result: {}) => {
     if (result) {
       const dat = await this.serviceService.add(this.service);
       if (dat) {
-      //  this.utils.toastSuccess();
+       // this.utils.toastSuccess();
         this.loadData();
       }
     }
   });
 }
-*/
+back() {
+  this.utils.back();
+}
+async pushNotif(row) {
+  const dialogRef = this.dialog.open(AddServiceModalsComponent, {
+    width: '550px',
+    data: row.name
+  });
+  dialogRef.afterClosed().subscribe(async (result: {}) => {
+    if (result) {
+      const dat = await this.serviceService.add(this.service);
+      if (dat) {
+        //this.utils.toastSuccess();
+        this.loadData();
+      }
+    }
+  });
+}
 }

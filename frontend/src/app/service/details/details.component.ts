@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/shared/services/service.service';
 import { Service } from 'src/app/shared/models/service.model';
-//import { UtilsService } from 'src/app/shared/providers/utils.service';
+import { UtilsService } from 'src/app/shared/providers/utils.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 
@@ -19,7 +19,8 @@ export class DetailsComponent implements OnInit {
   constructor(
     private serviceService: ServiceService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private utils: UtilsService,
   ) { }
 
   ngOnInit() {
@@ -67,5 +68,7 @@ export class DetailsComponent implements OnInit {
       this.isLoading = false;
     }
   }
- 
+  back() {
+    this.utils.back();
+  }
 }

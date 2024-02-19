@@ -15,6 +15,8 @@ import { AppComponent } from './app.component';
 // Import containers
 import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
 
+import { MatDialogModule } from '@angular/material/dialog';
+
 import {
   AvatarModule,
   BadgeModule,
@@ -33,11 +35,12 @@ import {
   SharedModule,
   SidebarModule,
   TabsModule,
-  UtilitiesModule
+  UtilitiesModule,
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -76,7 +79,8 @@ const APP_CONTAINERS = [
     NgScrollbarModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
   ],
   providers: [
     {
@@ -84,7 +88,8 @@ const APP_CONTAINERS = [
       useClass: HashLocationStrategy
     },
     IconSetService,
-    Title
+    Title,
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
