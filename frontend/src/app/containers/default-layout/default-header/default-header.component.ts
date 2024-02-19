@@ -33,20 +33,30 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
    
   ) {
     super();
-  }
+  } 
   ngOnInit() {
 
     this.userData = this.sessionService.userData;
     this.isLoading = true;
     if (this.userData) {
       this.user = this.userData;
-      console.log('u',  this.user)
     }  
     this.isLoading = false;  
     this.id = this.user.id;
-    console.log('this.id',  this.id)
+    this.loadData(this.id);
 }
-  
+
+async loadData(id) {
+  try {
+      this.isLoading = true;
+      this.user = await this.userService.load(id);
+      this.isLoading = false;
+  } catch (e) {
+      console.error(e);
+      this.isLoading = false;
+  }
+}  
+
   logout() {
     this.sessionService.signout(() => {
       this.router.navigateByUrl('/login');
