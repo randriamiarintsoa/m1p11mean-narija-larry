@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 
+const nodemailer = require('nodemailer');
+
 const app = express();
 const port = 3000;
 
@@ -160,8 +162,46 @@ app.delete('/users/:id', async (req, res) => {
       console.error(error);
       return res.status(500).json({ message: 'Error deleting user' });
     }
-  });
+});
   
+
+
+  // Endpoint pour envoyer un e-mail
+app.post('/send-email', (req, res) => {
+    // Récupérer les informations du formulaire
+    const { to, subject, text } = req.body;
+
+    // Create a transporter
+    const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'narijadev@gmail.com',
+        pass: 'narija12*34',
+    },
+    });
+
+    // Email options
+    const mailOptions = {
+        from: 'narijadev@gmail.com',
+        to: 'narijamiarintsoa@gmail.com',
+        subject: 'Test Email send',
+        text: 'Hello, this is a test email from Node.js!',
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error(error);
+          res.status(500).send('Erreur lors de l\'envoi de l\'e-mail.');
+        } else {
+          console.log('E-mail envoyé : ' + info.response);
+          res.send('E-mail envoyé avec succès.');
+        }
+    });
+});
+
+
+
+
 // Define service schema and model
 const serviceSchema = new mongoose.Schema({
     nom :{
