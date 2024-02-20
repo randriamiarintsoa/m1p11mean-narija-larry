@@ -143,6 +143,25 @@ app.get('/user/:id', async (req, res) => {
         res.status(404).json({ message: 'User not found'  });
     }
 });
+
+// Delete user endpoint
+app.delete('/users/:id', async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const deletedUser = await User.findByIdAndDelete(id);
+  
+      if (!deletedUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      return res.status(200).json({ message: 'User deleted successfully', deletedUser });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Error deleting user' });
+    }
+  });
+  
 // Define service schema and model
 const serviceSchema = new mongoose.Schema({
     nom :{
