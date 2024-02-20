@@ -1,0 +1,83 @@
+<c-row>
+    <c-col xs>
+      <c-card class="mb-4">
+        <c-card-header>Users</c-card-header>
+        <c-card-body>
+          <table
+            [hover]="true"
+            [responsive]="true"
+            [striped]="true"
+            align="middle"
+            cTable
+            class="mb-0 border"
+          >
+            <thead cTableColor="light">
+              <tr>
+                <th class="text-center">
+                  <svg cIcon name="cilPeople"></svg>
+                </th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Rôle</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of dataSource; index as i">
+                <td class="text-center">
+                  <c-avatar
+                    size="md"
+                    src="assets/images/default-avatar-profile.jpg"
+                    status="{{ user.status }}"
+                  ></c-avatar>
+                </td>
+                <td>
+                  <div>{{ user.nom }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td>
+                <td>
+                  <div>{{ user.prenom }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td>
+                <td>
+                  <div>{{ user.email }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td>
+                <td>
+                  <div>{{ user.telephone }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td>
+                <td>
+                  <div>{{ user.role }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td>
+                <td>
+                  <a mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-info" color="accent" >
+                    voir
+                  </a> &nbsp; 
+               </td>
+               <td>
+                  <button mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-success" color="accent" >
+                    Modification status
+               </button> &nbsp;
+               </td> 
+               <td>
+                <button mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-danger" color="accent" >
+                    supprimer
+               </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  
