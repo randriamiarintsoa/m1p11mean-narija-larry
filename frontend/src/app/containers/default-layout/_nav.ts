@@ -191,7 +191,7 @@ export const navItems: INavData[] = [
         url: '/icons/brands'
       }
     ]
-  },
+  },*/
   {
     name: 'Notifications',
     url: '/notifications',
@@ -215,7 +215,7 @@ export const navItems: INavData[] = [
       }
     ]
   },
-  {
+  /*{
     name: 'Widgets',
     url: '/widgets',
     iconComponent: { name: 'cil-calculator' },

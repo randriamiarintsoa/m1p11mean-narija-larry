@@ -1,23 +1,12 @@
-<p>Entrez la push notification</p>
-<h5 mat-dialog-title><strong>{{data}}</strong></h5>
-<div mat-dialog-content>
+<h2 mat-dialog-title>Add </h2>
+<mat-dialog-content>
+  <p>What's your favorite animal?</p>
   <mat-form-field>
-    <input matInput [(ngModel)]="nom" placeholder="Titre">
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput >
   </mat-form-field>
-  <mat-form-field>
-    <textarea matInput [(ngModel)]="description" placeholder="Titre"></textarea>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [(ngModel)]="delai" placeholder="Titre">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput [(ngModel)]="nom" placeholder="Titre">
-  </mat-form-field>
-  
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Annuler</button>
-  <button (click)="onSubmiPushNotification()" color="warn" mat-icon-button  aria-label="Example icon-button with a heart icon">
-      Continuer
-   </button>
-</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-danger mx-1" (click)="onNoClick()">No Thanks</button>
+  <button class="btn btn-primary mx-1" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

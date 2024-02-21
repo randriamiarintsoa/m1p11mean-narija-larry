@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +16,8 @@ import { AppComponent } from './app.component';
 import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
 
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgSelectModule } from '@ng-select/ng-select';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import {
   AvatarModule,
@@ -81,6 +83,9 @@ const APP_CONTAINERS = [
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
+    NgSelectModule,
+    NgxMaterialTimepickerModule
+    // CommonModule
   ],
   providers: [
     {

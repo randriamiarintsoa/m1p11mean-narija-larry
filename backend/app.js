@@ -126,8 +126,15 @@ app.post('/users', async (req, res) => {
 // Get all users
 app.get('/users', async (req, res) => {
     try {
-        const users = await User.find();
-        res.json(users);
+        const filterRole = req.query.role;
+        if (filterRole) {
+            const users = await User.find({role: filterRole});
+            res.json(users);
+        } else {
+            const users = await User.find();
+            res.json(users);
+        }
+        
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -276,10 +283,6 @@ const rendezvousSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    date :{
-        type: String,
-        required: true,
-    },
     status :{
         type: String,
     },
@@ -289,16 +292,32 @@ const rendezvousSchema = new mongoose.Schema({
     },
     payement :{
         type: String,
+        required: false,
+    },
+    note :{
+        type: String,
         required: true,
+    },
+    date :{
+        type: String,
+        required: true,
+    },
+    heure :{
+        type: String,
+        required: true,
+    },
+    notifictionId:{
+        type: String,
+        required: false,
     },
 });
 const Rendezvous = mongoose.model('Rendezvous', rendezvousSchema);
 // Create a new Rendez vous
 app.post('/rendezvous', async (req, res) => {
     try {
-        const { clientId, employerId, serviceId, date, status, tarifs, payement} = req.body;
+        const { clientId, employerId, serviceId, date, heure, status, tarifs, payement, note, notifictionId} = req.body;
 
-        const newRendezvous = new Service({ clientId, employerId, serviceId, date, status, tarifs, payement });
+        const newRendezvous = new Rendezvous({ clientId, employerId, serviceId, date, heure, note, status, tarifs, payement, notifictionId });
         await newRendezvous.save();
         res.status(201).json(newRendezvous);
     } catch (err) {

@@ -8,8 +8,11 @@ import { User } from 'src/app/shared/models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UtilsService } from 'src/app/shared/providers/utils.service';
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 import { AddServiceModalsComponent } from './add-service-modals/add-service-modals.component';
+
+
+
 
 @Component({
   selector: 'app-listing',
@@ -29,9 +32,9 @@ export class ListingComponent implements OnInit {
     page: 1,
     total: 0,
     pageSizeOptions: [2, 5, 10, 25, 100]
-};
-isLoading: boolean;
-service: Service = new Service();
+  };
+  isLoading: boolean;
+  service: Service = new Service();
   constructor(
     private serviceService: ServiceService,
     private route: ActivatedRoute,
@@ -65,11 +68,13 @@ service: Service = new Service();
     }    
 }
 async addnewservice() {
-  const dialogRef = this.dialog.open(AddServiceModalsComponent, {
-    width: '40%',
-    height:'30%'
-   // data: row.name
-  });
+  const dialogConfig = new MatDialogConfig();
+
+  // Définissez les dimensions de la fenêtre modale
+  dialogConfig.width = '500px';
+  dialogConfig.height = '300px';
+
+  const dialogRef = this.dialog.open(AddServiceModalsComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(async (result: {}) => {
     if (result) {
       const dat = await this.serviceService.add(this.service);

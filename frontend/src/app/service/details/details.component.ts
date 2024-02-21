@@ -4,7 +4,11 @@ import { ServiceService } from 'src/app/shared/services/service.service';
 import { Service } from 'src/app/shared/models/service.model';
 import { UtilsService } from 'src/app/shared/providers/utils.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { User } from 'src/app/shared/models/user.model';
+import { UserService } from 'src/app/shared/services/user.service';
+import { ListResult, ListPagination } from 'src/app/shared/models/list.interface'
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddRdvModalsComponent } from './add-rdv-modals/add-rdv-modals.component';
 
 @Component({
   selector: 'app-details',
@@ -16,16 +20,29 @@ export class DetailsComponent implements OnInit {
   isLoading!: boolean;
   id!: string;
   service: Service = new Service();
+  users!: any;
+  listing: ListPagination = {
+    limit: 10,
+    page: 1,
+    total: 0,
+    pageSizeOptions: [2, 5, 10, 25, 100]
+};
   constructor(
     private serviceService: ServiceService,
     private route: ActivatedRoute,
     private router: Router,
     private utils: UtilsService,
+    private userService: UserService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe((p) => {
+    this.route.params.subscribe(async(p) => {
       this.id = p.id;
+      this.isLoading = true;
+      const liste = await this.userService.list(1, 200);
+      this.users = liste.rows;
+      console.log ('this.USERS', this.users );
       if (this.id !== 'new') {
         this.loadData(this.id);
       } else {
@@ -38,6 +55,9 @@ export class DetailsComponent implements OnInit {
     try {
         this.isLoading = true;
         this.service = await this.serviceService.load(id);
+        console.log('dddd', this.service)
+        this.users = await this.userService.list(this.listing.page, this.listing.limit, {role: 'employer' });
+       console.log('this.users AAAA' ,this.users);
         this.isLoading = false;
     } catch (e) {
         console.error(e);
@@ -70,5 +90,25 @@ export class DetailsComponent implements OnInit {
   }
   back() {
     this.utils.back();
+  }
+
+  async addnewsrdv() {
+    const dialogConfig = new MatDialogConfig();
+  
+    // Définissez les dimensions de la fenêtre modale
+    dialogConfig.width = '500px';
+    dialogConfig.height = '400px';
+    dialogConfig.data = this.service;
+  
+    const dialogRef = this.dialog.open(AddRdvModalsComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(async (result: {}) => {
+      if (result) {
+        const dat = await this.serviceService.add(this.service);
+        if (dat) {
+         // this.utils.toastSuccess();
+          // this.loadData();
+        }
+      }
+    });
   }
 }
