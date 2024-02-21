@@ -73,6 +73,7 @@ async addnewservice() {
   // Définissez les dimensions de la fenêtre modale
   dialogConfig.width = '500px';
   dialogConfig.height = '300px';
+  dialogConfig.disableClose = true;
 
   const dialogRef = this.dialog.open(AddServiceModalsComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(async (result: {}) => {
@@ -91,7 +92,8 @@ back() {
 async pushNotif(row) {
   const dialogRef = this.dialog.open(AddServiceModalsComponent, {
     width: '550px',
-    data: row.name
+    data: row.name,
+    disableClose: true,
   });
   dialogRef.afterClosed().subscribe(async (result: {}) => {
     if (result) {

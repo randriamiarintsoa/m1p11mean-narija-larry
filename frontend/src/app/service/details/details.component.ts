@@ -99,6 +99,7 @@ export class DetailsComponent implements OnInit {
     dialogConfig.width = '500px';
     dialogConfig.height = '400px';
     dialogConfig.data = this.service;
+    dialogConfig.disableClose = true;
   
     const dialogRef = this.dialog.open(AddRdvModalsComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(async (result: {}) => {
