@@ -9,7 +9,8 @@ import { Page500Component } from './page500/page500.component';
 import { ButtonModule, CardModule, FormModule, GridModule } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { FormsModule } from '@angular/forms';
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { FormsModule } from '@angular/forms';
     GridModule,
     IconModule,
     FormModule,
-    FormsModule
+    FormsModule,
+    NgSelectModule,
+    MatInputModule
   ]
 })
 export class PagesModule {
