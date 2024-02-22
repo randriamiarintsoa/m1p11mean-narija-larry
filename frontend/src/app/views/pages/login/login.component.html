@@ -7,8 +7,8 @@
             <c-card-body>
              
               <form (ngSubmit)="onSubmit()" cForm>
-                <h1>Login</h1>
-                <p class="text-medium-emphasis">Sign In to your account</p>
+                <h1>Connexion</h1>
+                <p class="text-medium-emphasis">Connectez-vous à votre compte</p>
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
@@ -29,12 +29,12 @@
                 <c-row>
                   <c-col xs="6">
                     <button class="px-4 btn btn-primary" color="primary">
-                      Login
+                      Se connecter
                     </button>
                   </c-col>
                   <c-col class="text-right" xs="6">
                     <button [routerLink]="['/forgot-email']" cButton class="px-0" color="link">
-                      Forgot password?
+                      Mot de passe oublié?
                     </button>
                   </c-col>
                 </c-row>
@@ -44,13 +44,13 @@
           <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-primary py-5">
             <c-card-body class="text-center">
               <div>
-                <h2>Sign up</h2>
+                <h2>S'inscrire</h2>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                   tempor incididunt ut labore et dolore magna aliqua.
                 </p>
                 <button [active]="true" cButton class="mt-3" color="primary" routerLink="/register">
-                  Register Now!
+                  S'inscrire maintenant!
                 </button>
               </div>
             </c-card-body>
