@@ -90,8 +90,13 @@ back() {
   this.utils.back();
 }
 async pushNotif(row) {
+  const dialogConfig = new MatDialogConfig();
+  
+    // Définissez les dimensions de la fenêtre modale
+    dialogConfig.width = '500px';
+    dialogConfig.height = '400px';
   const dialogRef = this.dialog.open(AddServiceModalsComponent, {
-    width: '550px',
+  
     data: row.name,
     disableClose: true,
   });
