@@ -3,9 +3,9 @@ import { jsonIgnore } from 'json-ignore';
 
 export class RendezVous extends BaseModel {
   id!: string;
-  employerId!:string;
-  clientId!: string;
-  serviceId!: string;
+  employer!:string;
+  client!: string;
+  service!: string;
   notifictionId!: String;  
   note!: String;  
   date!: String;  

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { routes } from './user.routes';
+import { routes } from './rendezVous.routes';
 import { ProfilComponent } from './profil/profil.component';
 import { ListingComponent } from './listing/listing.component';
 import { EditComponent } from './edit/edit.component';
-import { UserService } from '../shared/services/user.service';
+import { RendezVousService } from '../shared/services/rendezVous.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -54,7 +54,7 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
     TableModule,
   ],
   providers: [
-    UserService
+    RendezVousService
   ]
 })
-export class UserModule { }
+export class RendezVousModule { }

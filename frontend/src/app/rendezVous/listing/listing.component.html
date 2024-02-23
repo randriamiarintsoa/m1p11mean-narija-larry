@@ -1,7 +1,7 @@
 <c-row>
     <c-col xs>
       <c-card class="mb-4">
-        <c-card-header>Users</c-card-header>
+        <c-card-header>rendezvouss</c-card-header>
         <c-card-body>
           <table
             [hover]="true"
@@ -16,62 +16,47 @@
                 <th class="text-center">
                   <svg cIcon name="cilPeople"></svg>
                 </th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Email</th>
-                <th>Téléphone</th>
-                <th>Rôle</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Client</th>
+                <th>Service</th>
+                <!-- <th>Note</th> -->
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of dataSource; index as i">
+              <tr *ngFor="let rendezvous of dataSource; index as i">
                 <td class="text-center">
                   <c-avatar
                     size="md"
                     src="assets/images/default-avatar-profile.jpg"
-                    status="{{ user.status }}"
+                    status="{{ rendezvous.status }}"
                   ></c-avatar>
                 </td>
                 <td>
-                  <div>{{ user.nom }}</div>
+                  <div>{{ rendezvous.date }}</div>
                   <div class="small text-medium-emphasis text-nowrap">
                   </div>
                 </td>
                 <td>
-                  <div>{{ user.prenom }}</div>
+                  <div>{{ rendezvous.heure }}</div>
                   <div class="small text-medium-emphasis text-nowrap">
                   </div>
                 </td>
                 <td>
-                  <div>{{ user.email }}</div>
+                  <div>{{ rendezvous?.client?.nom }}</div>
                   <div class="small text-medium-emphasis text-nowrap">
                   </div>
                 </td>
-                <td>
-                  <div>{{ user.telephone }}</div>
+                <!-- <td>
+                  <div>{{ rendezvous?.service?.nom }}</div>
                   <div class="small text-medium-emphasis text-nowrap">
                   </div>
-                </td>
+                </td> -->
                 <td>
-                  <div>{{ user.role }}</div>
+                  <div>{{ rendezvous.note }}</div>
                   <div class="small text-medium-emphasis text-nowrap">
                   </div>
-                </td>
-                <td>
-                  <a mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-info" color="accent" >
-                    voir
-                  </a> &nbsp; 
-               </td>
-               <td>
-                  <button mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-success" color="accent" >
-                    Modification status
-               </button> &nbsp;
-               </td> 
-               <td>
-                <button mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-danger" color="accent" >
-                    supprimer
-               </button>
                 </td>
               </tr>
             </tbody>
