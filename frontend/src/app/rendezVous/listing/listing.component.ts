@@ -58,22 +58,6 @@ export class ListingComponent implements OnInit {
               ascendant: false
              }]
             this.dataSource = await this.rendezVousService.list(this.listing.page, this.listing.limit, query);
-          
-            console.log('dataSource RDV', this.dataSource);
-          
-            //   this.rendezVous = await this.rendezVousService.load(id); 
-          //   console.log('user' ,this.rendezVous) 
-          //   this.listing.total = this.dataSource.total;
-          //   let userIds = [];
-            
-          //   for (const rendezVous of this.dataSource.rows) {
-          //     userIds.push(rendezVous.userId);
-          //  }
-          //  userIds = Array.from(new Set(userIds));
-          //   const userSource = await this.userService.list(1, 200, {ids: userIds});
-          //   for (const user of userSource.rows) {
-          //    this.objectUser[user._id] = user.nom;
-          //  }
             this.isLoading = false;
         } catch (e) {
             console.error(e);
