@@ -35,7 +35,7 @@
                 <ng-select [items]="role" 
                       name="role"
                       bindLabel="name" 
-                      bindValue="id" 
+                      bindValue="name" 
                       [(ngModel)]="selectedRole">
                 </ng-select>
               </div>
@@ -54,6 +54,9 @@
               </c-input-group>
               <div class="d-grid">
                 <button class="btn btn-success" color="success">Create Account</button>
+              </div>
+              <div class="alert alert-danger mt-2" *ngIf="isError">
+                {{messageError}}
               </div>
             </form>
           </c-card-body>

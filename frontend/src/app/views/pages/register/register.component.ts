@@ -10,12 +10,14 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class RegisterComponent implements OnInit {
   user: User = new User();
 
-  selectedRole!: number;
+  selectedRole!: User.RoleEnum;
+  isError: boolean = false;
+  messageError: string = '';
 
   role = [
-      { id: 1, name: 'client' },
-      { id: 2, name: 'employer' },
-      { id: 3, name: 'manager' },
+      { name: 'client' },
+      { name: 'employer' },
+      { name: 'manager' },
      
   ];
   constructor(
@@ -31,18 +33,22 @@ export class RegisterComponent implements OnInit {
 }
 async onSubmitregister() {
     try {
+      this.isError = false;
       if (this.user.nom === '' || this.user.prenom === '' || this.user.email === '' ) {
-      }else{
-        let data;
-      data = await this.userService.add(this.user);
-      if (data) {
-        this.router.navigate(['/login']);
-     //   this.isLoading = false;
-      }
+      } else {
+        this.user.role = this.selectedRole;
+        console.log('=== ', this.user);
+        let data = await this.userService.add(this.user);
+        if (data) {
+          this.router.navigate(['/login']);
+          //   this.isLoading = false;
+        }
       }
       
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      console.log('error : ', e?.error?.code);
+      this.isError = true;
+      this.messageError = e?.error?.message
     //  this.isLoading = false;
     }
   }
