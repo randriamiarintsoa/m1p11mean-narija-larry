@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
 
   user: User = new User();
   isLoading: boolean;
+  isError: boolean = false;
+  messageError: string = '';
   constructor(
     private router: Router,
     //private utils: UtilsService,
@@ -25,14 +27,19 @@ export class LoginComponent implements OnInit {
 
   async onSubmit() {
     try {
+      this.isError = false;
       console.log('auth')
       this.isLoading = true;
       const data = await this.sessionService.signin(this.user);
      // this.utils.toastSuccess('Vous êtes mainteant connecté.');
       this.router.navigateByUrl('/user/listing');
       this.isLoading = false;
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
+
+      this.isError = true;
+      this.messageError = e?.error?.message
+
      // this.utils.toastError('Veuillez vérifier votre identifiants.');
       this.isLoading = false;
     }

@@ -27,17 +27,22 @@
                   />
                 </c-input-group>
                 <c-row>
-                  <c-col xs="6">
+                  <c-col xs="12">
                     <button class="px-4 btn btn-primary" color="primary">
                       Se connecter
                     </button>
                   </c-col>
-                  <c-col class="text-right" xs="6">
+                </c-row>
+                <c-row>
+                  <c-col class="text-right" xs="12">
                     <button [routerLink]="['/forgot-email']" cButton class="px-0" color="link">
                       Mot de passe oublié?
                     </button>
                   </c-col>
                 </c-row>
+                <div class="alert alert-danger mt-2" *ngIf="isError">
+                  {{messageError}}
+                </div>
               </form>
             </c-card-body>
           </c-card>
