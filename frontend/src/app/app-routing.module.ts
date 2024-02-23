@@ -102,7 +102,12 @@ const routes: Routes = [
         loadChildren: () =>
         import('./service/service.module').then((m) => m.ServiceModule),
       },
-      
+      {
+        path: 'liste-rendez-vous',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+        import('./rendezVous/rendezVous.module').then((m) => m.RendezVousModule),
+      }, 
     ]
   },
   {
