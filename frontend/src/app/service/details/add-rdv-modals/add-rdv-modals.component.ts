@@ -113,9 +113,9 @@ export class AddRdvModalsComponent implements OnInit {
   
   async onSubmitSave() {
     console.log('this.selectedUser ==== ', this.selectedUser)
-    this.rendezVous.employerId = this.selectedUser;
-    this.rendezVous.clientId = this.userData.id;
-    this.rendezVous.serviceId = this.serviceCurrent._id;
+    this.rendezVous.employer = this.selectedUser;
+    this.rendezVous.client = this.userData.id;
+    this.rendezVous.service = this.serviceCurrent._id;
     this.rendezVous.tarifs = this.serviceCurrent.prix;
     this.rendezVous.payement = 'OK';
     this.rendezVous.status = 'inprogress';

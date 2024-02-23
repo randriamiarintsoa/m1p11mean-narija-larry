@@ -1,5 +1,5 @@
 {
-  "name": "coreui-free-angular-admin-template",
+  "name": "mean-narija-larry",
   "version": "4.7.13",
   "copyright": "Copyright 2023 creativeLabs Łukasz Holeczek",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "ngx-material-timepicker": "^13.1.1",
     "ngx-scrollbar": "^13.0.3",
     "node-sass": "^9.0.0",
-    "rxjs": "~7.8.1",
+    "rxjs": "^7.8.1",
     "sass-loader": "^14.1.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

@@ -30,10 +30,9 @@ export class User extends BaseModel {
   }
 }
 export namespace User {
-      export enum RoleEnum {
-          manager ='manager',
-          employe ='employe',
-           client ='client',
-            
-          }
-    }
+  export enum RoleEnum {
+    manager ='manager',
+    employe ='employer',
+    client ='client',      
+  }
+}

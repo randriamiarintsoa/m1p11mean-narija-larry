@@ -1,37 +1,50 @@
-<div class="left" colspan="3" [hidden]="isLoading">
-  <a (click)="back()" class="btn btn-light">
-    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-      <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-    </svg> Précédent
-  </a>
-  
-</div><br>
-<div>
+<div class="card">
+  <div class="card-body">
    <div class="row">
-    <div class="col-lg-9">
+      <div class="col-md-8 col-lg-9">
+        <div class="left" colspan="3" [hidden]="isLoading">
+          <a (click)="back()" class="btn btn-secondary">
+            <svg cIcon name="cilPeople"></svg> Précédent
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-3 d-flex justify-content-end">
+        <button type="button" (click)="addnewservice()" class="btn btn-primary bi bi-arrow-return-left">Ajout nouveau service</button><br/>
+      </div>
+    </div>
+  </div>
+</div>
+   
+<div class="card mt-2 mb-2">
+  <div class="card-body">
+    <div class="">
       
+        <input class="form-control" matInput name="searchxl" [(ngModel)]="searchData.q"
+            (ngModelChange)="searchUpdated$.next(searchData.q)" type="text" placeholder="Rechercher"
+        >
     </div>
-    <div class="col-lg-3">
-    <button type="button" (click)="addnewservice()" class="btn btn-primary bi bi-arrow-return-left">Ajout nouveau service</button><br/>
-    </div>
-    </div>
+  </div>
 </div>
 
+  <div class="row">
+    <!-- Cards with rounded style and full width on small screens -->
+    <div *ngFor="let service of dataSource;" class="col-sm-12 col-md-6 col-lg-4">
+      <div class="card rounded">
+        <div class="card-body">
+          <img class="card-img-top" src="{{service.image}}" alt="Card image cap">
+          <h5 class="card-title">{{service.nom}}</h5>
+          <p class="card-text">{{service.description}}</p>
+          Prix :<span>{{service.prix}}</span> ariary<br/>
+          <a [routerLink]="['/service','details',service._id]" class="btn btn-primary">Details</a>
+          
+        </div>
+      </div><br/>
+    </div>
 
-<div  class="container mt-4">
-    <div class="row">
-      <!-- Cards with rounded style and full width on small screens -->
-      <div *ngFor="let service of dataSource;" class="col-sm-12 col-md-6 col-lg-4">
-        <div class="card rounded">
-          <div class="card-body">
-            <img class="card-img-top" src="{{service.image}}" alt="Card image cap">
-            <h5 class="card-title">{{service.nom}}</h5>
-            <p class="card-text">{{service.description}}</p>
-            Prix :<span>{{service.prix}}</span> ariary<br/>
-            <a [routerLink]="['/service','details',service._id]" class="btn btn-primary">Details</a>
-            
-          </div>
-        </div><br/>
+    <div *ngIf="!dataSource.length">
+      <div class="alert alert-danger text-center">
+        Aucune service trouvé !
       </div>
-      </div>
-    </div>  
+    </div>
+  </div>
+ 

@@ -8,6 +8,7 @@ import { EditComponent } from './edit/edit.component';
 import { UserService } from '../shared/services/user.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import {
   AvatarModule,
@@ -19,7 +20,7 @@ import {
   NavModule,
   ProgressModule,
   TableModule,
-  TabsModule
+  TabsModule,
 } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
@@ -52,6 +53,7 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
     ChartjsModule,
     AvatarModule,
     TableModule,
+    MatFormFieldModule,
   ],
   providers: [
     UserService

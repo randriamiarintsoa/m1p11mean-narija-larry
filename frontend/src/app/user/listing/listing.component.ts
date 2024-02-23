@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
-import { ListResult, ListPagination } from 'src/app/shared/models/list.interface';
+import { ListResult, ListPagination ,SearchInterface} from 'src/app/shared/models/list.interface';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -19,6 +19,9 @@ export class ListingComponent implements OnInit {
  // user: User = new User();
   cle!: string;
   objectUser: any = {};
+  searchData : SearchInterface = {
+    q: '',
+  };
 
   listing: ListPagination = {
       limit: 10,
@@ -27,6 +30,7 @@ export class ListingComponent implements OnInit {
       pageSizeOptions: [2, 5, 10, 25, 100]
   };
   isLoading: boolean;
+  searchUpdated$: Subject<string | undefined> = new Subject<string | undefined>();
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -54,6 +58,10 @@ export class ListingComponent implements OnInit {
               key : 'createdAt',
               ascendant: false
              }]
+             if (this.searchData.q && this.searchData.q.length) {
+              query.searchValue = this.searchData.q;
+              query.searchFields = ['nom'];
+            }
             this.dataSource = await this.userService.list(this.listing.page, this.listing.limit, query);
             this.user = await this.userService.load(id); 
             console.log('user' ,this.user) 
