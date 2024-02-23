@@ -23,6 +23,9 @@ app.use(cors({
 const connectDB = async () => {
     try {
       const conn = await mongoose.connect('mongodb://127.0.0.1:27017/mean'
+    // const uri = 'mongodb+srv://narija:narija1234@cluster0.mongodb.net/mean';
+    //const uri = 'mongodb+srv://narija:narija1234@cluster0.epn5jqe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+   // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true }
     //   , { useNewUrlParser: true, useUnifiedTopology: true }
       );
       console.error('CONNECT TO DATABASE:', conn);
@@ -59,7 +62,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: ['client', 'employer', 'manager'], 
-        default: 'client', 
+        // default: 'client', 
       },
   
 });
@@ -71,12 +74,12 @@ app.post('/login', async (req, res) => {
     
         const user = await User.findOne({email});
         if (!user) {
-            res.status(404).send("user not found");
+            res.status(404).send({message :"Login ou mot de passe incorrect"});
         } 
         
         const passwordMacth = await bcrypt.compare(password, user.password);
         if (!passwordMacth) {
-            res.status(404).send("invalide password");
+            res.status(404).send({message : "Login ou mot de passe incorrect"});
         } else {
             const token = jwt.sign({ userId: user.id, nom: user.nom, prenom:user.prenom, telephone:user.telephone, email:user.email, role:user.role  }, 'your_secret_key', { expiresIn: '1h' });
             const tokenExpiration = new Date().getTime() + 3600 * 1000; 
@@ -112,13 +115,16 @@ const User = mongoose.model('User', userSchema);
 app.post('/users', async (req, res) => {
     try {
         const { nom, prenom, telephone, email, role, password } = req.body;
-
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new User({ nom, nom, prenom, telephone, email, role, password: hashedPassword });
         await newUser.save();
         res.status(201).json(newUser);
     } catch (err) {
+        // erreur email dupliqué
+        if (err.code === 11000 && err.keyPattern.email) {
+            return res.status(400).json({ message: 'L\'email existe déjà.', code: err.code });
+        }
         res.status(500).json({ message: err.message });
     }
 });
@@ -250,8 +256,17 @@ app.post('/service', async (req, res) => {
 // Get all services
 app.get('/services', async (req, res) => {
     try {
-        const services = await Service.find();
-        res.json(services);
+
+        const filterNom = req.query.searchValue;
+        // const searchFields = req.query.searchFields;
+        if (filterNom) {
+            const services = await Service.find({nom: { $regex: new RegExp(filterNom, 'i') } });
+            res.json(services);
+        } else {
+            const services = await Service.find();
+            res.json(services);
+        }
+
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -271,17 +286,17 @@ app.get('/service/:id', async (req, res) => {
 });
 // Define service schema and model
 const rendezvousSchema = new mongoose.Schema({
-    clientId :{
-        type: String,
-        required: true,
+    client :{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
-    employerId :{
-        type: String,
-        required: true,
+    employer :{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
-    serviceId :{
-        type: String,
-        required: true,
+    service :{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Service',
     },
     status :{
         type: String,
@@ -310,14 +325,18 @@ const rendezvousSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    // client: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User',
+    // },
 });
 const Rendezvous = mongoose.model('Rendezvous', rendezvousSchema);
 // Create a new Rendez vous
 app.post('/rendezvous', async (req, res) => {
     try {
-        const { clientId, employerId, serviceId, date, heure, status, tarifs, payement, note, notifictionId} = req.body;
+        const { client, employer, service, date, heure, status, tarifs, payement, note, notifictionId} = req.body;
 
-        const newRendezvous = new Rendezvous({ clientId, employerId, serviceId, date, heure, note, status, tarifs, payement, notifictionId });
+        const newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId });
         await newRendezvous.save();
         res.status(201).json(newRendezvous);
     } catch (err) {
@@ -328,7 +347,8 @@ app.post('/rendezvous', async (req, res) => {
 // Get all Rendez vous
 app.get('/rendezvous', async (req, res) => {
     try {
-        const rendezvous = await Rendezvous.find();
+        const rendezvous = await Rendezvous.find().populate(['client','service','employer']);
+
         res.json(rendezvous);
     } catch (err) {
         res.status(500).json({ message: err.message });
