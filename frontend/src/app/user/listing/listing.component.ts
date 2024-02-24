@@ -3,7 +3,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
 import { ListResult, ListPagination ,SearchInterface} from 'src/app/shared/models/list.interface';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 
 @Component({
@@ -36,7 +36,11 @@ export class ListingComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
   ) {
-      this.isLoading = false;
+    this.isLoading = false;
+    this.searchUpdated$.pipe(debounceTime(1000)).pipe(distinctUntilChanged())
+    .subscribe((data) => {
+      this.loadData(this.id);
+    });
     }
     ngOnInit() {
       this.route.params.subscribe(async (p) => {

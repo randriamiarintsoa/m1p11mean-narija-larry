@@ -1,11 +1,15 @@
 
-
+<div class="card mt-2 mb-2">
+  <div class="card-body">
+    <div class="">
+      
+        <input class="form-control" matInput name="searchxl" [(ngModel)]="searchData.q"
+            (ngModelChange)="searchUpdated$.next(searchData.q)" type="text" placeholder="Rechercher"
+        >
+    </div>
+  </div>
+</div>
 <c-row>
-  <!--mat-form-field>
-  <input matInput name="searchxl" [(ngModel)]="searchData.q"
-      (ngModelChange)="searchUpdated$.next(searchData.q)" type="text" placeholder="Rechercher"
-  >
-</mat-form-field-->
     <c-col xs>
       <c-card class="mb-4">
         <c-card-header>Users</c-card-header>
