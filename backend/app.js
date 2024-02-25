@@ -369,7 +369,7 @@ app.get('/rendezvous/:id', async (req, res) => {
 });
 // restPassword schema 
 const resetTokenSchema = new mongoose.Schema({
-    username: {
+    nom: {
         type: String,
         required: true
     },
@@ -397,7 +397,7 @@ app.post('/forgot-password', async (req, res) => {
 
         const token = crypto.randomBytes(20).toString('hex');
         const resetToken = new ResetToken({
-            username: user.username,
+            nom: user.nom,
             resetPasswordToken: token,
             resetExpire: Date.now() + 3600000 // 1 heure
         });
@@ -449,7 +449,7 @@ app.post('/reset-password/:token', async (req, res) => {
             return res.status(400).json({ message: 'Token de réinitialisation invalide ou expiré.' });
         }
 
-        const user = await User.findOne({ username: resetToken.username });
+        const user = await User.findOne({ nom: resetToken.nom });
 
         if (!user) {
             return res.status(404).json({ message: 'Utilisateur non trouvé.' });
