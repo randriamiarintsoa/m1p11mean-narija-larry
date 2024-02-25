@@ -367,6 +367,106 @@ app.get('/rendezvous/:id', async (req, res) => {
         res.status(404).json({ message: 'Rendez vous not found'  });
     }
 });
+// restPassword schema 
+const resetTokenSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true
+    },
+    resetPasswordToken: {
+        type: String,
+        required: true
+    },
+    resetExpire: {
+        type: Date,
+        required: true
+    }
+});
+
+const ResetToken = mongoose.model('ResetToken', resetTokenSchema);
+
+// Ajoutez la route pour envoyer l'email de réinitialisation
+app.post('/forgot-password', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+        }
+
+        const token = crypto.randomBytes(20).toString('hex');
+        const resetToken = new ResetToken({
+            username: user.username,
+            resetPasswordToken: token,
+            resetExpire: Date.now() + 3600000 // 1 heure
+        });
+
+        await resetToken.save();
+
+        // Code pour envoyer l'email de réinitialisation avec Nodemailer
+        var transporter = nodemailer.createTransport(
+            {
+                service : 'gmail',
+                auth :{
+                    user:'larryramasimanana@gmail.com',
+                    pass:'qayl dokp vada vswl'
+                }
+            }
+        );
+
+        const mailOptions = {
+            from: 'larryramasimanana@gmail.com', // Remplacez par votre email
+            to: user.email,
+            subject: 'Réinitialisation de mot de passe',
+            html: `Pour réinitialiser votre mot de passe, <a href="${req.protocol}://${req.get('host')}/reset-password/${token}">cliquez ici</a>.`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log(error);
+                return res.status(500).json({ message: "Erreur lors de l'envoi de l'email de réinitialisation." });
+            } else {
+                console.log('Email de réinitialisation envoyé : ' + info.response);
+                return res.status(200).json({ message: 'Email de réinitialisation envoyé avec succès.' });
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Ajoutez la route pour réinitialiser le mot de passe
+app.post('/reset-password/:token', async (req, res) => {
+    try {
+        const { token } = req.params;
+        const resetToken = await ResetToken.findOne({
+            resetPasswordToken: token,
+            resetExpire: { $gt: Date.now() }
+        });
+
+        if (!resetToken) {
+            return res.status(400).json({ message: 'Token de réinitialisation invalide ou expiré.' });
+        }
+
+        const user = await User.findOne({ username: resetToken.username });
+
+        if (!user) {
+            return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+        }
+
+        // Mettre à jour le mot de passe de l'utilisateur
+        // user.setPassword(req.body.password);
+
+        await user.save();
+        await ResetToken.deleteOne({ resetPasswordToken: token });
+
+        return res.status(200).json({ message: 'Mot de passe réinitialisé avec succès.' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 // home route
 app.get('/', (req, res) => {
   res.send('Home ...');
