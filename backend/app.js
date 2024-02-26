@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema({
     },
     prenom :{
         type: String,
-        required: true,
+        // required: true,
     },
     telephone :{
         type: String,
@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
       },
     role: {
         type: String,
@@ -370,7 +370,14 @@ const Rendezvous = mongoose.model('Rendezvous', rendezvousSchema);
 // Create a new Rendez vous
 app.post('/rendezvous', async (req, res) => {
     try {
-        const { client, employer, service, date, heure, status, tarifs, payement, note, notifictionId, nom, email } = req.body;
+
+        const { nom, email } = req.body;
+        // const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({ nom, email, role: 'client' });
+        let client = await newUser.save();
+
+        const { employer, service, date, heure, status, tarifs, payement, note, notifictionId } = req.body;
 
         const newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId ,nom , email});
         await newRendezvous.save();
