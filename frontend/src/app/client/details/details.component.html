@@ -5,7 +5,6 @@
       <img src="assets/images/client/loading.gif" alt="" />
     </div>
 </div> -->
-
 <div class="wrapper">
   <!-- end loader -->
   <div class="sidebar">
@@ -43,7 +42,6 @@
 
       </nav>
   </div>
-
   <div id="content">
     <!-- header -->
     <header>
@@ -79,27 +77,133 @@
         </div>
     </header>
     <!-- end header -->
-    
-    <div class="left" colspan="3" [hidden]="isLoading">
-  <a (click)="back()" class="btn btn-light">
-    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-      <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-    </svg> Précédent
-  </a>
-</div><br>
+            <div class="yellow_bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title">
+                                <h2>Detail</h2>
 
-  {{service.nom}}
-  {{service.description}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- pricing -->
+            <div class="pricing">
+                <div class="container">
 
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mar_bottom">
+                            <div class="pricing_img">
+                                <figure><img src="assets/images/client/vvv.png" alt="#" />
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pad_left">
+                            <div class="pricing_box">
+                                <div class="list">
+                                   
+                                    <ul>
+                                        <li><span class="float-left"> {{service.nom}}</span><span class="float-right"> {{service.prix}} ariary</span></li>
+                                         <li><span class="float-left">{{service.description}}</span></li>
+                                        <!-- <li><span class="float-left">Buzz Cut</span><span class="float-right">$ 30</span></li>
+                                        <li><span class="float-left">Classic Haircut</span><span class="float-right">$ 35</span></li>  -->
+                                    </ul>
+                                    <ul>
+                                        <!-- <li><span class="float-left">Haircuts</span><span class="float-right">$ 35</span></li> -->
+                                        <!-- <li><span class="float-left">Stache Trim</span><span class="float-right">$ 35</span></li>
+                                        <li><span class="float-left">Beard Trim</span><span class="float-right">$ 35</span></li>
+                                        <li><span class="float-left">Colouring</span><span class="float-right">$ 50</span></li> -->
+                                    </ul>
+                                    <a (click)="addnewsrdv()">Prendre rendez-vous</a>
+                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="opening">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="ourheading">
+                                        <h2>Opening<strong class="white"> Times</strong></h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="opening_bg">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                        <div class="times">
+                                            <ul>
+                                                <li><span>Monday</span><span class="float-right">9:00am       <strong class="bbbb">9:00pm</strong></span></li>
+                                                <li><span>Tuesday </span><span class="float-right">9:00am       <strong class="bbbb">9:00pm</strong></span></li>
+                                                <li><span>Wednesday</span><span class="float-right">9:00am      <strong class="bbbb">9:00pm</strong></span></li>
 
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                        <div class="times">
+                                            <ul>
+                                                <li><span>Thursday </span><span class="float-right">9:00am       <strong class="bbbb">9:00pm</strong></span></li>
+                                                <li><span>Friday</span><span class="float-right">9:00am       <strong class="bbbb">9:00pm</strong></span></li>
+                                                <li><span>Saturday</span><span class="float-right">9:00am        <strong class="bbbb">9:00pm</strong></span></li>
+                                                <li><span>Sunday</span><span class="float-right">Close</span> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-  <div>
-    <div class="row">
-     <div class="col-lg-9">
-       
-     </div>
-     <div class="col-lg-3">
-     <button type="button" (click)="addnewsrdv()" class="btn btn-primary bi bi-arrow-return-left">Prendre rendez-vous</button><br/>
-     </div>
-     </div>
- </div>
+                    <!-- end Pricing -->
+
+                </div>
+
+                <!-- footer -->
+                <footer>
+                    <div class="footer">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="footer_logo">
+                                        <a href="index.html"><img src="assets/images/client/logo1.png" alt="logo" /></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="address">
+                                        <h3>address</h3>
+                                        <p>
+                                            Address: 73 Canal Street, New York, NY
+                                            <br> Tel: +1 123 456 789
+                                            <br> Fax: +1 123 456 789
+                                            <br> Email: {{'support@demo.com'}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul class="lik">
+
+                                        <li> <img src="assets/images/client/fb.png" alt="#" /></li>
+                                        <li> <img src="assets/images/client/tw.png" alt="#" /></li>
+                                        <li> <img src="assets/images/client/you.png" alt="#" /></li>
+
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="copyright">
+                            <div class="container">
+                                <p>© 2019 All Rights Reserved. <a href="https://html.design/"> Free Html Templates</a></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </footer>
+                <!-- end footer -->
+
+            </div>
