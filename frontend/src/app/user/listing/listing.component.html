@@ -80,7 +80,7 @@
                </button> &nbsp;
                </td> 
                <td>
-                <button mat-button [routerLink]="['/user', 'profil',  user._id]" class="btn btn-danger" color="accent" >
+                <button mat-button  (click)="delete(user._id)" class="btn btn-danger" color="accent" >
                     supprimer
                </button>
                 </td>

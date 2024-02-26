@@ -90,7 +90,7 @@ export class ServiceService {
   search(id: string, data: Service): Promise<Service> {
     return new Promise(async (resolve, reject) => {
       try {
-        const result = await this.rest.get('/users/' + id, data);
+        const result = await this.rest.get('/service/' + id, data);
         resolve(result);
       } catch (e) {
         reject(e);

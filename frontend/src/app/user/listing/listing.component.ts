@@ -92,6 +92,20 @@ export class ListingComponent implements OnInit {
             this.isLoading = false;
         }
     }
-  
+    async delete(row) {
+      try {
+       // const p = await this.utils.confirm('Voulez vous supprimer vraiment?');
+       // if (p) {
+            try {
+              await this.userService.delete(row._id);
+             // this.utils.toastSuccess();
+              this.loadData(this.id);
+            } catch (e) {
+               // this.utils.toastError();
+            }
+      //  }
+    } catch (e) {
+    }
+    }
 }
 

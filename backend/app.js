@@ -160,7 +160,7 @@ app.get('/user/:id', async (req, res) => {
 });
 
 // Delete user endpoint
-app.delete('/users/:id', async (req, res) => {
+app.delete('/user/:id', async (req, res) => {
     const id = req.params.id;
   
     try {
@@ -284,6 +284,24 @@ app.get('/service/:id', async (req, res) => {
         res.status(404).json({ message: 'Service not found'  });
     }
 });
+// Delete user endpoint
+app.delete('/service/:id', async (req, res) => {
+    const id = req.params.id;
+  
+    try {
+      const deletedService = await Service.findByIdAndDelete(id);
+  
+      if (!deletedService) {
+        return res.status(404).json({ message: 'Service not found' });
+      }
+  
+      return res.status(200).json({ message: 'Service deleted successfully', deletedService });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Error deleting Service' });
+    }
+});
+  
 // Define service schema and model
 const rendezvousSchema = new mongoose.Schema({
     client :{
