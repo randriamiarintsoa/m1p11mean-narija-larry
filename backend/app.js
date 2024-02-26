@@ -133,8 +133,19 @@ app.post('/users', async (req, res) => {
 app.get('/users', async (req, res) => {
     try {
         const filterRole = req.query.role;
+        const filterNom = req.query.searchFields;
+
         if (filterRole) {
             const users = await User.find({role: filterRole});
+            res.json(users);
+        } else if (filterNom && filterNom == 'nom') {
+            const searchValue = req.query.searchValue;
+            const users = await User.find({
+                $or: [
+                { nom: { $regex: new RegExp(searchValue, 'i') } },
+                { prenom: { $regex: new RegExp(searchValue, 'i') } }
+                ]
+            });
             res.json(users);
         } else {
             const users = await User.find();
