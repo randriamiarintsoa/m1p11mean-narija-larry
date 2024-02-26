@@ -353,6 +353,14 @@ const rendezvousSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    nom:{
+        type: String,
+        required: false,
+    },
+    email:{
+        type: String,
+        required: false,
+    },
     // client: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'User',
@@ -362,9 +370,9 @@ const Rendezvous = mongoose.model('Rendezvous', rendezvousSchema);
 // Create a new Rendez vous
 app.post('/rendezvous', async (req, res) => {
     try {
-        const { client, employer, service, date, heure, status, tarifs, payement, note, notifictionId} = req.body;
+        const { client, employer, service, date, heure, status, tarifs, payement, note, notifictionId, nom, email } = req.body;
 
-        const newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId });
+        const newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId ,nom , email});
         await newRendezvous.save();
         res.status(201).json(newRendezvous);
     } catch (err) {
