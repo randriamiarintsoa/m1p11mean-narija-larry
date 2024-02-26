@@ -178,7 +178,7 @@ app.delete('/user/:id', async (req, res) => {
 });
   
 
-  // Endpoint pour envoyer un e-mail
+// Endpoint pour envoyer un e-mail
 app.post('/send-email', (req, res) => {
     // Récupérer les informations du formulaire
     const { to, subject, text } = req.body;
