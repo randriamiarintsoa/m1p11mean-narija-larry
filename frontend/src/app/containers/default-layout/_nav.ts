@@ -196,7 +196,7 @@ export const navItems: INavData[] = [
         url: '/icons/brands'
       }
     ]
-  },*/
+  },
   {
     name: 'Notifications',
     url: '/notifications',

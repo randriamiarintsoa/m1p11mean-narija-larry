@@ -7,6 +7,7 @@ import { ServiceService } from 'src/app/shared/services/service.service';
 import { Service } from 'src/app/shared/models/service.model';
 import { RendezVousService } from 'src/app/shared/services/rendezVous.service';
 import { RendezVous } from 'src/app/shared/models/rendezVous.model';
+import { SessionService } from 'src/app/shared/providers/session.service';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
@@ -28,12 +29,14 @@ export class ListingComponent implements OnInit {
       pageSizeOptions: [2, 5, 10, 25, 100]
   };
   isLoading: boolean;
+  userData;
   constructor(
     private userService: UserService,
     private rendezVousService: RendezVousService,
     private serviceService: ServiceService,
     private route: ActivatedRoute,
     private router: Router,
+    private sessionService: SessionService,
   ) {
       this.isLoading = false;
     }
@@ -41,6 +44,7 @@ export class ListingComponent implements OnInit {
       this.route.params.subscribe(async (p) => {
         this.id = p.id;
         this.isLoading = true;
+        this.userData = this.sessionService.userData;
        if (this.id !== 'new') {
           this.loadData(this.id);
         } else {
@@ -56,7 +60,8 @@ export class ListingComponent implements OnInit {
             query.sort = [{
               key : 'createdAt',
               ascendant: false
-             }]
+             }];
+             query.userId = this.userData.id;
             this.dataSource = await this.rendezVousService.list(this.listing.page, this.listing.limit, query);
             this.isLoading = false;
         } catch (e) {

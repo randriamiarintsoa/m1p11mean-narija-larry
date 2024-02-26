@@ -13,7 +13,6 @@ import * as $ from 'jquery';
   styleUrls: ['./listing.component.scss']
 })
 export class ClientComponent implements OnInit {
- // dataSource!: ListResult<User>;
  dataSource!: any;
  id!: any;
   user!: User;
