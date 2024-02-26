@@ -339,7 +339,7 @@ const rendezvousSchema = new mongoose.Schema({
     },
     note :{
         type: String,
-        required: true,
+        // required: true,
     },
     date :{
         type: String,
@@ -355,11 +355,11 @@ const rendezvousSchema = new mongoose.Schema({
     },
     nom:{
         type: String,
-        required: false,
+        // required: false,
     },
     email:{
         type: String,
-        required: false,
+        // required: false,
     },
     // client: {
     //     type: mongoose.Schema.Types.ObjectId,
@@ -370,18 +370,30 @@ const Rendezvous = mongoose.model('Rendezvous', rendezvousSchema);
 // Create a new Rendez vous
 app.post('/rendezvous', async (req, res) => {
     try {
+        // Ajouter depuis front client
+        if (req.body && req.body.nom && req.body.email) {
+            const { nom, email } = req.body;
+            // const hashedPassword = await bcrypt.hash(password, 10);
 
-        const { nom, email } = req.body;
-        // const hashedPassword = await bcrypt.hash(password, 10);
+            const newUser = new User({ nom, email, role: 'client' });
+            let client = await newUser.save();
 
-        const newUser = new User({ nom, email, role: 'client' });
-        let client = await newUser.save();
+            const employer = await User.findById(req.body.employer);
 
-        const { employer, service, date, heure, status, tarifs, payement, note, notifictionId } = req.body;
+            let { service, date, heure, status, tarifs, payement, note, notifictionId } = req.body;
 
-        const newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId ,nom , email});
-        await newRendezvous.save();
-        res.status(201).json(newRendezvous);
+            let newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId});
+            await newRendezvous.save();
+            res.status(201).json(newRendezvous);
+
+        } else { // Ajouter depuis BO
+            let {client, employer, service, date, heure, status, tarifs, payement, note, notifictionId } = req.body;
+
+            let newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId});
+            await newRendezvous.save();
+            res.status(201).json(newRendezvous);
+        }
+        
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -390,7 +402,22 @@ app.post('/rendezvous', async (req, res) => {
 // Get all Rendez vous
 app.get('/rendezvous', async (req, res) => {
     try {
-        const rendezvous = await Rendezvous.find().populate(['client','service','employer']);
+
+        const user = await User.findById(req.query.userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' + req.query.limit });
+        }
+        let rendezvous;
+        if (user.role == 'employer') {
+            rendezvous = await Rendezvous.find({employer: user._id})
+                .populate(['client','service','employer']);
+        } else if (user.role == 'client') {
+            rendezvous = await Rendezvous.find({client: user._id})
+                .populate(['client','service','employer']);
+        } else {
+            rendezvous = await Rendezvous.find()
+                .populate(['client','service','employer']);
+        }
 
         res.json(rendezvous);
     } catch (err) {
