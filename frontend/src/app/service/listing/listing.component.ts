@@ -20,8 +20,6 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 })
 export class ListingComponent implements OnInit {
 
- 
-  //dataSource!: ListResult<User>;
   dataSource!: any;
   user: User = new User();
   cle!: string;

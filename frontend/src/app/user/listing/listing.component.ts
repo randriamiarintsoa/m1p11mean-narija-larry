@@ -4,7 +4,7 @@ import { User } from 'src/app/shared/models/user.model';
 import { ListResult, ListPagination ,SearchInterface} from 'src/app/shared/models/list.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-
+import { UtilsService } from 'src/app/shared/providers/utils.service';
 
 @Component({
   selector: 'app-listing',
@@ -12,7 +12,6 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
   styleUrls: ['./listing.component.scss']
 })
 export class ListingComponent implements OnInit {
- // dataSource!: ListResult<User>;
  dataSource!: any;
  id!: any;
   user!: User;
@@ -35,6 +34,7 @@ export class ListingComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
+    private utils: UtilsService
   ) {
     this.isLoading = false;
     this.searchUpdated$.pipe(debounceTime(1000)).pipe(distinctUntilChanged())
@@ -91,6 +91,9 @@ export class ListingComponent implements OnInit {
             console.error(e);
             this.isLoading = false;
         }
+    }
+    back() {
+      this.utils.back();
     }
     async delete(row) {
       try {
