@@ -9,6 +9,7 @@ import { UserService } from '../shared/services/user.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import {
   AvatarModule,
@@ -54,6 +55,7 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
     AvatarModule,
     TableModule,
     MatFormFieldModule,
+    MatPaginatorModule
   ],
   providers: [
     UserService

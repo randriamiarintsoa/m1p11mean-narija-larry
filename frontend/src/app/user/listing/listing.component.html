@@ -1,4 +1,4 @@
-<div class="card">
+<!-- <div class="card">
   <div class="card-body">
     <div class="row">
         <div class="col-md-8 col-lg-9">
@@ -10,7 +10,7 @@
         </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="card mt-2 mb-2">
   <div class="card-body">
     <div class="">
@@ -24,7 +24,7 @@
 <c-row>
     <c-col xs>
       <c-card class="mb-4">
-        <c-card-header>Users</c-card-header>
+        <c-card-header>Utilisateur</c-card-header>
         <c-card-body>
           <table
             [hover]="true"
@@ -99,4 +99,8 @@
       </c-card>
     </c-col>
   </c-row>
-  
+  <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+</mat-paginator>

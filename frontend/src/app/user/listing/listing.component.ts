@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild , AfterViewInit } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
 import { ListResult, ListPagination ,SearchInterface} from 'src/app/shared/models/list.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { UtilsService } from 'src/app/shared/providers/utils.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-listing',
@@ -12,6 +13,8 @@ import { UtilsService } from 'src/app/shared/providers/utils.service';
   styleUrls: ['./listing.component.scss']
 })
 export class ListingComponent implements OnInit {
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
  dataSource!: any;
  id!: any;
   user!: User;
@@ -97,8 +100,8 @@ export class ListingComponent implements OnInit {
     }
     async delete(row) {
       try {
-       // const p = await this.utils.confirm('Voulez vous supprimer vraiment?');
-       // if (p) {
+       const p = await this.utils.confirm('Voulez vous supprimer vraiment?');
+        if (p) {
             try {
               await this.userService.delete(row._id);
              // this.utils.toastSuccess();
@@ -106,7 +109,7 @@ export class ListingComponent implements OnInit {
             } catch (e) {
                // this.utils.toastError();
             }
-      //  }
+      }
     } catch (e) {
     }
     }
