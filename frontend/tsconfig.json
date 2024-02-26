@@ -23,13 +23,15 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "types": ["@angular/material/*"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "enableIvy": false
   },
   "files": [],
   "references": [

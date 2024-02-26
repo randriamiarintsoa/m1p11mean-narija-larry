@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Ajout  nouveau service </h2>
+<mat-dialog-content>
+  <p>Service </p>
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Nom</mat-label>
+    <input type="text" [(ngModel)]="service.nom" name="nom" matInput>
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Description</mat-label>
+    <input type="text" [(ngModel)]="service.description" name="description" matInput>
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Prix</mat-label>
+    <input type="text" [(ngModel)]="service.prix" name="prix" matInput>
+  </mat-form-field>
+  <!--mat-form-field>
+    <mat-label></mat-label>
+    <input matInput >
+  </mat-form-field-->
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button class="btn btn-danger mx-1" (click)="onNoClick()">Annuler</button>
+  <button class="btn btn-primary mx-1" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

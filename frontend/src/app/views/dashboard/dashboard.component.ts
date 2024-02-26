@@ -3,6 +3,10 @@ import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 import { DashboardChartsData, IChartProps } from './dashboard-charts-data';
 
+import { UserService } from 'src/app/shared/services/user.service';
+import { User } from 'src/app/shared/models/user.model';
+import { ListResult, ListPagination } from 'src/app/shared/models/list.interface';
+
 interface IUser {
   name: string;
   state: string;
@@ -22,89 +26,28 @@ interface IUser {
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor(private chartsData: DashboardChartsData) {
+
+  //dataSource!: ListResult<User>;
+  dataSource!: any;
+  user: User = new User();
+  cle!: string;
+  objectUser: any = {};
+  listing: ListPagination = {
+    limit: 10,
+    page: 1,
+    total: 0,
+    pageSizeOptions: [2, 5, 10, 25, 100]
+};
+isLoading: boolean;
+
+  constructor(
+    private chartsData: DashboardChartsData,
+    private userService: UserService,
+    ) {
+      this.isLoading = false;
   }
 
-  public users: IUser[] = [
-    {
-      name: 'Yiorgos Avraamu',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'Us',
-      usage: 50,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Mastercard',
-      activity: '10 sec ago',
-      avatar: './assets/img/avatars/1.jpg',
-      status: 'success',
-      color: 'success'
-    },
-    {
-      name: 'Avram Tarasios',
-      state: 'Recurring ',
-      registered: 'Jan 1, 2021',
-      country: 'Br',
-      usage: 10,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Visa',
-      activity: '5 minutes ago',
-      avatar: './assets/img/avatars/2.jpg',
-      status: 'danger',
-      color: 'info'
-    },
-    {
-      name: 'Quintin Ed',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'In',
-      usage: 74,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Stripe',
-      activity: '1 hour ago',
-      avatar: './assets/img/avatars/3.jpg',
-      status: 'warning',
-      color: 'warning'
-    },
-    {
-      name: 'Enéas Kwadwo',
-      state: 'Sleep',
-      registered: 'Jan 1, 2021',
-      country: 'Fr',
-      usage: 98,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Paypal',
-      activity: 'Last month',
-      avatar: './assets/img/avatars/4.jpg',
-      status: 'secondary',
-      color: 'danger'
-    },
-    {
-      name: 'Agapetus Tadeáš',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'Es',
-      usage: 22,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'ApplePay',
-      activity: 'Last week',
-      avatar: './assets/img/avatars/5.jpg',
-      status: 'success',
-      color: 'primary'
-    },
-    {
-      name: 'Friderik Dávid',
-      state: 'New',
-      registered: 'Jan 1, 2021',
-      country: 'Pl',
-      usage: 43,
-      period: 'Jun 11, 2021 - Jul 10, 2021',
-      payment: 'Amex',
-      activity: 'Yesterday',
-      avatar: './assets/img/avatars/6.jpg',
-      status: 'info',
-      color: 'dark'
-    }
-  ];
+ 
   public mainChart: IChartProps = {};
   public chart: Array<IChartProps> = [];
   public trafficRadioGroup = new UntypedFormGroup({
@@ -113,8 +56,28 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.initCharts();
+    this.loadData();
   }
-
+  async loadData() {
+    try {
+        this.isLoading = true;
+        const query: any =  {};
+        query.sort = [{
+          key : 'createdAt',
+          ascendant: false
+         }]
+        this.dataSource = await this.userService.list(this.listing.page, this.listing.limit, query);
+        console.log('ETOOOOOOOOOO',typeof this.dataSource);
+        console.log(this.dataSource[0]);
+        this.listing.total = this.dataSource.total;
+        this.isLoading = false;
+        console.log(typeof this.dataSource)
+    } catch (e) {
+        console.error(e);
+        this.isLoading = false;
+    }
+    
+}
   initCharts(): void {
     this.mainChart = this.chartsData.mainChart;
   }

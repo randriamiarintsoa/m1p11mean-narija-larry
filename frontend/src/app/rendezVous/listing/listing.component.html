@@ -1,0 +1,68 @@
+<c-row>
+    <c-col xs>
+      <c-card class="mb-4">
+        <c-card-header>rendezvouss</c-card-header>
+        <c-card-body>
+          <table
+            [hover]="true"
+            [responsive]="true"
+            [striped]="true"
+            align="middle"
+            cTable
+            class="mb-0 border"
+          >
+            <thead cTableColor="light">
+              <tr>
+                <th class="text-center">
+                  <svg cIcon name="cilPeople"></svg>
+                </th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Client</th>
+                <th>Service</th>
+                <!-- <th>Note</th> -->
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rendezvous of dataSource; index as i">
+                <td class="text-center">
+                  <c-avatar
+                    size="md"
+                    src="assets/images/default-avatar-profile.jpg"
+                    status="{{ rendezvous.status }}"
+                  ></c-avatar>
+                </td>
+                <td>
+                  <div>{{ rendezvous.date }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td>
+                <td>
+                  <div>{{ rendezvous.heure }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td>
+                <td>
+                  <div>{{ rendezvous?.client?.nom }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td>
+                <!-- <td>
+                  <div>{{ rendezvous?.service?.nom }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td> -->
+                <td>
+                  <div>{{ rendezvous.note }}</div>
+                  <div class="small text-medium-emphasis text-nowrap">
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  

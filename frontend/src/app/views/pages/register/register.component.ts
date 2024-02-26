@@ -9,6 +9,17 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class RegisterComponent implements OnInit {
   user: User = new User();
+
+  selectedRole!: User.RoleEnum;
+  isError: boolean = false;
+  messageError: string = '';
+
+  role = [
+      { name: 'client' },
+      { name: 'employer' },
+      { name: 'manager' },
+     
+  ];
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -22,18 +33,22 @@ export class RegisterComponent implements OnInit {
 }
 async onSubmitregister() {
     try {
-      if (this.user.lastname === '' || this.user.firstname === '' || this.user.email === '' ) {
-      }else{
-        let data;
-      data = await this.userService.add(this.user);
-      if (data) {
-        this.router.navigate(['/login']);
-     //   this.isLoading = false;
-      }
+      this.isError = false;
+      if (this.user.nom === '' || this.user.prenom === '' || this.user.email === '' ) {
+      } else {
+        this.user.role = this.selectedRole;
+        console.log('=== ', this.user);
+        let data = await this.userService.add(this.user);
+        if (data) {
+          this.router.navigate(['/login']);
+          //   this.isLoading = false;
+        }
       }
       
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      console.log('error : ', e?.error?.code);
+      this.isError = true;
+      this.messageError = e?.error?.message
     //  this.isLoading = false;
     }
   }

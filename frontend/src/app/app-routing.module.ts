@@ -27,6 +27,7 @@ const routes: Routes = [
     },
    
     children: [
+    
       {
         path: 'dashboard',
         canActivate: [AuthGuard],
@@ -88,6 +89,25 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/pages/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordsModule)
       },
+     
+      {
+        path: 'user',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+        import('./user/user.module').then((m) => m.UserModule),
+      },
+      {
+        path: 'service',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+        import('./service/service.module').then((m) => m.ServiceModule),
+      },
+      {
+        path: 'liste-rendez-vous',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+        import('./rendezVous/rendezVous.module').then((m) => m.RendezVousModule),
+      }, 
     ]
   },
   {
@@ -118,6 +138,7 @@ const routes: Routes = [
       title: 'Register Page'
     }
   },
+ 
   {path: '**', redirectTo: 'dashboard'}
 ];
 

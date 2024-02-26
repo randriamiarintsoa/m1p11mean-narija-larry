@@ -11,42 +11,35 @@
                 <span cInputGroupText>
                   <svg cIcon name="cilUser"></svg>
                 </span>
-                <input type="text" [(ngModel)]="user.name" name="name" require autoComplete="name" cFormControl placeholder="name" />
+                <input type="text" [(ngModel)]="user.nom" name="nom" require autoComplete="nom" cFormControl placeholder="nom" />
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilUser"></svg>
                 </span>
-                <input type="text" [(ngModel)]="user.lastname" name="lastname" require autoComplete="name" cFormControl placeholder="lastname" />
-              </c-input-group>
-              <!--c-input-group class="mb-3">
-                <span cInputGroupText>
-                  <svg cIcon name="cilUser"></svg>
-                </span>
-                <input type="text" [(ngModel)]="user.firstname" name="firstname" require autoComplete="name" cFormControl placeholder="firstname" />
-              </c-input-group-->
-              <c-input-group class="mb-3">
-                <span cInputGroupText>
-                  <svg cIcon name="cilUser"></svg>
-                </span>
-                <input type="text" [(ngModel)]="user.role" name="role" require autoComplete="name" cFormControl placeholder="role" />
+                <input type="text" [(ngModel)]="user.prenom" name="prenom" require autoComplete="prenom" cFormControl placeholder="prenom" />
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilUser"></svg>
                 </span>
-                <input type="text" [(ngModel)]="user.phone" name="phone" require autoComplete="name" cFormControl placeholder="phone" />
-              </c-input-group>
-              <c-input-group class="mb-3">
-                <span cInputGroupText>
-                  <svg cIcon name="cilUser"></svg>
-                </span>
-                <input type="text" [(ngModel)]="user.username" name="username" require autoComplete="name" cFormControl placeholder="username" />
+                <input type="text" [(ngModel)]="user.telephone" name="telephone" require autoComplete="telephone" cFormControl placeholder="telephone" />
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>&#64;</span>
-                <input type="text" [(ngModel)]="user.email" name="email" autoComplete="email" cFormControl placeholder="Email" />
+                <input type="email" [(ngModel)]="user.email" name="email" autoComplete="email" cFormControl placeholder="Email" />
               </c-input-group>
+              <div class="full-width mb-4">
+                <mat-label>Role</mat-label>
+                <div class="">
+                <ng-select [items]="role" 
+                      name="role"
+                      bindLabel="name" 
+                      bindValue="name" 
+                      [(ngModel)]="selectedRole">
+                </ng-select>
+              </div>
+              </div>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
@@ -61,6 +54,9 @@
               </c-input-group>
               <div class="d-grid">
                 <button class="btn btn-success" color="success">Create Account</button>
+              </div>
+              <div class="alert alert-danger mt-2" *ngIf="isError">
+                {{messageError}}
               </div>
             </form>
           </c-card-body>

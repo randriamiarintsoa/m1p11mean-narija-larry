@@ -4,9 +4,10 @@ import { jsonIgnore } from 'json-ignore';
 
 export class Service extends BaseModel {
   id!: string;
-  name!: string;
+  nom!: string;
+  description!: string;
   delai!: string;
   prix!: string;
   image!: string;
-  createdAt !:string;
+  createdAt! :string;
 }

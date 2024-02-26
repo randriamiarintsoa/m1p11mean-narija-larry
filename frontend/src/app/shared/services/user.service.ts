@@ -33,11 +33,10 @@ export class UserService {
            }
          }
        }
-      // const data = await this.rest.post('/conges', options);
      console.log('** options 2 ** ', options)
       const data = await this.rest.getAll('/users', options);
       console.log('** data 2** ', data)
-       data.rows = data.rows.map(i => new User(i));
+       data.rows = data.rows?.map(i => new User(i));
        resolve(data);
      } catch (e) {
        reject(e);
@@ -48,7 +47,7 @@ export class UserService {
     return new Promise(async (resolve, reject) => {
       try {
         console.log("Id service user", id);
-        const data = await this.rest.get('/users/' + id);
+        const data = await this.rest.get('/user/' + id);
         console.log("data service", data);
         this.currentUserInView.next(new User(data));
         resolve(data);
@@ -60,7 +59,8 @@ export class UserService {
   delete(id: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = await this.rest.delete('/user/' + id, {});
+        console.log("Id service user AAAAAAA", id);
+        const data = await this.rest.delete('/users/' + id, {});
         resolve(data);
       } catch (e) {
         reject(e);
@@ -98,14 +98,5 @@ export class UserService {
       }
     });
   }
-  count(): Promise<User> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const result = await this.rest.get('/misc/dashboard');
-        resolve(result);
-      } catch (e) {
-        reject(e);
-      }
-    });
-  }
+  
 }

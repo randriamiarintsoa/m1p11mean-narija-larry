@@ -12,14 +12,29 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Theme'
+    name: 'Mean'
   },
-  {
+ /* {
     name: 'Colors',
     url: '/theme/colors',
     iconComponent: { name: 'cil-drop' }
+  },*/
+  {
+    name: 'Liste utilisateur',
+    url: '/user/listing',
+    iconComponent: { name: 'cil-drop' }
   },
   {
+    name: 'Service',
+    url: '/service/listing',
+    iconComponent: { name: 'cil-drop' }
+  },
+  {
+    name: 'Lists rendez vous',
+    url: '/liste-rendez-vous/listing',
+    iconComponent: { name: 'cil-drop' }
+  },
+ /* {
     name: 'Typography',
     url: '/theme/typography',
     linkProps: { fragment: 'someAnchor' },
@@ -181,7 +196,7 @@ export const navItems: INavData[] = [
         url: '/icons/brands'
       }
     ]
-  },
+  },*/
   {
     name: 'Notifications',
     url: '/notifications',
@@ -205,7 +220,7 @@ export const navItems: INavData[] = [
       }
     ]
   },
-  {
+  /*{
     name: 'Widgets',
     url: '/widgets',
     iconComponent: { name: 'cil-calculator' },
@@ -259,4 +274,5 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-layers' },
     attributes: { target: '_blank' }
   }
+  */
 ];

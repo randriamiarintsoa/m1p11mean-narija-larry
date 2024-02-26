@@ -38,7 +38,7 @@ export class SessionService {
   }
 
   get isSuperAdmin(): boolean {
-    return this.userData.role === User.RoleEnum.superAdmin;
+    return this.userData.role === User.RoleEnum.manager;
   }
   getSessionStatus(): Observable<boolean> {
     return Observable.create(async (observer:any) => {
@@ -180,8 +180,8 @@ export class SessionService {
             id: user._id,
             email: user.email,
             role: user.role,
-            firstname: user.name,
-            lastname: user.name
+            nom: user.nom,
+            prenom: user.prenom
           };
           this.initSession(dataAuth, () => { });
           resolve(dataAuth);
