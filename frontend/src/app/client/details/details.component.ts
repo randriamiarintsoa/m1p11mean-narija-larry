@@ -94,7 +94,7 @@ export class DetailsComponent implements OnInit {
   
     // Définissez les dimensions de la fenêtre modale
     dialogConfig.width = '500px';
-    dialogConfig.height = '400px';
+    dialogConfig.height = '550px';
     dialogConfig.data = this.service;
     dialogConfig.disableClose = true;
   
