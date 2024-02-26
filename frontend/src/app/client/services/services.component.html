@@ -1,0 +1,125 @@
+<!-- loader  -->
+<!-- <div class="loader_bg">
+    <div class="loader">
+      <img src="assets/images/client/loading.gif" alt="" />
+    </div>
+</div> -->
+
+<div class="wrapper">
+  <!-- end loader -->
+  <div class="sidebar">
+      <!-- Sidebar  -->
+      <nav id="sidebarclient">
+
+          <div id="dismiss">
+              <i class="fa fa-arrow-left"></i>
+          </div>
+
+          <ul class="list-unstyled components">
+
+              <li>
+                  <a [routerLink]="['/client/home']">Home</a>
+              </li>
+              <li>
+                  <a href="about.html">About</a>
+              </li>
+              <li class="active">
+                  <a>Service</a>
+              </li>
+              <li>
+                  <a href="pricing.html">Pricing</a>
+              </li>
+
+              <li>
+                  <a href="barbers.html">Our Barbers</a>
+
+              </li>
+
+              <li>
+                  <a href="contact.html">Contact Us</a>
+              </li>
+          </ul>
+
+      </nav>
+  </div>
+
+  <div id="content">
+    <!-- header -->
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="full">
+                        <a class="logo" href="index.html">
+                          <img src="assets/images/client/logo.png" alt="#" />
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="full">
+                        <div class="right_header_info">
+                            <ul>
+                                <li class="dinone"><img style="margin-right: 15px;margin-left: 15px;" src="assets/images/client/phone_icon.png" alt="#"><a href="#">987-654-3210</a></li>
+                                <!--li class="dinone"><img style="margin-right: 15px;" src="assets/images/client/mail_icon.png" alt="#"><a href="#">demo@gmail.com</a></li-->
+
+                                <li class="dinone"><img style="margin-right: 15px;" src="assets/images/client/search_icon.png" alt="#"></li>
+                                <li class="button_user"> <a class="button" href="#">Book now</a></li>
+
+                                <li>
+                                    <button type="button" id="sidebarCollapse">
+                                        <a href="#">MENU</a>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end header -->
+
+  <div id="service" class="service">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ourheading">
+                    <h2>Les<strong class="white_ll"> services</strong></h2>
+                    <span> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="myCarousel" class="carousel- slide-" data-ride="carousel">
+            <div class="carousel-inner-">
+                <div class="carousel-item-">
+
+                    <div class="container">
+                        <div class="carousel-caption-">
+                            <div class="row">
+
+                                <div *ngFor="let item of dataSource" class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="service_box">
+                                        <figure><img src="assets/images/client/ser1.png"></figure>
+                                        <h3>{{item.nom}}</h3>
+                                        <p>{{item.description}}</p>
+                                        <h5><b>{{item.prix}}</b></h5>
+                                        <a [routerLink]="['/client/service','details',item._id]" class="btn btn-success">
+                                            Détail
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+<div class="overlay"></div>
+<!-- end service -->

@@ -7,6 +7,8 @@ import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import { AuthGuard } from './shared/providers/auth.guard';
+import { ClientComponent } from './client/listing/listing.component';
+import { ServicesComponent } from './client/services/services.component';
 
 const routes: Routes = [
  /* {
@@ -16,9 +18,19 @@ const routes: Routes = [
   },*/
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'client',
     pathMatch: 'full'
   },
+  {
+    path: 'client',
+    loadChildren: () =>
+    import('./client/client.module').then((m) => m.ClientModule)
+  },
+  // {
+  //   path: '',
+  //   redirectTo: 'login',
+  //   pathMatch: 'full'
+  // },
   {
     path: '',
     component: DefaultLayoutComponent,
@@ -108,6 +120,7 @@ const routes: Routes = [
         loadChildren: () =>
         import('./rendezVous/rendezVous.module').then((m) => m.RendezVousModule),
       }, 
+      
     ]
   },
   {
