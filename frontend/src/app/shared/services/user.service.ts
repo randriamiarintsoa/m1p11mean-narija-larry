@@ -19,9 +19,6 @@ export class UserService {
   list(page: number, limit: number, query?: any): Promise<ListResult<User>> {
     return new Promise(async (resolve, reject) => {
     try {
-       console.log('**** 2 ', page)
-      console.log('**** 2', limit)
-
        const options: ListRequest = {
          page,
          limit,
@@ -33,9 +30,7 @@ export class UserService {
            }
          }
        }
-     console.log('** options 2 ** ', options)
       const data = await this.rest.getAll('/users', options);
-      console.log('** data 2** ', data)
        data.rows = data.rows?.map(i => new User(i));
        resolve(data);
      } catch (e) {
@@ -46,9 +41,7 @@ export class UserService {
   load(id: string): Promise<User> {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log("Id service user", id);
         const data = await this.rest.get('/user/' + id);
-        console.log("data service", data);
         this.currentUserInView.next(new User(data));
         resolve(data);
       } catch (e) {
@@ -59,8 +52,7 @@ export class UserService {
   delete(id: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log("Id service user AAAAAAA", id);
-        const data = await this.rest.delete('/users/' + id, {});
+        const data = await this.rest.delete('/user/' + id, {});
         resolve(data);
       } catch (e) {
         reject(e);
@@ -70,7 +62,6 @@ export class UserService {
   add(data: User): Promise<User> {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log('data user :::', data)
         const result = await this.rest.post('/users', data);
         resolve(result);
       } catch (e) {
