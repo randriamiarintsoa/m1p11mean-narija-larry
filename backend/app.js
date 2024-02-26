@@ -384,6 +384,7 @@ app.get('/rendezvous/:id', async (req, res) => {
         res.status(404).json({ message: 'Rendez vous not found'  });
     }
 });
+
 // home route
 app.get('/', (req, res) => {
   res.send('Home ...');
