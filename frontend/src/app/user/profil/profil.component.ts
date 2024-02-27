@@ -18,6 +18,7 @@ export class ProfilComponent implements OnInit {
   user!: User;
   userData: any;
   isLoading!: boolean;
+  tokenData!: string;
   constructor(
     private userService: UserService,
     private sessionService: SessionService,
@@ -34,6 +35,9 @@ ngOnInit() {
       this.user = new User();
     }
     this.userData = this.sessionService.userData;
+    this.tokenData = this.sessionService.tokenData;
+    console.log('this.userData :: ', this.userData)
+    console.log('this.tokenData :: ', this.tokenData)
   });
 }
 

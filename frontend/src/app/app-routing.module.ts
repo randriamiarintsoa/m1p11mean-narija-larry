@@ -6,9 +6,11 @@ import { Page404Component } from './views/pages/page404/page404.component';
 import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
+import { ForgotEmailComponent } from './views/pages/forgot-email/forgot-email.component';
 import { AuthGuard } from './shared/providers/auth.guard';
 import { ClientComponent } from './client/listing/listing.component';
 import { ServicesComponent } from './client/services/services.component';
+import { ResetPasswordComponent } from './views/pages/reset-password/reset-password.component';
 
 const routes: Routes = [
  /* {
@@ -91,17 +93,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/pages/pages.module').then((m) => m.PagesModule)
       },
-      {
-        path: 'forgot-email',
-        loadChildren: () =>
-        import('./views/pages/forgot-email/forgot-email.module').then((m) => m.ForgotEmailsModule)
-      },
-      {
-        path: 'forgot-password',
-        loadChildren: () =>
-          import('./views/pages/forgot-password/forgot-password.module').then((m) => m.ForgotPasswordsModule)
-      },
-     
+
       {
         path: 'user',
         canActivate: [AuthGuard],
@@ -149,6 +141,20 @@ const routes: Routes = [
     component: RegisterComponent,
     data: {
       title: 'Register Page'
+    }
+  },
+  {
+    path: 'forgot-email',
+    component: ForgotEmailComponent,
+    data: {
+      title: 'Forgot Page'
+    }
+  },
+  {
+    path: 'reset-password/:tokenReset',
+    component: ResetPasswordComponent,
+    data: {
+      title: 'Reset Password'
     }
   },
  

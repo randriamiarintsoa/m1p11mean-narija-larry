@@ -136,6 +136,7 @@ export class RestService {
       .set('Content-Type', 'application/json')
       .set('Accept', 'application/json');
     this.token = localStorage.getItem('token');
+    console.log('this.token #### ', this.token )
     if (customToken) {
       headers = headers.append('Authorization', 'Bearer ' + customToken);
     }

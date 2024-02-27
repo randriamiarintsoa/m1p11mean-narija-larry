@@ -4,16 +4,16 @@ import { ButtonModule, CardModule, FormModule, GridModule } from '@coreui/angula
 import { IconModule } from '@coreui/icons-angular';
 import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from '../../../icons/icon-subset';
-import { ForgotEmailComponent } from './forgot-password.component';
+import { ResetPasswordComponent } from './reset-password.component';
 
-describe('ForgotEmailComponent', () => {
-  let component: ForgotEmailComponent;
-  let fixture: ComponentFixture<ForgotEmailComponent>;
+describe('ResetPasswordComponent', () => {
+  let component: ResetPasswordComponent;
+  let fixture: ComponentFixture<ResetPasswordComponent>;
   let iconSetService: IconSetService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ForgotEmailComponent ],
+      declarations: [ ResetPasswordComponent ],
       imports: [CardModule, FormModule, GridModule, ButtonModule, IconModule],
       providers: [IconSetService]
     })
@@ -24,7 +24,7 @@ describe('ForgotEmailComponent', () => {
     iconSetService = TestBed.inject(IconSetService);
     iconSetService.icons = { ...iconSubset };
 
-    fixture = TestBed.createComponent(ForgotEmailComponent);
+    fixture = TestBed.createComponent(ResetPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

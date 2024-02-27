@@ -11,12 +11,16 @@ import { IconModule } from '@coreui/icons-angular';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatInputModule } from '@angular/material/input';
+import { ForgotEmailComponent } from './forgot-email/forgot-email.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
+    ForgotEmailComponent,
+    ResetPasswordComponent,
     Page404Component,
     Page500Component
   ],

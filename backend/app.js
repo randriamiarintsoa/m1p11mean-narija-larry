@@ -5,18 +5,20 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
-
+const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
 const app = express();
 const port = 3000;
 
-// app.use(cors());
+const userEmail = 'narijadev@gmail.com';
+const mdpEmail = 'narija12*34';
 
 app.use(express.json());
 
+const urBaseFront = 'http://localhost:4200';
 app.use(cors({
-    origin: 'http://localhost:4200', 
+    origin: urBaseFront, 
     optionsSuccessStatus: 200, 
   }));
 
@@ -89,7 +91,105 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+// Define resetTokenSchema schema and model
+const resetTokenSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+        required: true
+    },
+    resetPasswordToken: {
+        type: String,
+        required: true
+    },
+    resetExpire: {
+        type: Date,
+        required: true
+    }
+});
+
+const ResetToken = mongoose.model('ResetToken', resetTokenSchema);
+
+app.post('/forgot-password', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+        }
+
+        const token = crypto.randomBytes(20).toString('hex');
+        const resetToken = new ResetToken({
+            userId: user._id,
+            resetPasswordToken: token,
+            resetExpire: Date.now() + 3600000
+        });
+
+        await resetToken.save();
+
+        // Code pour envoyer l'email de réinitialisation du mot de passe.
+        var transporter = nodemailer.createTransport(
+            {
+                service : 'gmail',
+                auth :{
+                    user: userEmail,
+                    pass: mdpEmail
+                }
+            }
+        );
+
+        const mailOptions = {
+            from: userEmail,
+            to: user.email,
+            subject: 'Réinitialisation du mot de passe',
+            html: `Bonjour, <br><br>
+            Cliquez sur le lien pour procéder à la réinitialisation de votre mot de passe 
+            <br> 
+            <a style="" href="${urBaseFront}/#/reset-password/${token}">cliquez ici</a>. 
+            <br><br>Merci.`
+        };
+
+        transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+                return res.status(500).json({ message: "Échec lors de l'envoi de l'email de réinitialisation." });
+            } else {
+                return res.status(200).json({ message: 'L\'email pour réinitialiser votre mot de passe a été envoyé avec succès.' });
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
+// Ajoutez la route pour envoyer l'email de réinitialisation
+app.post('/reset-password', async (req, res) => {
+    try {
+        const { password, tokenReset } = req.body;
+        const resetToken = await ResetToken.findOne({ resetPasswordToken:tokenReset});
+
+        if (!resetToken) {
+            return res.status(404).json({ message: 'Token non trouvé.' });
+        } 
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.findByIdAndUpdate(resetToken.userId, {password: hashedPassword});
+        if (!user) {
+            return res.status(404).json({ message: 'User non trouvé.' });
+        }
+
+        await ResetToken.findByIdAndDelete(resetToken._id);
+        return res.status(200).json({ message: 'User update success.' });
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
   
+
+
   // Protected route
 app.get('/protected', (req, res) => {
     // Middleware to check the token before accessing the protected route
@@ -108,6 +208,9 @@ app.get('/protected', (req, res) => {
       res.json({ message: 'Protected route accessed successfully', user: decoded });
     });
   });
+
+
+
 
 const User = mongoose.model('User', userSchema);
 
@@ -188,42 +291,6 @@ app.delete('/user/:id', async (req, res) => {
     }
 });
   
-
-// Endpoint pour envoyer un e-mail
-app.post('/send-email', (req, res) => {
-    // Récupérer les informations du formulaire
-    const { to, subject, text } = req.body;
-
-    // Create a transporter
-    const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'narijadev@gmail.com',
-        pass: 'narija12*34',
-    },
-    });
-
-    // Email options
-    const mailOptions = {
-        from: 'narijadev@gmail.com',
-        to: 'narijamiarintsoa@gmail.com',
-        subject: 'Test Email send',
-        text: 'Hello, this is a test email from Node.js!',
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error(error);
-          res.status(500).send('Erreur lors de l\'envoi de l\'e-mail.');
-        } else {
-          console.log('E-mail envoyé : ' + info.response);
-          res.send('E-mail envoyé avec succès.');
-        }
-    });
-});
-
-
-
 
 // Define service schema and model
 const serviceSchema = new mongoose.Schema({

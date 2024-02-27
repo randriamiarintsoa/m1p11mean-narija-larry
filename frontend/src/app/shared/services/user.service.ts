@@ -79,6 +79,16 @@ export class UserService {
       }
     });
   }
+  editPassword(password: string, tokenReset: string): Promise<User> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await this.rest.post('/reset-password', {password, tokenReset});
+        resolve(result);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
   search(id: string, data: User): Promise<User> {
     return new Promise(async (resolve, reject) => {
       try {

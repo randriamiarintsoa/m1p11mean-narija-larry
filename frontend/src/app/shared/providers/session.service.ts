@@ -37,6 +37,10 @@ export class SessionService {
     return this.sessionData.user || JSON.parse(localStorage.getItem('sessionData')!).user;
   }
 
+  get tokenData() {
+    return this.sessionData.token || JSON.parse(localStorage.getItem('sessionData')!).token;
+  }
+
   get isSuperAdmin(): boolean {
     return this.userData.role === User.RoleEnum.manager;
   }
@@ -204,13 +208,39 @@ export class SessionService {
     }
   }
 
-  async forgotPassword(data:any, callback: (isSuccess: any) => void) {
-    try {
-      const res = await this.rest.post('/api/v1/forgot', data);
-      callback(true);
-    } catch (e) {
-      callback(false);
-    }
+  // async forgotPassword(data:any, callback: (isSuccess: any) => void) {
+  //   try {
+  //     const res = await this.rest.post('/forgot-password', data);
+  //     callback(true);
+  //   } catch (e) {
+  //     callback(false);
+  //   }
+  // }
+
+
+  async forgotPassword(user: any): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data: any = user;
+        data.mobile = false;
+        const res = await this.rest.post('/forgot-password', data);
+        console.log('res send email', res)
+        try {
+          // if (res.user.role !== 'superAdmin') {
+          //   return reject();
+          // }
+          // const dataAuth = await this.setUserSession(res);
+          // console.log('dataAuth', dataAuth)
+          // resolve(dataAuth.user.id);
+          resolve(res);
+        } catch (e) {
+          reject(e);
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
+    
   }
 
 

@@ -4,6 +4,8 @@ import { Page404Component } from './page404/page404.component';
 import { Page500Component } from './page500/page500.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ForgotEmailComponent } from './forgot-email/forgot-email.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -32,6 +34,20 @@ const routes: Routes = [
     component: RegisterComponent,
     data: {
       title: 'Register Page'
+    }
+  },
+  {
+    path: 'forgot-email',
+    component: ForgotEmailComponent,
+    data: {
+      title: 'Register Page'
+    }
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
+    data: {
+      title: 'Reset email'
     }
   }
 ];
