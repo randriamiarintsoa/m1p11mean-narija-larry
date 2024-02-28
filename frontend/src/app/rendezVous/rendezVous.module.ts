@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { routes } from './rendezVous.routes';
-import { ProfilComponent } from './profil/profil.component';
 import { ListingComponent } from './listing/listing.component';
 import { EditComponent } from './edit/edit.component';
 import { RendezVousService } from '../shared/services/rendezVous.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { VoirComponent } from '../rendezVous/voir/voir.component';
 import {
   AvatarModule,
   ButtonGroupModule,
@@ -30,9 +30,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
-    ProfilComponent,
     ListingComponent,
     EditComponent,
+    VoirComponent
+
   ],
   imports: [
     CommonModule,

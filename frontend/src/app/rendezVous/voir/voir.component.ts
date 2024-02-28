@@ -7,23 +7,28 @@ import { SessionService } from 'src/app/shared/providers/session.service';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { UtilsService } from 'src/app/shared/providers/utils.service';
-
+import { ServiceService } from 'src/app/shared/services/service.service';
+import { Service } from 'src/app/shared/models/service.model';
+import { RendezVousService } from 'src/app/shared/services/rendezVous.service';
+import { RendezVous } from 'src/app/shared/models/rendezVous.model';
 @Component({
-  selector: 'app-profil',
-  templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.scss']
+  selector: 'app-voir',
+  templateUrl: './voir.component.html',
+  styleUrls: ['./voir.component.scss']
 })
-export class ProfilComponent implements OnInit {
+export class VoirComponent implements OnInit {
   id!: any;
-  user!: User;
+  rendezVous!: RendezVous;
   userData: any;
   isLoading!: boolean;
+  tokenData!: string;
   constructor(
     private userService: UserService,
     private sessionService: SessionService,
     private utils: UtilsService,
     private route: ActivatedRoute,
     private router: Router,
+    private rendezVousService: RendezVousService
   ) {}
 ngOnInit() {
   this.route.params.subscribe((p) => {
@@ -31,16 +36,17 @@ ngOnInit() {
     if (this.id !== 'new') {
       this.loadData(this.id);
     } else {
-      this.user = new User();
+      this.rendezVous = new RendezVous();
     }
     this.userData = this.sessionService.userData;
+    this.tokenData = this.sessionService.tokenData;
   });
 }
 
 async loadData(id) {
   try {
       this.isLoading = true;
-      this.user = await this.userService.load(id);
+      this.rendezVous = await this.rendezVousService.load(id);
       this.isLoading = false;
   } catch (e) {
       console.error(e);

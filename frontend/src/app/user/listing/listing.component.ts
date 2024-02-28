@@ -69,22 +69,7 @@ export class ListingComponent implements OnInit {
             this.isLoading = false;
         }
     }
-    async search() {
-          try {
-            this.isLoading = true;
-            this.dataSource = await this.userService.list(this.listing.page, this.listing.limit,
-              {
-                searchValue: this.cle,
-                searchFields: [
-                  'nom', 'penom'
-                ]});
-            this.listing.total = this.dataSource.total;
-            this.isLoading = false;
-        } catch (e) {
-            console.error(e);
-            this.isLoading = false;
-        }
-    }
+   
     back() {
       this.utils.back();
     }
