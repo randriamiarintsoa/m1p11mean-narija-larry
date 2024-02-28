@@ -2,3 +2,7 @@ services:
   - name: backend
     buildCommand: npm install
     startCommand: npm start
+    github:
+      repo: https://github.com/randriamiarintsoa/m1p11mean-narija-larry
+      branch: development
+      subdirectory: backend/
