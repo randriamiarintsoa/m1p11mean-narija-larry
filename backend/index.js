@@ -17,13 +17,13 @@ const nodemailer = require('nodemailer');
 const app = express();
 const port = 3000;
 
-const userEmail = 'narijadev@gmail.com';
-const mdpEmail = 'narija12*34';
+const userEmail = 'nodegasydev@outlook.fr';
+const mdpEmail = '$_&narija12*34#5';
 
 app.use(express.json());
 
 // const urBaseFront = 'http://localhost:4200';
-     const urBaseFront = 'https://mean-22e66.web.app';
+ const urBaseFront = 'https://mean-22e66.web.app';
 
 app.use(cors({
     origin: urBaseFront, 
@@ -33,8 +33,7 @@ app.use(cors({
 
 const connectDB = async () => {
     try {
-       // const uri = 'mongodb://127.0.0.1:27017/mean';
-
+        // const uri = 'mongodb://127.0.0.1:27017/mean';
          const uri = "mongodb+srv://narija1234:narija1234@cluster0.atwh85b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
         const connex = await mongoose.connect(uri);
@@ -141,16 +140,16 @@ app.post('/forgot-password', async (req, res) => {
 
         await resetToken.save();
 
-        // Code pour envoyer l'email de réinitialisation du mot de passe.
-        var transporter = nodemailer.createTransport(
-            {
-                service : 'gmail',
-                auth :{
-                    user: userEmail,
-                    pass: mdpEmail
-                }
-            }
-        );
+        // Configurer le transport pour le serveur SMTP de Yahoo
+        const transporter = nodemailer.createTransport({
+            host: 'smtp-mail.outlook.com',
+            port: 587,
+            secure: false,
+            auth: {
+                user: userEmail,
+                pass: mdpEmail
+            },
+        });
 
         const mailOptions = {
             from: userEmail,
@@ -160,6 +159,8 @@ app.post('/forgot-password', async (req, res) => {
             Cliquez sur le lien pour procéder à la réinitialisation de votre mot de passe 
             <br> 
             <a style="" href="${urBaseFront}/#/reset-password/${token}">cliquez ici</a>. 
+            <br>
+            Le lien arrivera à expiration dans un délai d'une heure maximum.
             <br><br>Merci.`
         };
 
