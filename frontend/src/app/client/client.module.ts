@@ -32,6 +32,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DetailsComponent } from './details/details.component';
 import { AddRdvModalsComponent } from './details/add-rdv-modals/add-rdv-modals.component';
+import { PayerRdvModalsComponent } from './details/payer-rdv-modals/payer-rdv-modals.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
 
 
@@ -42,7 +43,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     ClientComponent,
     ServicesComponent,
     DetailsComponent,
-    AddRdvModalsComponent
+    AddRdvModalsComponent,
+    PayerRdvModalsComponent
   ],
   imports: [
     CommonModule,

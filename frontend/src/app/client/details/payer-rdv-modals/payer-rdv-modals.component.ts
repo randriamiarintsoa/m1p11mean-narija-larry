@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
-import { Service } from '../../../../app/shared/models/service.model';
-import { User } from '../../../../app/shared/models/user.model';
-import { RendezVous } from '../../../../app/shared/models/rendezVous.model';
-import { ServiceService } from '../../../../app/shared/services/service.service';
-import { UserService } from '../../../../app/shared/services/user.service';
+import { Service } from '../../../shared/models/service.model';
+import { User } from '../../../shared/models/user.model';
+import { RendezVous } from '../../../shared/models/rendezVous.model';
+import { ServiceService } from '../../../shared/services/service.service';
+import { UserService } from '../../../shared/services/user.service';
 
 import {
   MatDialog,
@@ -30,11 +30,11 @@ import { RendezVousService } from 'src/app/shared/services/rendezVous.service';
 //   heure: String; *
 
 @Component({
-  selector: 'app-add-rdv-modals',
-  templateUrl: './add-rdv-modals.component.html',
-  styleUrls: ['./add-rdv-modals.component.scss']
+  selector: 'app-payer-rdv-modals',
+  templateUrl: './payer-rdv-modals.component.html',
+  styleUrls: ['./payer-rdv-modals.component.scss']
 })
-export class AddRdvModalsComponent implements OnInit {
+export class PayerRdvModalsComponent implements OnInit {
 
   public liveDemoVisible = false;
   nom!: string;
@@ -52,12 +52,12 @@ export class AddRdvModalsComponent implements OnInit {
     pageSizeOptions: [2, 5, 10, 25, 100]
   };
   userData: any;
-
+  serviceCurrent: any;
   rendezVous: RendezVous = new RendezVous();
   
   constructor(
-    public dialogRef: MatDialogRef<AddRdvModalsComponent>,
-    @Inject(MAT_DIALOG_DATA) public serviceCurrent: Service,
+    public dialogRef: MatDialogRef<PayerRdvModalsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private serviceService: ServiceService,
     private userService: UserService,
     private sessionService: SessionService,
@@ -66,6 +66,7 @@ export class AddRdvModalsComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+    this.rendezVous = this.data.rendezVous;
     this.userData = this.sessionService.user;
   }
 
@@ -102,16 +103,10 @@ export class AddRdvModalsComponent implements OnInit {
   }
   
   async onSubmitSave() {
-    this.rendezVous.employer = this.selectedUser;
-    this.rendezVous.client = this.userData.id;
-    this.rendezVous.service = this.serviceCurrent._id;
-    this.rendezVous.tarifs = this.serviceCurrent.prix;
-    this.rendezVous.payement = 'OK';
-    this.rendezVous.status = 'inprogress';
-    this.rendezVous.notifictionId = '12345678';
-
     try {
-      // await this.rendezVousService.add(this.rendezVous);
+      this.isLoading = true;
+      await this.rendezVousService.add(this.rendezVous);
+      this.isLoading = false;
       this.dialogRef.close(this.rendezVous);
     } catch (e) {
       console.error(e);

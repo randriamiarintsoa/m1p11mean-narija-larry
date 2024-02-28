@@ -9,6 +9,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { ListResult, ListPagination } from 'src/app/shared/models/list.interface'
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddRdvModalsComponent } from './add-rdv-modals/add-rdv-modals.component';
+import { PayerRdvModalsComponent } from './payer-rdv-modals/payer-rdv-modals.component';
+import { SessionService } from 'src/app/shared/providers/session.service';
 
 @Component({
   selector: 'app-details',
@@ -26,14 +28,16 @@ export class DetailsComponent implements OnInit {
     page: 1,
     total: 0,
     pageSizeOptions: [2, 5, 10, 25, 100]
-};
+  };
+  userData;
   constructor(
     private serviceService: ServiceService,
     private route: ActivatedRoute,
     private router: Router,
     private utils: UtilsService,
     private userService: UserService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private sessionService: SessionService,
   ) { }
 
   ngOnInit() {
@@ -48,6 +52,7 @@ export class DetailsComponent implements OnInit {
         this.service = new Service();
       }
     });
+    this.userData = this.sessionService.userData;
   }
 
   async loadData(id) {
@@ -99,14 +104,39 @@ export class DetailsComponent implements OnInit {
     dialogConfig.disableClose = true;
   
     const dialogRef = this.dialog.open(AddRdvModalsComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(async (result: {}) => {
-      if (result) {
-        const dat = await this.serviceService.add(this.service);
-        if (dat) {
-         // this.utils.toastSuccess();
-          // this.loadData();
-        }
+    dialogRef.afterClosed().subscribe(async (resultRdv: {}) => {
+      if (resultRdv) {
+        this.payernewsrdv(resultRdv);
       }
+    });
+  }
+
+  async payernewsrdv(resultRdv) {
+    const dialogConfig = new MatDialogConfig();
+  
+    // Définissez les dimensions de la fenêtre modale
+    dialogConfig.width = '500px';
+    dialogConfig.height = '400px';
+    dialogConfig.data = {
+      rendezVous: resultRdv
+    };
+    dialogConfig.disableClose = true;
+  
+    const dialogRef = this.dialog.open(PayerRdvModalsComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(async (result: {}) => {
+      // if (result) {
+      //   const dat = await this.serviceService.add(service);
+      //   if (dat) {
+      //    // this.utils.toastSuccess();
+      //     // this.loadData();
+      //   }
+      // }
+    });
+  }
+
+  logout() {
+    this.sessionService.signout(() => {
+      this.router.navigateByUrl('/client/services');
     });
   }
 }

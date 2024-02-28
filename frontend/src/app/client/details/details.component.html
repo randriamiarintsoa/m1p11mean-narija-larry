@@ -58,16 +58,38 @@
                     <div class="full">
                         <div class="right_header_info">
                             <ul>
-                                <li class="dinone"><img style="margin-right: 15px;margin-left: 15px;" src="assets/images/client/phone_icon.png" alt="#"><a href="#">987-654-3210</a></li>
-                                <!--li class="dinone"><img style="margin-right: 15px;" src="assets/images/client/mail_icon.png" alt="#"><a href="#">demo@gmail.com</a></li-->
-
-                                <li class="dinone"><img style="margin-right: 15px;" src="assets/images/client/search_icon.png" alt="#"></li>
-                                <li class="button_user"> <a class="button" href="#">Book now</a></li>
-
-                                <li>
-                                    <button type="button" id="sidebarCollapse">
-                                        <a href="#">MENU</a>
-                                    </button>
+                                <li class="dinone">
+                                    <img style="margin-right: 15px; width: 25px;" class="mt-2" src="assets/images/client/search_icon.png" alt="#">
+                                </li>
+                                <li class="btn btn-link" *ngIf="userData && userData.role">
+                                    <a class="button text-primary" [routerLink]="['/client/home']">
+                                        Acceuil
+                                    </a>
+                                </li>
+                                <li class="btn btn-link" *ngIf="userData && userData.role">
+                                    <a class="button text-primary" [routerLink]="['/client/services']">
+                                        Services
+                                    </a>
+                                </li>
+                                <li class="btn btn-link" *ngIf="userData && userData.role">
+                                    <a class="button text-primary" [routerLink]="['/liste-rendez-vous/listing']">
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li class="btn btn-primary" *ngIf="userData && userData.role">
+                                    <a (click)="logout()" >
+                                        Se déconnecter
+                                    </a>
+                                </li>
+                                <li class="btn btn-primary" *ngIf="!userData.role"> 
+                                    <a class="button" [routerLink]="['/login']">
+                                        Connexion
+                                    </a>
+                                </li>
+                                <li class="btn btn-primary" *ngIf="!userData.role">
+                                    <a class="button text-white" [routerLink]="['/register']">
+                                        Créer un compte
+                                    </a>
                                 </li>
                             </ul>
                         </div>

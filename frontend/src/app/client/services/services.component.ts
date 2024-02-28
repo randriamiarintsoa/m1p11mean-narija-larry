@@ -13,6 +13,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angula
 import { Subject, catchError, debounceTime, distinctUntilChanged } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import * as $ from 'jquery';
+import { SessionService } from 'src/app/shared/providers/session.service';
 
 @Component({
   selector: 'app-services',
@@ -36,6 +37,7 @@ export class ServicesComponent implements OnInit {
   isLoading: boolean;
   searchUpdated$: Subject<string | undefined> = new Subject<string | undefined>();
   service: Service = new Service();
+  userData;
   constructor(
     private serviceService: ServiceService,
     private route: ActivatedRoute,
@@ -43,7 +45,8 @@ export class ServicesComponent implements OnInit {
     private utils: UtilsService,
     public dialog: MatDialog,
     private renderer: Renderer2,
-    private http: HttpClient
+    private http: HttpClient,
+    private sessionService: SessionService,
     ) {
       this.isLoading = false;
       this.searchUpdated$.pipe(debounceTime(1000)).pipe(distinctUntilChanged())
@@ -83,11 +86,19 @@ export class ServicesComponent implements OnInit {
         this.listing.total = this.dataSource.total;
         this.isLoading = false;
         console.log(typeof this.dataSource)
+        this.userData = this.sessionService.userData;
     } catch (e) {
         console.error(e);
         this.isLoading = false;
     }    
 }
+
+logout() {
+  this.sessionService.signout(() => {
+    this.router.navigateByUrl('/client/services');
+  });
+}
+
 /*
 async addnewservice() {
   const dialogConfig = new MatDialogConfig();
