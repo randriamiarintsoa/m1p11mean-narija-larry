@@ -14,7 +14,10 @@
                 <input autoComplete="email" [(ngModel)]="user.email" name="email"  cFormControl placeholder="Email" />
               </c-input-group>
               <div class="d-grid">
-                <button class="btn btn-success" color="success">envoyer</button>
+                <button class="btn btn-success" color="success">
+                  <span *ngIf="!isLoading">Envoyer</span>
+                  <span *ngIf="isLoading"><img src="assets/images/loading.gif" class="loading" alt="loading" /></span>
+                </button>
               </div>
               <div class="left mt-3" colspan="3" >
                 <button [routerLink]="['/login']" [disabled]="isLoading" cButton class="px-0" color="link">

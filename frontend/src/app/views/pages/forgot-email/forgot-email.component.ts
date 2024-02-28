@@ -32,28 +32,18 @@ export class ForgotEmailComponent implements OnInit {
   async onSubmitregister() {
     try {
       this.isError = false;
-      console.log('auth')
       this.isLoading = true;
       const data = await this.sessionService.forgotPassword(this.user);
-      console.log('respone email ', data)
-     // this.utils.toastSuccess('Vous êtes mainteant connecté.');
-      // this.router.navigateByUrl('/user/listing');
       this.isError = true;
       this.alertType = 'alert-success';
       this.messageError = 'L\'email pour réinitialiser votre mot de passe a été envoyé avec succès.';
       this.isLoading = false;
     } catch (e: any) {
-      console.error(e);
-
       this.isError = true;
       this.messageError = e?.error?.message
       this.alertType = 'alert-danger';
-
-     // this.utils.toastError('Veuillez vérifier votre identifiants.');
       this.isLoading = false;
     }
-    // 
-    
   }
 
 }

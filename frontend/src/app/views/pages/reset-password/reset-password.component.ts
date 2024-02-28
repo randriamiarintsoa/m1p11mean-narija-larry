@@ -37,8 +37,6 @@ export class ResetPasswordComponent implements OnInit {
       if (this.user.password === '' || this.repassword === '' || 
         this.user.password != this.repassword
       ) {
-      //  this.utils.toastError('Veuillez compléter le champ');
-     // this.ToastRegisterUser();
         this.isError = true;
         this.isLoading = false;
         this.messageError = 'Veuillez verifier les champ';
@@ -46,13 +44,11 @@ export class ResetPasswordComponent implements OnInit {
       } else {
         let data;
         data = await this.userService.editPassword(this.repassword, this.tokenReset);
-        console.log('data', data)
-      if (data) {
-        this.router.navigate(['/login']);
-        this.isLoading = false;
+        if (data) {
+          this.router.navigate(['/login']);
+          this.isLoading = false;
+        }
       }
-      }
-      
     } catch (e) {
       console.error(e);
       this.isLoading = false;

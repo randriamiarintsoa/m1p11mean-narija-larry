@@ -69,7 +69,10 @@
                 </div>
               </div>
               <div class="d-grid">
-                <button [disabled]="isLoading" class="btn btn-success" color="success">S'inscrire</button>
+                <button [disabled]="isLoading" class="btn btn-success" color="success">
+                  <span *ngIf="!isLoading">S'inscrire</span>
+                  <span *ngIf="isLoading"><img src="assets/images/loading.gif" class="loading" alt="loading" /></span>
+                </button>
               </div><br>
               <p>
                 <button [routerLink]="['/login']" cButton class="px-0" color="link">
