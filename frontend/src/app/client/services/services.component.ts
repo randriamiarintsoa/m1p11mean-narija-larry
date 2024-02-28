@@ -111,48 +111,8 @@ export class ServicesComponent implements OnInit {
     this.loadData();
   }
 
-/*
-async addnewservice() {
-  const dialogConfig = new MatDialogConfig();
-
-  // Définissez les dimensions de la fenêtre modale
-  dialogConfig.width = '500px';
-  dialogConfig.height = '300px';
-  dialogConfig.disableClose = true;
-
-  const dialogRef = this.dialog.open(AddServiceModalsComponent, dialogConfig);
-  dialogRef.afterClosed().subscribe(async (result: {}) => {
-    if (result) {
-      const dat = await this.serviceService.add(this.service);
-      if (dat) {
-       // this.utils.toastSuccess();
-        this.loadData();
-      }
-    }
-  });
-}*/
 back() {
   this.utils.back();
 }
-/*async pushNotif(row) {
-  const dialogConfig = new MatDialogConfig();
-  
-    // Définissez les dimensions de la fenêtre modale
-    dialogConfig.width = '500px';
-    dialogConfig.height = '400px';
-  const dialogRef = this.dialog.open(AddServiceModalsComponent, {
-  
-    data: row.name,
-    disableClose: true,
-  });
-  dialogRef.afterClosed().subscribe(async (result: {}) => {
-    if (result) {
-      const dat = await this.serviceService.add(this.service);
-      if (dat) {
-        //this.utils.toastSuccess();
-        this.loadData();
-      }
-    }
-  });
-}*/
+
 }
