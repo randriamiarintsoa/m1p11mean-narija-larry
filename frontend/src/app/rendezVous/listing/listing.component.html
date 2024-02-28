@@ -34,7 +34,7 @@
                 <th>Client</th>
                 <th>Service</th>
                 <!-- <th>Note</th> -->
-                <th>Action</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -71,11 +71,29 @@
                   <div class="small text-medium-emphasis text-nowrap">
                   </div>
                 </td>
+                <td class="text-center">
+                  <button class="btn btn-success btn-sm">
+                    <i class="fa fa-eye text-white"></i>
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
+
+          <mat-paginator 
+            [length]="listing.total"
+            [pageSize]="listing.limit"
+            [pageSizeOptions]="listing.pageSizeOptions"
+            aria-label="Select page"
+            (page)="onPageChange($event)"
+            class="mt-3"
+          >
+          </mat-paginator>
+          
         </c-card-body>
       </c-card>
     </c-col>
+    
   </c-row>
+  
   

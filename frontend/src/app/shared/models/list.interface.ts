@@ -17,7 +17,7 @@ export interface ListPagination {
     page: number;
     limit: number;
     total?: number;
-    pageSizeOptions?: number[];
+    pageSizeOptions: number[];
 }
 export interface SearchInterface {
     q?: string;

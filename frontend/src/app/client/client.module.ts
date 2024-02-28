@@ -34,6 +34,7 @@ import { DetailsComponent } from './details/details.component';
 import { AddRdvModalsComponent } from './details/add-rdv-modals/add-rdv-modals.component';
 import { PayerRdvModalsComponent } from './details/payer-rdv-modals/payer-rdv-modals.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -91,7 +92,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     // MatDialog,
     NgSelectModule,
     ModalModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatPaginatorModule
   ],
   providers: [
     UserService,

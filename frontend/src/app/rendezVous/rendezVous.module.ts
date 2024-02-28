@@ -23,6 +23,7 @@ import {
 } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -52,6 +53,7 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
     ChartjsModule,
     AvatarModule,
     TableModule,
+    MatPaginatorModule
   ],
   providers: [
     RendezVousService

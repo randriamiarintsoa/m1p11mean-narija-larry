@@ -47,4 +47,14 @@
       </div>
     </div>
   </div>
+
+  <mat-paginator 
+    [length]="listing.total"
+    [pageSize]="listing.limit"
+    [pageSizeOptions]="listing.pageSizeOptions"
+    aria-label="Select page"
+    (page)="onPageChange($event)"
+    class="mb-3 mt-3"
+  >
+  </mat-paginator>
  

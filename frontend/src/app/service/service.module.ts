@@ -30,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     NgSelectModule,
     ModalModule,
     MatDatepickerModule,
+    MatPaginatorModule,
     RouterModule.forChild(routes)
   ],
   

@@ -5,7 +5,7 @@ import { ListResult, ListPagination ,SearchInterface} from 'src/app/shared/model
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { UtilsService } from 'src/app/shared/providers/utils.service';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-listing',
@@ -29,7 +29,7 @@ export class ListingComponent implements OnInit {
       limit: 10,
       page: 1,
       total: 0,
-      pageSizeOptions: [2, 5, 10, 25, 100]
+      pageSizeOptions: [5, 10, 25, 50, 100]
   };
   isLoading: boolean;
   searchUpdated$: Subject<string | undefined> = new Subject<string | undefined>();
@@ -42,22 +42,13 @@ export class ListingComponent implements OnInit {
     this.isLoading = false;
     this.searchUpdated$.pipe(debounceTime(1000)).pipe(distinctUntilChanged())
     .subscribe((data) => {
-      this.loadData(this.id);
+      this.loadData();
     });
     }
     ngOnInit() {
-      this.route.params.subscribe(async (p) => {
-        this.id = p.id;
-        this.isLoading = true;
-       if (this.id !== 'new') {
-          this.loadData(this.id);
-        } else {
-          this.user = new User();
-        }
-      });
-    this.loadData(this.id);
+      this.loadData();
     }
-    async loadData(id) {
+    async loadData() {
         try {
             this.isLoading = true;
             const query: any =  {};
@@ -69,10 +60,9 @@ export class ListingComponent implements OnInit {
               query.searchValue = this.searchData.q;
               query.searchFields = ['nom'];
             }
-            this.dataSource = await this.userService.list(this.listing.page, this.listing.limit, query);
-            this.user = await this.userService.load(id); 
-            console.log('user' ,this.user) 
-            this.listing.total = this.dataSource.total;
+            let dataSource = await this.userService.list(this.listing.page, this.listing.limit, query);
+            this.dataSource = dataSource.rows; 
+            this.listing.total = dataSource.total;
             this.isLoading = false;
         } catch (e) {
             console.error(e);
@@ -100,18 +90,28 @@ export class ListingComponent implements OnInit {
     }
     async delete(row) {
       try {
-       const p = await this.utils.confirm('Voulez vous supprimer vraiment?');
-        if (p) {
-            try {
-              await this.userService.delete(row._id);
-             // this.utils.toastSuccess();
-              this.loadData(this.id);
-            } catch (e) {
-               // this.utils.toastError();
-            }
+      const p = await this.utils.confirm('Voulez vous supprimer vraiment?');
+      if (p) {
+        try {
+          await this.userService.delete(row._id);
+          // this.utils.toastSuccess();
+          this.loadData();
+        } catch (e) {
+            // this.utils.toastError();
+        }
       }
     } catch (e) {
     }
-    }
+  }
+
+  onPageChange(event: PageEvent): void {
+    const pageIndex = event.pageIndex + 1;
+    const pageSize = event.pageSize;
+
+    this.listing.limit = pageSize;
+    this.listing.page = pageIndex;
+    
+    this.loadData();
+  }
 }
 

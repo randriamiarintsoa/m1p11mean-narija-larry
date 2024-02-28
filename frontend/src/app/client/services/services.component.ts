@@ -14,6 +14,7 @@ import { Subject, catchError, debounceTime, distinctUntilChanged } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import * as $ from 'jquery';
 import { SessionService } from 'src/app/shared/providers/session.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-services',
@@ -29,10 +30,10 @@ export class ServicesComponent implements OnInit {
     q: '',
   };
   listing: ListPagination = {
-    limit: 10,
+    limit: 6,
     page: 1,
     total: 0,
-    pageSizeOptions: [2, 5, 10, 25, 100]
+    pageSizeOptions: [3, 6, 9, 12, 24]
   };
   isLoading: boolean;
   searchUpdated$: Subject<string | undefined> = new Subject<string | undefined>();
@@ -82,8 +83,10 @@ export class ServicesComponent implements OnInit {
           query.searchValue = this.searchData.q;
           query.searchFields = ['nom'];
         }
-        this.dataSource = await this.serviceService.list(this.listing.page, this.listing.limit, query);
-        this.listing.total = this.dataSource.total;
+        const dataSource = await this.serviceService.list(this.listing.page, this.listing.limit, query);
+        this.dataSource= dataSource.rows;
+        this.listing.total = dataSource.total;
+
         this.isLoading = false;
         console.log(typeof this.dataSource)
         this.userData = this.sessionService.userData;
@@ -91,13 +94,22 @@ export class ServicesComponent implements OnInit {
         console.error(e);
         this.isLoading = false;
     }    
-}
+  }
 
-logout() {
-  this.sessionService.signout(() => {
-    this.router.navigateByUrl('/client/services');
-  });
-}
+  logout() {
+    this.sessionService.signout(() => {
+      this.router.navigateByUrl('/client/services');
+    });
+  }
+  onPageChange(event: PageEvent): void {
+    const pageIndex = event.pageIndex + 1;
+    const pageSize = event.pageSize;
+
+    this.listing.limit = pageSize;
+    this.listing.page = pageIndex;
+    
+    this.loadData();
+  }
 
 /*
 async addnewservice() {

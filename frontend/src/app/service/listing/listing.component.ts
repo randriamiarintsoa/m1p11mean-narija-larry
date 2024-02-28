@@ -11,6 +11,7 @@ import { UtilsService } from 'src/app/shared/providers/utils.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 import { AddServiceModalsComponent } from './add-service-modals/add-service-modals.component';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -28,10 +29,10 @@ export class ListingComponent implements OnInit {
     q: '',
   };
   listing: ListPagination = {
-    limit: 10,
+    limit: 6,
     page: 1,
     total: 0,
-    pageSizeOptions: [2, 5, 10, 25, 100]
+    pageSizeOptions: [3, 6, 9, 12, 24]
   };
   isLoading: boolean;
   searchUpdated$: Subject<string | undefined> = new Subject<string | undefined>();
@@ -67,56 +68,66 @@ export class ListingComponent implements OnInit {
           query.searchValue = this.searchData.q;
           query.searchFields = ['nom'];
         }
-        this.dataSource = await this.serviceService.list(this.listing.page, this.listing.limit, query);
-        this.listing.total = this.dataSource.total;
+        const dataSource = await this.serviceService.list(this.listing.page, this.listing.limit, query);
+        this.dataSource= dataSource.rows;
+        this.listing.total = dataSource.total;
         this.isLoading = false;
-        console.log(typeof this.dataSource)
     } catch (e) {
         console.error(e);
         this.isLoading = false;
     }    
-}
-async addnewservice() {
-  const dialogConfig = new MatDialogConfig();
+  }
+  async addnewservice() {
+    const dialogConfig = new MatDialogConfig();
 
-  // Définissez les dimensions de la fenêtre modale
-  dialogConfig.width = '500px';
-  dialogConfig.height = '300px';
-  dialogConfig.disableClose = true;
-
-  const dialogRef = this.dialog.open(AddServiceModalsComponent, dialogConfig);
-  dialogRef.afterClosed().subscribe(async (result: {}) => {
-    if (result) {
-      const dat = await this.serviceService.add(this.service);
-      if (dat) {
-       // this.utils.toastSuccess();
-        this.loadData();
-      }
-    }
-  });
-}
-back() {
-  this.utils.back();
-}
-async pushNotif(row) {
-  const dialogConfig = new MatDialogConfig();
-  
     // Définissez les dimensions de la fenêtre modale
     dialogConfig.width = '500px';
-    dialogConfig.height = '400px';
-  const dialogRef = this.dialog.open(AddServiceModalsComponent, {
-  
-    data: row.name,
-    disableClose: true,
-  });
-  dialogRef.afterClosed().subscribe(async (result: {}) => {
-    if (result) {
-      const dat = await this.serviceService.add(this.service);
-      if (dat) {
-        //this.utils.toastSuccess();
-        this.loadData();
+    dialogConfig.height = '300px';
+    dialogConfig.disableClose = true;
+
+    const dialogRef = this.dialog.open(AddServiceModalsComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(async (result: {}) => {
+      if (result) {
+        const dat = await this.serviceService.add(this.service);
+        if (dat) {
+        // this.utils.toastSuccess();
+          this.loadData();
+        }
       }
-    }
-  });
-}
+    });
+  }
+  back() {
+    this.utils.back();
+  }
+  async pushNotif(row) {
+    const dialogConfig = new MatDialogConfig();
+    
+      // Définissez les dimensions de la fenêtre modale
+      dialogConfig.width = '500px';
+      dialogConfig.height = '400px';
+    const dialogRef = this.dialog.open(AddServiceModalsComponent, {
+    
+      data: row.name,
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(async (result: {}) => {
+      if (result) {
+        const dat = await this.serviceService.add(this.service);
+        if (dat) {
+          //this.utils.toastSuccess();
+          this.loadData();
+        }
+      }
+    });
+  }
+
+  onPageChange(event: PageEvent): void {
+    const pageIndex = event.pageIndex + 1;
+    const pageSize = event.pageSize;
+
+    this.listing.limit = pageSize;
+    this.listing.page = pageIndex;
+    
+    this.loadData();
+  }
 }

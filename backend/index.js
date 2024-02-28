@@ -23,7 +23,7 @@ const mdpEmail = 'narija12*34';
 app.use(express.json());
 
 // const urBaseFront = 'http://localhost:4200';
-const urBaseFront = 'https://mean-22e66.web.app';
+     const urBaseFront = 'https://mean-22e66.web.app';
 
 app.use(cors({
     origin: urBaseFront, 
@@ -33,9 +33,9 @@ app.use(cors({
 
 const connectDB = async () => {
     try {
-        // const conn = await mongoose.connect('mongodb://127.0.0.1:27017/mean')
+       // const uri = 'mongodb://127.0.0.1:27017/mean';
 
-        const uri = "mongodb+srv://narija1234:narija1234@cluster0.atwh85b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+         const uri = "mongodb+srv://narija1234:narija1234@cluster0.atwh85b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
         const connex = await mongoose.connect(uri);
         if (connex) {
@@ -250,22 +250,59 @@ app.get('/users', async (req, res) => {
     try {
         const filterRole = req.query.role;
         const filterNom = req.query.searchFields;
-
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        
         if (filterRole) {
-            const users = await User.find({role: filterRole});
-            res.json(users);
+            const total = await User
+                .find({role: filterRole});
+
+            const users = await User
+                .find({role: filterRole})
+                .skip((page - 1) * limit)
+                .limit(limit);
+            res.json({
+                rows:users,
+                total: total.length,
+                page
+            });
+
         } else if (filterNom && filterNom == 'nom') {
             const searchValue = req.query.searchValue;
-            const users = await User.find({
-                $or: [
-                { nom: { $regex: new RegExp(searchValue, 'i') } },
-                { prenom: { $regex: new RegExp(searchValue, 'i') } }
-                ]
+            const total = await User
+                .find({
+                    $or: [
+                    { nom: { $regex: new RegExp(searchValue, 'i') } },
+                    { prenom: { $regex: new RegExp(searchValue, 'i') } }
+                    ]
+                });
+
+            const users = await User
+                .find({
+                    $or: [
+                    { nom: { $regex: new RegExp(searchValue, 'i') } },
+                    { prenom: { $regex: new RegExp(searchValue, 'i') } }
+                    ]
+                })
+                .skip((page - 1) * limit)
+                .limit(limit);
+            res.json({
+                rows:users,
+                total: total.length,
+                page
             });
-            res.json(users);
+
         } else {
-            const users = await User.find();
-            res.json(users);
+            const total = await User.find();
+            const users = await User
+                .find()
+                .skip((page - 1) * limit)
+                .limit(limit);
+            res.json({
+                rows:users,
+                total: total.length,
+                page
+            });
         }
         
     } catch (err) {
@@ -348,13 +385,37 @@ app.get('/services', async (req, res) => {
     try {
 
         const filterNom = req.query.searchValue;
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 6;
         // const searchFields = req.query.searchFields;
+
         if (filterNom) {
-            const services = await Service.find({nom: { $regex: new RegExp(filterNom, 'i') } });
-            res.json(services);
+            const total = await Service
+                .find({nom: { $regex: new RegExp(filterNom, 'i') } });
+
+            const services = await Service
+                .find({nom: { $regex: new RegExp(filterNom, 'i') } })
+                .skip((page - 1) * limit)
+                .limit(limit);
+
+            res.json({
+                rows: services,
+                total: total.length,
+                page
+            });
         } else {
-            const services = await Service.find();
-            res.json(services);
+            const total = await Service.find();
+            const services = await Service
+                .find()
+                .skip((page - 1) * limit)
+                .limit(limit);
+
+            res.json({
+                rows: services,
+                total: total.length,
+                page
+            });
+
         }
 
     } catch (err) {
@@ -459,8 +520,9 @@ app.post('/rendezvous', async (req, res) => {
             let client = await newUser.save();
 
             const employer = await User.findById(req.body.employer);
+            const service = await Service.findById(req.body.service);
 
-            let { service, date, heure, status, tarifs, payement, note, notifictionId } = req.body;
+            let { date, heure, status, tarifs, payement, note, notifictionId } = req.body;
 
             let newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId});
             await newRendezvous.save();
@@ -482,24 +544,42 @@ app.post('/rendezvous', async (req, res) => {
 // Get all Rendez vous
 app.get('/rendezvous', async (req, res) => {
     try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 6;
 
         const user = await User.findById(req.query.userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' + req.query.limit });
         }
         let rendezvous;
+        let total = 0;
         if (user.role == 'employer') {
+            total = await Rendezvous.find({employer: user._id});
             rendezvous = await Rendezvous.find({employer: user._id})
-                .populate(['client','service','employer']);
+                .populate(['client','service','employer'])
+                .skip((page - 1) * limit)
+                .limit(limit);
+
         } else if (user.role == 'client') {
+            total = await Rendezvous.find({client: user._id});
             rendezvous = await Rendezvous.find({client: user._id})
-                .populate(['client','service','employer']);
+                .populate(['client','service','employer'])
+                .skip((page - 1) * limit)
+                .limit(limit);
+
         } else {
+            total = await Rendezvous.find();
             rendezvous = await Rendezvous.find()
-                .populate(['client','service','employer']);
+                .populate(['client','service','employer'])
+                .skip((page - 1) * limit)
+                .limit(limit);
         }
 
-        res.json(rendezvous);
+        res.json({
+            rows: rendezvous,
+            total: total.length,
+            page
+        });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

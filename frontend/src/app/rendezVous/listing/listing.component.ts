@@ -9,17 +9,16 @@ import { RendezVousService } from 'src/app/shared/services/rendezVous.service';
 import { RendezVous } from 'src/app/shared/models/rendezVous.model';
 import { SessionService } from 'src/app/shared/providers/session.service';
 import { UtilsService } from 'src/app/shared/providers/utils.service';
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
   styleUrls: ['./listing.component.scss']
 })
 export class ListingComponent implements OnInit {
- // dataSource!: ListResult<User>;
- dataSource!: any;
- id!: any;
- rendezVous!: RendezVous;
- // user: User = new User();
+  dataSource!: any;
+  id!: any;
+  rendezVous!: RendezVous;
   cle!: string;
   objectUser: any = {};
 
@@ -27,7 +26,7 @@ export class ListingComponent implements OnInit {
       limit: 10,
       page: 1,
       total: 0,
-      pageSizeOptions: [2, 5, 10, 25, 100]
+      pageSizeOptions: [5, 10, 25, 50, 100]
   };
   isLoading: boolean;
   userData;
@@ -43,37 +42,40 @@ export class ListingComponent implements OnInit {
       this.isLoading = false;
     }
     ngOnInit() {
-      this.route.params.subscribe(async (p) => {
-        this.id = p.id;
-        this.isLoading = true;
-        this.userData = this.sessionService.userData;
-       if (this.id !== 'new') {
-          this.loadData(this.id);
-        } else {
-          this.rendezVous = new RendezVous();
-        }
-      });
-    this.loadData(this.id);
+      this.loadData();
     }
-    async loadData(id) {
-        try {
-            this.isLoading = true;
-            const query: any =  {};
-            query.sort = [{
-              key : 'createdAt',
-              ascendant: false
-             }];
-             query.userId = this.userData.id;
-            this.dataSource = await this.rendezVousService.list(this.listing.page, this.listing.limit, query);
-            this.isLoading = false;
-        } catch (e) {
-            console.error(e);
-            this.isLoading = false;
-        }
+    async loadData() {
+      try {
+        this.isLoading = true;
+        const query: any =  {};
+        query.sort = [{
+          key : 'createdAt',
+          ascendant: false
+          }];
+        this.userData = this.sessionService.userData;
+        query.userId = this.userData.id;
+        let dataSource = await this.rendezVousService.list(this.listing.page, this.listing.limit, query);
+        this.dataSource= dataSource.rows;
+        this.listing.total = dataSource.total;
+        this.isLoading = false;
+      } catch (e) {
+        console.error(e);
+        this.isLoading = false;
+      }
     }
     
     back() {
       this.utils.back();
+    }
+
+    onPageChange(event: PageEvent): void {
+      const pageIndex = event.pageIndex + 1;
+      const pageSize = event.pageSize;
+  
+      this.listing.limit = pageSize;
+      this.listing.page = pageIndex;
+      
+      this.loadData();
     }
 }
 

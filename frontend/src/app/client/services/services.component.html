@@ -134,6 +134,17 @@
                                 
                             </div>
                         </div>
+
+                        <mat-paginator 
+                            [length]="listing.total"
+                            [pageSize]="listing.limit"
+                            [pageSizeOptions]="listing.pageSizeOptions"
+                            aria-label="Select page"
+                            (page)="onPageChange($event)"
+                            class="mb-3 mt-3"
+                        >
+                        </mat-paginator>
+
                     </div>
                 </div>
             </div>
@@ -142,6 +153,48 @@
 
     </div>
 </div>
+<!-- footer -->
+<footer>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer_logo">
+                        <a href="index.html"><img src="assets/images/client/logo1.png" alt="logo" /></a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="address">
+                        <h3>address</h3>
+                        <p>
+                            Address: 73 Canal Street, New York, NY
+                            <br> Tel: +1 123 456 789
+                            <br> Fax: +1 123 456 789
+                            <br> Email: {{'support@demo.com'}}</p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <ul class="lik">
+
+                        <li> <img src="assets/images/client/fb.png" alt="#" /></li>
+                        <li> <img src="assets/images/client/tw.png" alt="#" /></li>
+                        <li> <img src="assets/images/client/you.png" alt="#" /></li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <p>© 2019 All Rights Reserved. <a href="https://html.design/"> Free Html Templates</a></p>
+            </div>
+        </div>
+    </div>
+
+</footer>
+<!-- end footer -->
+
 </div>
+
 <div class="overlay"></div>
-<!-- end service -->
