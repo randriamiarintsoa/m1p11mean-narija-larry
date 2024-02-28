@@ -24,13 +24,26 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit() {
     this.route.params.subscribe(async (p) => {
       this.user = new User();
     });
 }
+
+isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+isValidPhoneNumber(telephone: string): boolean {
+  
+  const phoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
+  return phoneRegex.test(telephone);
+}
+
 async onSubmitregister() {
     try {
       this.isError = false;
@@ -46,7 +59,16 @@ async onSubmitregister() {
         this.isError = true;
         this.messageError = "Les deux mots de passe ne sont pas identiques";
         this.isLoading = false;
-      } else {
+      } else if (!this.isValidEmail(this.user.email)){
+        this.isError = true;
+        this.messageError = "Email invalide";
+        this.isLoading = false;
+      }else if (!this.isValidPhoneNumber(this.user.telephone)){
+        this.isError = true;
+        this.messageError = "Téléphone invalide";
+        this.isLoading = false;
+      } 
+      else {
         this.user.role = this.selectedRole;
         let data = await this.userService.add(this.user);
         if (data) {
