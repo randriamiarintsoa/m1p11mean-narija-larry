@@ -1,7 +1,7 @@
 services:
   - name: backend
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: npm --prefix backend/ install
+    startCommand: npm --prefix backend/ start
     github:
       repo: randriamiarintsoa/m1p11mean-narija-larry
       branch: development
