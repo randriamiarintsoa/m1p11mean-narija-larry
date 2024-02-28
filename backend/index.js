@@ -1,6 +1,12 @@
 // app.js
 const express = require('express');
 const mongoose = require('mongoose');
+
+// const { MongoClient } = require('mongodb');
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
+
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -16,21 +22,28 @@ const mdpEmail = 'narija12*34';
 
 app.use(express.json());
 
-const urBaseFront = 'http://localhost:4200';
+// const urBaseFront = 'http://localhost:4200';
+const urBaseFront = 'https://mean-22e66.web.app';
+
 app.use(cors({
     origin: urBaseFront, 
     optionsSuccessStatus: 200, 
-  }));
+}));
+
 
 const connectDB = async () => {
     try {
-      const conn = await mongoose.connect('mongodb://127.0.0.1:27017/mean'
-    // const uri = 'mongodb+srv://narija:narija1234@cluster0.mongodb.net/mean';
-    //const uri = 'mongodb+srv://narija:narija1234@cluster0.epn5jqe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-   // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true }
-    //   , { useNewUrlParser: true, useUnifiedTopology: true }
-      );
-      console.error('CONNECT TO DATABASE:', conn);
+        // const conn = await mongoose.connect('mongodb://127.0.0.1:27017/mean')
+
+        const uri = "mongodb+srv://narija1234:narija1234@cluster0.atwh85b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+        const connex = await mongoose.connect(uri);
+        if (connex) {
+            console.error('CONNECT TO DATABASE SUCCESS');
+        } else {
+            console.error('COULD NOT CONNECT TO DATABASE');
+        }
+        
     } catch (error) {
         console.error('COULD NOT CONNECT TO DATABASE:', error.message);
     }
