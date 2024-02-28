@@ -1,5 +1,5 @@
 services:
-  - name: backend
+  - name: m1p11mean-narija-larry
     buildCommand: npm --prefix backend/ install
     startCommand: npm --prefix backend/ start
     github:
