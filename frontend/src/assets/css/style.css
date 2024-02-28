@@ -1000,4 +1000,6 @@
      color: #fff;
      font-weight: 500;
 }
- 
+.loading {
+    height: 30px !important;
+}

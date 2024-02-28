@@ -1,23 +1,22 @@
 <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
   <c-container>
-    <c-row class="justify-content-center">
-      <c-col md="8">
+    <c-row class="justify-content-center h-fix">
+      <c-col lg="8" md="10" sm="12">
         <c-card-group>
           <c-card class="p-4">
             <c-card-body>
-             
               <form (ngSubmit)="onSubmit()" cForm>
                 <h1>Connexion</h1>
                 <p class="text-medium-emphasis">Connectez-vous à votre compte</p>
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
-                    <svg cIcon name="cilUser"></svg>
+                    <i class="fa fa-envelope"></i>
                   </span>
-                  <input [(ngModel)]="user.email" name="email" autoComplete="username" cFormControl placeholder="Username" />
+                  <input [(ngModel)]="user.email" name="email" autoComplete="email" cFormControl placeholder="Email" />
                 </c-input-group>
                 <c-input-group class="mb-4">
                   <span cInputGroupText>
-                    <svg cIcon name="cilLockLocked"></svg>
+                    <i class="fa fa-lock"></i>
                   </span>
                   <input
                     autoComplete="current-password"
@@ -28,19 +27,20 @@
                 </c-input-group>
                 <c-row>
                   <c-col xs="12">
-                    <button class="px-4 btn btn-primary" color="primary">
-                      Se connecter
+                    <button [disabled]="isLoading" class="px-4 btn btn-primary btn-block" color="primary">
+                      <span *ngIf="!isLoading">Se connecter</span>
+                      <span *ngIf="isLoading"><img src="assets/images/loading.gif" class="loading" alt="loading" /></span>
                     </button>
                   </c-col>
                 </c-row>
                 <c-row>
-                  <c-col class="text-right" xs="12">
+                  <c-col class="text-center mt-3" xs="12">
                     <button [routerLink]="['/forgot-email']" cButton class="px-0" color="link">
                       Mot de passe oublié?
                     </button>
                   </c-col>
                 </c-row>
-                <div class="alert alert-danger mt-2" *ngIf="isError">
+                <div class="alert alert-danger mt-2 text-center" *ngIf="isError">
                   {{messageError}}
                 </div>
               </form>
@@ -49,12 +49,13 @@
           <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-primary py-5">
             <c-card-body class="text-center">
               <div>
-                <h2>S'inscrire</h2>
+                <h2>Bienvenue !</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua.
+                  Rejoignez notre communauté dès maintenant en créant votre compte. 
+                  L'aventure commence ici ! 
+                  Remplissez simplement le formulaire ci-dessous pour accéder.
                 </p>
-                <button [active]="true" cButton class="mt-3" color="primary" routerLink="/register">
+                <button [active]="true" cButton class="mt-3 btn btn-light" routerLink="/register">
                   S'inscrire maintenant!
                 </button>
               </div>

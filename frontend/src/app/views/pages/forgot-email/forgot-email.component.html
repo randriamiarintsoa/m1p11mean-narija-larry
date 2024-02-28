@@ -8,11 +8,18 @@
               <h1>Tapez votre adresse email</h1>
               <p class="text-medium-emphasis"></p>
               <c-input-group class="mb-3">
-                <span cInputGroupText>&#64;</span>
+                <span cInputGroupText>
+                  <i class="fa fa-envelope"></i>
+                </span>
                 <input autoComplete="email" [(ngModel)]="user.email" name="email"  cFormControl placeholder="Email" />
               </c-input-group>
               <div class="d-grid">
                 <button class="btn btn-success" color="success">envoyer</button>
+              </div>
+              <div class="left mt-3" colspan="3" >
+                <button [routerLink]="['/login']" [disabled]="isLoading" cButton class="px-0" color="link">
+                  Retour a la page de connexion
+                </button>
               </div>
               <div class="alert {{alertType}} mt-2" *ngIf="isError">
                 {{messageError}}

@@ -30,16 +30,12 @@ export class LoginComponent implements OnInit {
       console.log('auth')
       this.isLoading = true;
       const data = await this.sessionService.signin(this.user);
-     // this.utils.toastSuccess('Vous êtes mainteant connecté.');
       this.router.navigateByUrl('/user/listing');
       this.isLoading = false;
     } catch (e: any) {
-      console.error(e);
-
+      console.log('############## ', e)
       this.isError = true;
-      this.messageError = e?.error?.message
-
-     // this.utils.toastError('Veuillez vérifier votre identifiants.');
+      this.messageError = 'Login ou mot de passe incorrect';
       this.isLoading = false;
     }
   }

@@ -12,64 +12,70 @@
                 <div class="col">
                   <c-input-group class="mb-3">
                     <span cInputGroupText>
-                      <svg cIcon name="cilUser"></svg>
+                      <i class="fa fa-user"></i>
                     </span>
-                    <input type="text" [(ngModel)]="user.nom" name="nom" require autoComplete="nom" cFormControl placeholder="nom" />
+                    <input type="text" [(ngModel)]="user.nom" name="nom" require autoComplete="nom" cFormControl placeholder="Nom" />
                   </c-input-group>
                 </div>
                 <div class="col">
                   <c-input-group class="mb-3">
                     <span cInputGroupText>
-                      <svg cIcon name="cilUser"></svg>
+                      <i class="fa fa-user"></i>
                     </span>
-                    <input type="text" [(ngModel)]="user.prenom" name="prenom" require autoComplete="prenom" cFormControl placeholder="prenom" />
+                    <input type="text" [(ngModel)]="user.prenom" name="prenom" require autoComplete="prenom" cFormControl placeholder="Prenom" />
                   </c-input-group>
                 </div>
               </div>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
-                  <svg cIcon name="cilUser"></svg>
+                  <i class="fa fa-phone"></i>
                 </span>
-                <input type="text" [(ngModel)]="user.telephone" name="telephone" require autoComplete="telephone" cFormControl placeholder="telephone" />
+                <input type="text" [(ngModel)]="user.telephone" name="telephone" require autoComplete="telephone" cFormControl placeholder="Téléphone" />
               </c-input-group>
               <c-input-group class="mb-3">
-                <span cInputGroupText>&#64;</span>
-                <input type="email" [(ngModel)]="user.email" name="email" autoComplete="email" cFormControl placeholder="Email" />
+                <span cInputGroupText>
+                  <i class="fa fa-envelope"></i>
+                </span>
+                <input type="email" [(ngModel)]="user.email" name="email" autoComplete="Email" cFormControl placeholder="Email" />
               </c-input-group>
-              <div class="full-width mb-4">
+              <div class="full-width mb-3">
                 <mat-label></mat-label>
-                <div class="">
-                <ng-select [items]="role" 
-                  name="role"
-                  bindLabel="name" 
-                  bindValue="name" 
-                  [(ngModel)]="selectedRole"
-                  placeholder="Like ng-select?">
-                </ng-select>
-              </div>
+                <div class='default'>
+                  <ng-select [items]="role" 
+                    name="role"
+                    bindLabel="name" 
+                    bindValue="name" 
+                    [(ngModel)]="selectedRole"
+                    placeholder="Rôle">
+                  </ng-select>
+                </div>
               </div>
               <div class="row">
                 <div class="col">
                   <c-input-group class="mb-3">
                     <span cInputGroupText>
-                      <svg cIcon name="cilLockLocked"></svg>
+                      <i class="fa fa-lock"></i>
                     </span>
-                    <input [(ngModel)]="user.password" name="password" autoComplete="new-password" cFormControl placeholder="Password" type="password" />
+                    <input [(ngModel)]="user.password" name="password" autoComplete="new-password" cFormControl placeholder="Mot de passe" type="password" />
                   </c-input-group>
                 </div>
                 <div class="col">
                   <c-input-group class="mb-4">
                     <span cInputGroupText>
-                      <svg cIcon name="cilLockLocked"></svg>
+                      <i class="fa fa-lock"></i>
                     </span>
-                    <input [(ngModel)]="repassword" name="repassword" autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
+                    <input [(ngModel)]="repassword" name="repassword" autoComplete="new-password" cFormControl placeholder="Confirmation du mot de passe" type="password" />
                   </c-input-group>
                 </div>
               </div>
               <div class="d-grid">
-                <button class="btn btn-success" color="success">S'inscrire</button>
+                <button [disabled]="isLoading" class="btn btn-success" color="success">S'inscrire</button>
               </div><br>
-              <p><a [routerLink]="['/login']" >Vous avez déjà un compte ?</a></p>
+              <p>
+                <button [routerLink]="['/login']" cButton class="px-0" color="link">
+                  Vous avez déjà un compte ?
+                </button>
+              </p>
               <div class="alert alert-danger mt-2" *ngIf="isError">
                 {{messageError}}
               </div>

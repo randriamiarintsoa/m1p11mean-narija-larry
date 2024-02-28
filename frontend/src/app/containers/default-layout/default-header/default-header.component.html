@@ -75,9 +75,9 @@
       >
       </c-avatar>
     </button>
-    <ul cDropdownMenu class="pt-0 pr-5 w-auto">
+    <ul cDropdownMenu class="pt-0 pr-0 w-auto">
       <li>
-        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Account</h6>
+        <h6 cDropdownHeader class="bg-light fw-semibold py-2">Mon compte</h6>
       </li>
       <!-- <li>
         <a routerLink="./" cDropdownItem>
@@ -158,7 +158,12 @@
           Se déconnecter
         </a>
       </li>
-      <li></li>
+      <li>
+        <hr cDropdownDivider/>
+      </li>
+      <li class="text-center text-success">
+        {{userData.role}}
+      </li>
     </ul>
   </c-dropdown>
 </ng-template>

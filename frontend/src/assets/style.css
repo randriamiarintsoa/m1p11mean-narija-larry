@@ -7,7 +7,10 @@
  @import url(font-awesome.min.css);
  @import url(owl.carousel.min.css);
 /*--------------------------------------------------------------------- basic ---------------------------------------------------------------------*/
- body {
+
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+body {
      color: #666666;
      font-size: 14px;
      font-family: 'poppins', sans-serif;
@@ -1000,4 +1003,6 @@
      color: #fff;
      font-weight: 500;
 }
- 
+.loading {
+    height: 30px !important;
+}
