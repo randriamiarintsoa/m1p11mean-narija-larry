@@ -39,6 +39,7 @@
             ],
             "styles": [
               "src/scss/styles.scss",
+              "node_modules/@ng-select/ng-select/themes/material.theme.css",
               "src/client/css/bootstrap.min.css",
               "src/client/css/owl.carousel.min.css",
               "src/client/css/style.css",

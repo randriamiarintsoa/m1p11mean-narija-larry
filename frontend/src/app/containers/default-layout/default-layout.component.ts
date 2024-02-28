@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { navItems } from './_nav';
+import { navItems, navItemsManager } from './_nav';
+import { SessionService } from 'src/app/shared/providers/session.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +11,12 @@ import { navItems } from './_nav';
 export class DefaultLayoutComponent {
 
   public navItems = navItems;
+  public navItemsManager = navItemsManager;
+  userData;
 
-  constructor() {}
+  constructor(
+    private sessionService: SessionService
+  ) {
+    this.userData = this.sessionService.userData;
+  }
 }

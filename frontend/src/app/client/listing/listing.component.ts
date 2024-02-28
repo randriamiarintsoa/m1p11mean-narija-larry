@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subject, catchError, debounceTime, distinctUntilChanged } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import * as $ from 'jquery';
+import { SessionService } from 'src/app/shared/providers/session.service';
 
 @Component({
   selector: 'app-listing',
@@ -22,6 +23,7 @@ export class ClientComponent implements OnInit {
   searchData : SearchInterface = {
     q: '',
   };
+  userData;
 
   listing: ListPagination = {
       limit: 10,
@@ -36,7 +38,8 @@ export class ClientComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private renderer: Renderer2,
-    private http: HttpClient
+    private http: HttpClient,
+    private sessionService: SessionService
   ) {
     this.isLoading = false;
     this.searchUpdated$.pipe(debounceTime(1000)).pipe(distinctUntilChanged())
@@ -53,6 +56,7 @@ export class ClientComponent implements OnInit {
           $('a[aria-expanded=true]').attr('aria-expanded', 'false');
         });
       });
+      this.userData = this.sessionService.userData;
     }
 
     async loadData(id) {
@@ -108,6 +112,12 @@ export class ClientComponent implements OnInit {
       //  }
     } catch (e) {
     }
-    }
+  }
+
+  logout() {
+    this.sessionService.signout(() => {
+      this.router.navigateByUrl('/client/services');
+    });
+  }
 }
 

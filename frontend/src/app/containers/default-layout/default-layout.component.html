@@ -23,9 +23,17 @@
 
   <ng-scrollbar pointerEventsMethod="scrollbar">
     <c-sidebar-nav
+      *ngIf="userData.role == 'manager'"
+      [navItems]="navItemsManager"
+      dropdownMode="close"
+    />
+
+    <c-sidebar-nav
+      *ngIf="userData.role != 'manager'"
       [navItems]="navItems"
       dropdownMode="close"
     />
+
   </ng-scrollbar>
   <c-sidebar-toggler
     *ngIf="!sidebar.narrow"

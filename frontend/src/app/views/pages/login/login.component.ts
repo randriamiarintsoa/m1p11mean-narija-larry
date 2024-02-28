@@ -30,7 +30,12 @@ export class LoginComponent implements OnInit {
       console.log('auth')
       this.isLoading = true;
       const data = await this.sessionService.signin(this.user);
-      this.router.navigateByUrl('/user/listing');
+      if (data.user.role == 'manager') {
+        this.router.navigateByUrl('/user/listing');
+      } else {
+        this.router.navigateByUrl('/liste-rendez-vous/listing');
+      }
+
       this.isLoading = false;
     } catch (e: any) {
       console.log('############## ', e)

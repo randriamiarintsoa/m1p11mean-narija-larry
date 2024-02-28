@@ -64,8 +64,26 @@
                                     <!--li class="dinone"><img style="margin-right: 15px;" src="assets/images/client/mail_icon.png" alt="#"><a href="#">demo@gmail.com</a></li-->
 
                                     <li class="dinone"><img style="margin-right: 15px;" src="assets/images/client/search_icon.png" alt="#"></li>
-                                    <li class="button_user"> <a class="button" [routerLink]="['/login']">Connexion</a></li>
-                                    <li class="button_user"> <a class="button" [routerLink]="['/register']">Créer un compte</a></li>
+                                    <li class="btn btn-primary" *ngIf="userData && userData.role">
+                                        <a class="button" [routerLink]="['/liste-rendez-vous/listing']">
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                    <li class="btn btn-primary" *ngIf="userData && userData.role">
+                                        <a (click)="logout()" >
+                                            Se déconnecter
+                                        </a>
+                                    </li>
+                                    <li class="btn btn-primary" *ngIf="!userData.role"> 
+                                        <a class="button" [routerLink]="['/login']">
+                                            Connexion
+                                        </a>
+                                    </li>
+                                    <li class="btn btn-primary" *ngIf="!userData.role">
+                                        <a class="button" [routerLink]="['/register']">
+                                            Créer un compte
+                                        </a>
+                                    </li>
                                     <li>
                                         <button type="button" id="sidebarCollapse">
                                             <a href="#">MENU</a>

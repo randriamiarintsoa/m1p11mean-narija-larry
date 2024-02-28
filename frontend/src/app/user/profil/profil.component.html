@@ -1,32 +1,33 @@
-<div class="left" colspan="3" [hidden]="isLoading">
-  <a (click)="back()" class="btn btn-light">
-    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-      <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-    </svg> Précédent
-  </a>
-</div><br>
-<div>
-  <div class="container">
-    <div class="row">
-        <div class="col-sm">
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="assets/images/default-avatar-profile.jpg" alt="Card image cap">
-            <div class="card-body">
-             <h5 class="card-title">{{user.nom}} {{user.prenom}}
-                <!--p>Prenom :{{user.prenom}}</p--></h5>
-              <!--p class="card-text">Rôle {{user.role}}</p>
-              <p class="card-text">Email: {{user.email}}</p>
-              <p class="card-text">Téléphone: {{user.telephone}}</p-->
-              <a href="#" class="btn btn-primary">Modifier le profil</a>
+<div class="card mt-2 mb-2">
+  <div class="card-body">
+    <div class="left" colspan="3" [hidden]="isLoading">
+      <a (click)="back()" class="">
+        <i class="fa fa-arrow-left back" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="card mt-2 mb-2">
+  <div class="card-body">
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-5">
+            <div class="" style="width: 18rem;">
+              <img class="card-img-top" src="assets/images/default-avatar-profile.jpg" alt="Card image cap">
             </div>
           </div>
-        </div>
-      <div class="col-sm">
-        
-       
+          <div class="col-sm-7">
+            <div class="mt-5">
+              <h5 class="card-title">{{user.nom}} {{user.prenom}}
+                  <!--p>Prenom :{{user.prenom}}</p--></h5>
+                <p class="card-text">Rôle {{user.role}}</p>
+                <p class="card-text">Email: {{user.email}}</p>
+                <p class="card-text">Téléphone: {{user.telephone}}</p>
+                <a href="" class="btn btn-primary mt-4">Modifier le profil</a>
+              </div>
+            </div>
+          </div>
       </div>
-      
-    </div>
   </div>
 </div>
 
