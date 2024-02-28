@@ -19,9 +19,6 @@ export class ServiceService {
   list(page: number, limit: number, query?: any): Promise<ListResult<Service>> {
     return new Promise(async (resolve, reject) => {
     try {
-       console.log('**** 2 ', page)
-      console.log('**** 2', limit)
-
        const options: ListRequest = {
          page,
          limit,
@@ -33,9 +30,7 @@ export class ServiceService {
            }
          }
        }
-     console.log('** options 2 ** ', options)
       const data = await this.rest.getAll('/services', options);
-      console.log('** data 2** ', data)
        data.rows = data.rows?.map(i => new Service(i));
        resolve(data);
      } catch (e) {
@@ -46,9 +41,7 @@ export class ServiceService {
   load(id: string): Promise<Service> {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log("Id service Service", id);
         const data = await this.rest.get('/service/' + id);
-        console.log("data service", data);
         this.currentServiceInView.next(new Service(data));
         resolve(data);
       } catch (e) {
@@ -69,7 +62,6 @@ export class ServiceService {
   add(data: Service): Promise<Service> {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log('data Service :::', data)
         const result = await this.rest.post('/service', data);
         resolve(result);
       } catch (e) {

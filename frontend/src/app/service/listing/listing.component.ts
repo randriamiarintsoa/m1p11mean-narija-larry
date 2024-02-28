@@ -82,7 +82,7 @@ export class ListingComponent implements OnInit {
 
     // Définissez les dimensions de la fenêtre modale
     dialogConfig.width = '500px';
-    dialogConfig.height = '300px';
+    dialogConfig.height = '500px';
     dialogConfig.disableClose = true;
 
     const dialogRef = this.dialog.open(AddServiceModalsComponent, dialogConfig);

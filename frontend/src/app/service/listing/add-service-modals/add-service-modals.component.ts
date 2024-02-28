@@ -16,11 +16,9 @@ import {
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ServiceService } from 'src/app/shared/services/service.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 export interface DialogData {
   nom: string;
   description: string;
@@ -42,9 +40,13 @@ export class AddServiceModalsComponent implements OnInit {
   description!: string;
   delai!: string;
   service: Service = new Service();
+  isLoading!: boolean;
+  id!:string;
   constructor(
     public dialogRef: MatDialogRef<AddServiceModalsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private serviceService: ServiceService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -61,18 +63,32 @@ export class AddServiceModalsComponent implements OnInit {
   handleLiveDemoChange(event: any) {
     this.visible = event;
   }
-
-
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
-  onSubmiPushNotification() {
-    if (!this.nom) {
-      return;
+  async addservice() {
+    try {
+      if (this.service.nom === '' ||
+       this.service.description === '' ||
+        this.service.delai === '' ||
+        this.service.prix === null ) {
+        return;
+          }
+      this.isLoading = true;
+      let data;
+      // if (this.id !== 'new') {
+      //   data = await this.serviceService.edit(this.id, this.service);
+      // } else {
+        data = await this.serviceService.add(this.service);
+      // }
+      if (data) {
+        this.router.navigate(['/service/listing']);
+        this.isLoading = false;
+      }
+    } catch (e) {
+      console.error(e);
+      this.isLoading = false;
     }
-    this.dialogRef.close({title: this.nom, message: this.description});
   }
   
 }
