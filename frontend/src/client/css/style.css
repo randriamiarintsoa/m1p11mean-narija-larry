@@ -738,19 +738,19 @@
      opacity: 1;
 }
  .form-control {
-     border: #00aeef solid 2px;
+     /* border: #00aeef solid 2px; */
      border-radius: inherit;
      margin-bottom: 25px;
      padding: 12px 20px;
-     background: #00aeef;
+     /* background: #00aeef; */
      color: #fff;
      font-family: poppins;
 }
- .form-control:focus {
+  .form-control:focus {
      box-shadow: inherit;
      border: #00aeef solid 2px !important;
-     background: #00aeef;
-}
+     /* background: #00aeef; */
+} 
  #search_bar {
      color: #fff !important;
      opacity: 1;

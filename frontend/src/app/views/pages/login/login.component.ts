@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   messageError: string = '';
   constructor(
     private router: Router,
-    //private utils: UtilsService,
     private sessionService: SessionService
   ) {
     this.isLoading = false;
