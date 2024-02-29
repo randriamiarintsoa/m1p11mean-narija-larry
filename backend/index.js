@@ -324,6 +324,23 @@ app.get('/user/:id', async (req, res) => {
     }
 });
 
+// Get user by id
+app.put('/user/:id', async (req, res) => {
+    try {
+        const { role } = req.body;
+        const user = await User.findByIdAndUpdate(req.params.id, 
+                                    { role }
+                                );
+        if (!user) {
+            return res.status(404).json({ message: 'User non trouvé.' });
+        }
+
+        return res.status(200).json({ message: 'User update success.', user });
+    } catch (err) {
+        return res.status(404).json({ message: 'User not found'  });
+    }
+});
+
 // Delete user endpoint
 app.delete('/user/:id', async (req, res) => {
     const id = req.params.id;
