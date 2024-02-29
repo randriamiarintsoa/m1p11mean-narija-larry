@@ -1,10 +1,19 @@
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
-//import { UtilsService } from 'src/app/shared/providers/utils.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ListResult, ListPagination } from 'src/app/shared/models/list.interface';
+import { SessionService } from 'src/app/shared/providers/session.service';
 
+import {
+  CdkDragDrop,
+  CdkDrag,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UtilsService } from 'src/app/shared/providers/utils.service';
 
 @Component({
   selector: 'app-edit',
@@ -12,26 +21,28 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  displayedColumns = ['name', 'email', 'price', 'action'];
-  dataSource!: User;
+  id!: any;
+  user!: User|any;
+  userData: any;
   isLoading!: boolean;
-  id!: string;
-  user: User = new User();
-  constructor(
-    private userService: UserService,
-   // private utils: UtilsService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) { }
+  tokenData!: string;
+  selectedRole: string[] = [];
+  rolesArray = ['client', 'employer', 'manager'];
+  rolesArrayInit = ['client', 'employer', 'manager'];
 
+  constructor(
+      private userService: UserService,
+      private sessionService: SessionService,
+      private utils: UtilsService,
+      private route: ActivatedRoute,
+      private router: Router,
+  ) {}
   ngOnInit() {
     this.route.params.subscribe((p) => {
       this.id = p.id;
       if (this.id !== 'new') {
         this.loadData(this.id);
-      } else {
-        this.user = new User();
-      }
+      } 
     });
   }
 
@@ -39,45 +50,68 @@ export class EditComponent implements OnInit {
     try {
         this.isLoading = true;
         this.user = await this.userService.load(id);
+
+        this.selectedRole = [this.user.role];
+        let indexToRemove = this.rolesArray.indexOf(this.user.role);
+
+        if (indexToRemove !== -1) {
+          this.rolesArray.splice(indexToRemove, 1);
+        }
         this.isLoading = false;
     } catch (e) {
         console.error(e);
         this.isLoading = false;
     }
   }
-  async onSubmit() {
+  back() {
+    this.utils.back();
+  }
+  
+  async drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+    } else {
+      transferArrayItem(
+        event.container.data,
+        event.previousContainer.data,
+        0,
+        2
+      );
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+
+    const newRole = event.container.data[0];
     try {
-      if (this.user.nom === '' ||
-       this.user.prenom === '' ||
-        this.user.email === '' ||
-        this.user.telephone === null ) {
-     //   this.utils.toastError('Veuillez compléter le champ');
-        return;
-          }
-     /* if (!this.people.isValidEmail()) {
-            this.utils.toastError('Veuillez verifer l\'email');
-            return;
-        }*/
-   //   delete this.user._id;
-     // delete this.user.password;
-      this.isLoading = true;
-      let data;
-      if (this.id !== 'new') {
-        data = await this.userService.edit(this.id, this.user);
+      const p = await this.utils.confirm('Voulez vous modifier vraiment le rôle ?');
+      if (p) {
+        try {
+          await this.userService.edit(this.id, {
+            ...this.user,
+            role: newRole
+          });
+          this.utils.toastSuccess();
+          this.loadData(this.id);
+        } catch (e) {
+          this.utils.toastError();
+        }
       } else {
-        data = await this.userService.add(this.user);
-      }
-     // this.utils.toastSuccess();
-      if (data) {
-        this.router.navigate(['/user']);
-        this.isLoading = false;
+
+        // Remettre en place par defaut les drag and drop
+        this.selectedRole = [this.user.role];
+        let indexToRemove = this.rolesArrayInit.indexOf(this.user.role);
+
+        if (indexToRemove !== -1) {
+          this.rolesArray = this.rolesArrayInit;
+          this.rolesArray.splice(indexToRemove, 1);
+        }
       }
     } catch (e) {
-      console.error(e);
-      this.isLoading = false;
+      this.utils.toastError();
     }
   }
-  back() {
-  //  this.utils.back();
-  }
 }
+

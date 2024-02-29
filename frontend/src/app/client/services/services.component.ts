@@ -74,7 +74,6 @@ export class ServicesComponent implements OnInit {
   async loadData() {
     try {
         this.isLoading = true;
-        console.log('this.sessionService ::::: ', this.sessionService)
         this.userData = this.sessionService.userData;
         const query: any =  {};
         query.sort = [{

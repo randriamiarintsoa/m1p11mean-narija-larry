@@ -11,6 +11,5 @@ export const routes: Route[] = [
     },
     { path: 'profil/:id', component: ProfilComponent},
     { path: 'listing', component: ListingComponent},
-    { path: 'edit/:id', component: EditComponent},
-    { path: 'edit', component: EditComponent}
+    { path: 'edit/:id', component: EditComponent}
 ];

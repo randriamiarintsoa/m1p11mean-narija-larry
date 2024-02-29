@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { ToastrModule } from 'ngx-toastr';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import {
   AvatarModule,
@@ -86,6 +87,7 @@ const APP_CONTAINERS = [
     MatDialogModule,
     NgSelectModule,
     NgxMaterialTimepickerModule,
+    DragDropModule,
     ToastrModule.forRoot(
       {
         positionClass: 'toast-top-right', // Définissez la position par défaut ici

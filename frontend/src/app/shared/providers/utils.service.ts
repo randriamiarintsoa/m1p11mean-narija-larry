@@ -39,7 +39,7 @@ export class UtilsService {
             if (result) {
               resolve(true);
             } else {
-              reject(false);
+              resolve(false);
             }
           });
         });

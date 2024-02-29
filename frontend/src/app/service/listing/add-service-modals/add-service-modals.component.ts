@@ -18,6 +18,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ServiceService } from 'src/app/shared/services/service.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UtilsService } from 'src/app/shared/providers/utils.service';
 
 export interface DialogData {
   nom: string;
@@ -47,6 +48,7 @@ export class AddServiceModalsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private serviceService: ServiceService,
     private router: Router,
+    private utils: UtilsService,
   ) {}
 
   ngOnInit() {
@@ -69,26 +71,22 @@ export class AddServiceModalsComponent implements OnInit {
   async addservice() {
     try {
       if (this.service.nom === '' ||
-       this.service.description === '' ||
+        this.service.description === '' ||
         this.service.delai === '' ||
-        this.service.prix === null ) {
+        this.service.prix === null ) 
+      {
         return;
-          }
+      }
       this.isLoading = true;
-      let data;
-      // if (this.id !== 'new') {
-      //   data = await this.serviceService.edit(this.id, this.service);
-      // } else {
-        data = await this.serviceService.add(this.service);
-      // }
+      let data = await this.serviceService.add(this.service);
       if (data) {
-        this.router.navigate(['/service/listing']);
+        this.utils.toastSuccess('Service ajouté avec succès')
         this.isLoading = false;
+        this.dialogRef.close();
       }
     } catch (e) {
       console.error(e);
       this.isLoading = false;
     }
   }
-  
 }

@@ -40,3 +40,8 @@ table {
 .loading {
     height: 30px !important;
 }
+.card-img-top {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}

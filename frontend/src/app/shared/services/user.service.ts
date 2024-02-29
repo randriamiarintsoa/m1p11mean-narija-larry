@@ -72,7 +72,7 @@ export class UserService {
   edit(id: string, data: User): Promise<User> {
     return new Promise(async (resolve, reject) => {
       try {
-        const result = await this.rest.put('/users/' + id, data);
+        const result = await this.rest.put('/user/' + id, data);
         resolve(result);
       } catch (e) {
         reject(e);

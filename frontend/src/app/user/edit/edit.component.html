@@ -1,5 +1,67 @@
+<div class="card mt-2 mb-2">
+  <div class="card-body">
+    <div class="left" colspan="3" [hidden]="isLoading">
+      <a (click)="back()" class="">
+        <i class="fa fa-arrow-left back" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="card mt-2 mb-2">
+  <div class="card-body">
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-4">
+            <div class="" style="width: 16rem;">
+              <img class="card-img-top" style="width:200px;" src="assets/images/default-avatar-profile.jpg" alt="Card image cap">
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="mt-5">
+              <h5 class="card-title">{{user?.nom}} {{user?.prenom}}</h5>
+                <p class="card-text">Rôle : {{user?.role}}</p>
+                <p class="card-text">Email : {{user?.email}}</p>
+                <p class="card-text">Téléphone : {{user?.telephone}}</p>
+              </div>
+            </div>
+          </div>
 
+          
+          <div cdkDropListGroup class="row">
+            
+            <div class="col-12 mb-4">
+              <hr>
+              <p>Effectuer un glisser-déposer et modifier le rôle de l'utilisateur.</p>
+            </div>
+            <div class="col-4">
+              <h3>Rôle de l'Utilisateur</h3>
+              <div
+                cdkDropList
+                [cdkDropListData]="selectedRole"
+                cdkDragDisabled="true"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                @for (item of selectedRole; track item) {
+                  <div class="example-box" cdkDrag>{{item}}</div>
+                }
+              </div>
+            </div>
 
-<button cButton class="me-1" color="primary" type="submit">
-  Button  edit
-</button>
+            <div class="col-4">
+              <h3>Choix rôles</h3>
+              <div
+                cdkDropList
+                [cdkDropListData]="rolesArray"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                @for (item of rolesArray; track item) {
+                  <div class="example-box" cdkDrag>{{item}}</div>
+                }
+              </div>
+            </div>
+          </div>
+
+      </div>
+  </div>
+</div>
+

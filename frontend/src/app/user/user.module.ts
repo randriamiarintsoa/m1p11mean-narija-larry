@@ -25,6 +25,7 @@ import {
 } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { ChartjsModule } from '@coreui/angular-chartjs';
+import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 
 
@@ -55,7 +56,8 @@ import { ChartjsModule } from '@coreui/angular-chartjs';
     AvatarModule,
     TableModule,
     MatFormFieldModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    CdkDropListGroup, CdkDropList, CdkDrag
   ],
   providers: [
     UserService
