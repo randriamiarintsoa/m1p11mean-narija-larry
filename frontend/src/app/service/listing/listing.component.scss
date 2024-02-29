@@ -18,3 +18,22 @@ table {
  .back {
     width: 50px;
  }
+ .service-title {
+    height: 30px;
+    font-size: 16px !important;
+}
+.description-container {
+    max-height: 190px;
+    overflow: hidden;
+    position: relative;
+}
+
+.description {
+    margin: 0;
+}
+.ellipsis {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(to right, transparent, white 50%, white);
+}

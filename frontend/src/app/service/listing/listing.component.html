@@ -32,11 +32,26 @@
       <div class="card rounded">
         <div class="card-body">
           <img class="card-img-top" src="{{service.image}}" alt="Card image cap">
-          <h5 class="card-title">{{service.nom}}</h5>
-          <p class="card-text">{{service.description}}</p>
-          Prix :<span>{{service.prix}}</span> ariary<br/>
-          <a [routerLink]="['/service','details',service._id]" class="btn btn-primary">Details</a>
-          
+          <h5 class="card-title mt-3 service-title">
+            {{service.nom}}
+          </h5>
+          <div class="description-container">
+            <p class="description">
+                {{service.description}}
+            </p>
+            <span class="ellipsis">...</span>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-6">
+                <a [routerLink]="['/service','details',service._id]" class="btn btn-sm btn-success">
+                    Afficher plus de détails <i class="fa fa-eye"></i>
+                </a>
+            </div>
+            <div class="col-6 text-right align-items-center d-flex justify-content-end">
+                <h5 class="pb-0"><b>{{service.prix}} Ar</b></h5>
+            </div>
+        </div>
         </div>
       </div><br/>
     </div>

@@ -58,9 +58,6 @@
                     <div class="full">
                         <div class="right_header_info">
                             <ul>
-                                <li class="dinone">
-                                    <img style="margin-right: 15px; width: 25px;" class="mt-2" src="assets/images/client/search_icon.png" alt="#">
-                                </li>
                                 <li class="btn btn-link">
                                     <a class="button text-primary" [routerLink]="['/client/home']">
                                         Acceuil
@@ -81,8 +78,8 @@
                                         Se déconnecter
                                     </a>
                                 </li>
-                                <li class="btn btn-primary" *ngIf="!userData.role"> 
-                                    <a class="button" [routerLink]="['/login']">
+                                <li class="" *ngIf="!userData.role"> 
+                                    <a class="btn btn-primary btn-connexion" [routerLink]="['/login']">
                                         Connexion
                                     </a>
                                 </li>
@@ -104,7 +101,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="title">
-                                <h2>Detail</h2>
+                                <h2> {{service.nom}}</h2>
 
                             </div>
                         </div>
@@ -126,27 +123,33 @@
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pad_left">
                             <div class="pricing_box">
-                                <div class="list">
+                                <div class="row">
                                    
-                                    <ul>
-                                        <li><span class="float-left"> {{service.nom}}</span><span class="float-right"> {{service.prix}} ariary</span></li>
-                                         <li><span class="float-left">{{service.description}}</span></li>
-                                        <!-- <li><span class="float-left">Buzz Cut</span><span class="float-right">$ 30</span></li>
-                                        <li><span class="float-left">Classic Haircut</span><span class="float-right">$ 35</span></li>  -->
-                                    </ul>
-                                    <ul>
-                                        <!-- <li><span class="float-left">Haircuts</span><span class="float-right">$ 35</span></li> -->
-                                        <!-- <li><span class="float-left">Stache Trim</span><span class="float-right">$ 35</span></li>
-                                        <li><span class="float-left">Beard Trim</span><span class="float-right">$ 35</span></li>
-                                        <li><span class="float-left">Colouring</span><span class="float-right">$ 50</span></li> -->
-                                    </ul>
-                                    <a (click)="addnewsrdv()">Prendre rendez-vous</a>
+                                    <div class="col-12 px-4">
+                                        <div>
+                                            <span class="title"> 
+                                            {{service.nom}}
+                                            </span>
+                                        </div>
+
+                                        <div class="prix"> 
+                                            {{service.prix}} Ar
+                                        </div>
+                                        <div class="description mt-3">
+                                            {{service.description}}
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <a class="btn btn-rdv" (click)="addnewsrdv()">Prendre rendez-vous</a>
+                                        </div>
+                                    </div>
+                                    
                         
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="opening">
+                    <!-- <div class="opening">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
@@ -180,7 +183,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- end Pricing -->
 
@@ -198,12 +201,12 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="address">
-                                        <h3>address</h3>
+                                        <h3>Adresse</h3>
                                         <p>
-                                            Address: 73 Canal Street, New York, NY
-                                            <br> Tel: +1 123 456 789
-                                            <br> Fax: +1 123 456 789
-                                            <br> Email: {{'support@demo.com'}}</p>
+                                            Adresse: Tananarive 101
+                                            <br> Tel: +261 34 59 677 77
+                                            <br> Tel: +261 32 40 835 70
+                                            <br> Email: {{'nodegasydev@outlook.fr'}}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -220,7 +223,7 @@
                         </div>
                         <div class="copyright">
                             <div class="container">
-                                <p>© 2019 All Rights Reserved. <a href="https://html.design/"> Free Html Templates</a></p>
+                                <p>© 2024 All Rights Reserved. <a href=""> Narija Randriamiarintsoa & Larry Larry Ramasimanana</a></p>
                             </div>
                         </div>
                     </div>

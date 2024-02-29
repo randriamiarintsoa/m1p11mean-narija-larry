@@ -23,3 +23,12 @@ table {
 .active-front {
     font-weight: 600;
 }
+.btn-connexion {
+    background: transparent !important;
+    color: #007bff !important;
+    border-color: #007bff !important;
+}
+.btn-connexion:hover {
+    background: #007bff !important;
+    color: #fff !important;
+}

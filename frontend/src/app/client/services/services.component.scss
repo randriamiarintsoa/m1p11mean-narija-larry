@@ -23,3 +23,32 @@ table {
 .active-front {
     font-weight: 600;
 }
+.service-title {
+    height: 120px;
+    font-size: 20px !important;
+}
+.description-container {
+    max-height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.description {
+    margin: 0;
+}
+
+.ellipsis {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(to right, transparent, white 50%, white);
+}
+.btn-connexion {
+    background: transparent !important;
+    color: #007bff !important;
+    border-color: #007bff !important;
+}
+.btn-connexion:hover {
+    background: #007bff !important;
+    color: #fff !important;
+}

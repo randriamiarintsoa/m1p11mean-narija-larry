@@ -91,8 +91,8 @@
                                         Se déconnecter
                                     </a>
                                 </li>
-                                <li class="btn btn-primary" *ngIf="!userData.role"> 
-                                    <a class="button" [routerLink]="['/login']">
+                                <li class="" *ngIf="!userData.role"> 
+                                    <a class="btn btn-primary btn-connexion" [routerLink]="['/login']">
                                         Connexion
                                     </a>
                                 </li>
@@ -116,7 +116,7 @@
             <div class="col-md-12">
                 <div class="ourheading">
                     <h2>Les<strong class="white_ll"> services</strong></h2>
-                    <span> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n</span>
+                    <span>Les prestations disponibles sur notre site web</span>
                 </div>
             </div>
         </div>
@@ -132,12 +132,23 @@
                                 <div *ngFor="let item of dataSource" class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                     <div class="service_box">
                                         <figure><img src="assets/images/client/ser1.png"></figure>
-                                        <h3>{{item.nom}}</h3>
-                                        <p>{{item.description}}</p>
-                                        <h5><b>{{item.prix}}</b></h5>
-                                        <a [routerLink]="['/client/service','details',item._id]" class="btn btn-success">
-                                            Détail
-                                        </a>
+                                        <h3 class="service-title">{{item.nom}}</h3>
+                                        <div class="description-container">
+                                            <p class="description">
+                                                {{item.description}}
+                                            </p>
+                                            <span class="ellipsis">...</span>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-6">
+                                                <a [routerLink]="['/client/service','details',item._id]" class="btn btn-sm btn-success">
+                                                    Afficher plus de détails <i class="fa fa-eye"></i>
+                                                </a>
+                                            </div>
+                                            <div class="col-6 text-right align-items-center d-flex justify-content-end">
+                                                <h5 class="pb-0"><b>{{item.prix}} Ar</b></h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -181,12 +192,12 @@
                 </div>
                 <div class="col-md-12">
                     <div class="address">
-                        <h3>address</h3>
+                        <h3>Adresse</h3>
                         <p>
-                            Address: 73 Canal Street, New York, NY
-                            <br> Tel: +1 123 456 789
-                            <br> Fax: +1 123 456 789
-                            <br> Email: {{'support@demo.com'}}</p>
+                            Adresse: Tananarive 101
+                            <br> Tel: +261 34 59 677 77
+                            <br> Tel: +261 32 40 835 70
+                            <br> Email: {{'nodegasydev@outlook.fr'}}</p>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -203,7 +214,7 @@
         </div>
         <div class="copyright">
             <div class="container">
-                <p>© 2019 All Rights Reserved. <a href="https://html.design/"> Free Html Templates</a></p>
+                <p>© 2024 All Rights Reserved. <a href=""> Narija Randriamiarintsoa & Larry Larry Ramasimanana</a></p>
             </div>
         </div>
     </div>
