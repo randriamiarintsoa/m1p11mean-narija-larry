@@ -35,6 +35,8 @@ import { AddRdvModalsComponent } from './details/add-rdv-modals/add-rdv-modals.c
 import { PayerRdvModalsComponent } from './details/payer-rdv-modals/payer-rdv-modals.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { UtilsService } from '../shared/providers/utils.service';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -93,10 +95,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     NgSelectModule,
     ModalModule,
     MatDatepickerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ToastrModule.forRoot(
+      {
+        positionClass: 'toast-top-right', // Définissez la position par défaut ici
+        preventDuplicates: true,
+        closeButton: true,
+      }
+    ),
   ],
   providers: [
     UserService,
+    UtilsService,
     provideNativeDateAdapter()
   ],
 })

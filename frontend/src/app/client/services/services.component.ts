@@ -97,6 +97,7 @@ export class ServicesComponent implements OnInit {
 
   logout() {
     this.sessionService.signout(() => {
+      window.location.reload();
       this.router.navigateByUrl('/client/services');
     });
   }

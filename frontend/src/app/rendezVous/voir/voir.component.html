@@ -23,8 +23,9 @@
                 <p class="card-text">Service: {{rendezVous?.service?.nom}}</p>
                 <p class="card-text">Date {{rendezVous?.date | date:'dd/MM/yyyy' }}</p>
                 <p class="card-text">Heure: {{rendezVous?.heure}}</p>
-                <button  class="btn btn-danger mt-4">Refusé</button>
-                <button  class="btn btn-success mt-4 ml-3">Accepter</button>
+
+                <button *ngIf="userData.id != rendezVous.client._id" class="btn btn-danger mt-4">Refusé</button>
+                <button *ngIf="userData.id != rendezVous.client._id" class="btn btn-success mt-4 ml-3">Accepter</button>
               </div>
             </div>
           </div>

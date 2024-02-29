@@ -21,6 +21,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ListPagination } from 'src/app/shared/models/list.interface';
 import { SessionService } from 'src/app/shared/providers/session.service';
 import { RendezVousService } from 'src/app/shared/services/rendezVous.service';
+import { UtilsService } from 'src/app/shared/providers/utils.service';
 
 
 // userId:string;
@@ -62,6 +63,7 @@ export class AddRdvModalsComponent implements OnInit {
     private userService: UserService,
     private sessionService: SessionService,
     private rendezVousService: RendezVousService,
+    private utils: UtilsService,
   ) {}
 
   ngOnInit() {
@@ -102,6 +104,10 @@ export class AddRdvModalsComponent implements OnInit {
   }
   
   async onSubmitSave() {
+    console.log('=================', this.rendezVous);
+    if (!this.rendezVous.date || !this.selectedUser || !this.rendezVous.heure) {
+      return this.utils.toastError('Veuillez compléter tous les champs')
+    }
     this.rendezVous.employer = this.selectedUser;
     this.rendezVous.client = this.userData ? this.userData.id  : null;
     this.rendezVous.service = this.serviceCurrent._id;
@@ -114,7 +120,7 @@ export class AddRdvModalsComponent implements OnInit {
       // await this.rendezVousService.add(this.rendezVous);
       this.dialogRef.close(this.rendezVous);
     } catch (e) {
-      console.error(e);
+      console.log(e);
       this.isLoading = false;
     }
   }

@@ -1,24 +1,20 @@
 <h2 mat-dialog-title>Prendre rendez vous </h2>
 <form (ngSubmit)="onSubmitSave()" cForm>
   <mat-dialog-content>
-    <mat-form-field class="full-width" appearance="outline">
+    <mat-form-field class="full-width" appearance="outline" *ngIf="!userData">
       <mat-label>Nom</mat-label>
       <input type="text" [(ngModel)]="rendezVous.nom" name="nom" matInput>
-      <!-- <input [ngxTimepicker]="picker"> -->
-      <!-- <ngx-material-timepicker #picker></ngx-material-timepicker> -->
     </mat-form-field>
-    <mat-form-field class="full-width" appearance="outline">
+    <mat-form-field class="full-width" appearance="outline" *ngIf="!userData">
       <mat-label>Email</mat-label>
       <input type="email" [(ngModel)]="rendezVous.email" name="email" matInput>
-      <!-- <input [ngxTimepicker]="picker"> -->
-      <!-- <ngx-material-timepicker #picker></ngx-material-timepicker> -->
     </mat-form-field>
   <div class="full-width mb-4">
     <mat-label>Employé</mat-label>
     <div class="">
       <ng-select  
         name="employerId"
-        [items]="dataSource.rows"
+        [items]="dataSource?.rows"
         bindLabel="nom" 
         bindValue="_id" 
         [loading]="isLoading"
@@ -39,8 +35,6 @@
   <mat-form-field class="full-width" appearance="outline">
     <mat-label>Heure</mat-label>
     <input type="time" [(ngModel)]="rendezVous.heure" name="heure" matInput>
-    <!-- <input [ngxTimepicker]="picker"> -->
-    <!-- <ngx-material-timepicker #picker></ngx-material-timepicker> -->
   </mat-form-field>
 
 
@@ -52,7 +46,7 @@
 
 </mat-dialog-content>
 <mat-dialog-actions class="mb-2" align="end">
-  <button class="btn btn-danger mx-1" (click)="onNoClick()">Annuler</button>
-  <button class="btn btn-primary mx-1">Ok</button>
+  <button class="btn btn-danger mx-1" type="button" (click)="onNoClick()">Annuler</button>
+  <button class="btn btn-primary mx-1" type="submit">Ok</button>
 </mat-dialog-actions>
 </form>

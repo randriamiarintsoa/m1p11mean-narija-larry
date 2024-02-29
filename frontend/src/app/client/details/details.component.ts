@@ -104,8 +104,8 @@ export class DetailsComponent implements OnInit {
     dialogConfig.disableClose = true;
   
     const dialogRef = this.dialog.open(AddRdvModalsComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(async (resultRdv: {}) => {
-      if (resultRdv) {
+    dialogRef.afterClosed().subscribe(async (resultRdv: any) => {
+      if (resultRdv && resultRdv.employer) {
         this.payernewsrdv(resultRdv);
       }
     });
@@ -132,6 +132,7 @@ export class DetailsComponent implements OnInit {
 
   logout() {
     this.sessionService.signout(() => {
+      window.location.reload();
       this.router.navigateByUrl('/client/services');
     });
   }
