@@ -74,6 +74,8 @@ export class ServicesComponent implements OnInit {
   async loadData() {
     try {
         this.isLoading = true;
+        console.log('this.sessionService ::::: ', this.sessionService)
+        this.userData = this.sessionService.userData;
         const query: any =  {};
         query.sort = [{
           key : 'createdAt',
@@ -86,12 +88,9 @@ export class ServicesComponent implements OnInit {
         const dataSource = await this.serviceService.list(this.listing.page, this.listing.limit, query);
         this.dataSource= dataSource.rows;
         this.listing.total = dataSource.total;
-
         this.isLoading = false;
-        console.log(typeof this.dataSource)
-        this.userData = this.sessionService.userData;
     } catch (e) {
-        console.error(e);
+        console.log(e);
         this.isLoading = false;
     }    
   }

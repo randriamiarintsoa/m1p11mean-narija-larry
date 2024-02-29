@@ -1,9 +1,9 @@
 <!-- loader  -->
-<!-- <div class="loader_bg">
+<div class="loader_bg" *ngIf="isLoading">
     <div class="loader">
       <img src="assets/images/client/loading.gif" alt="" />
     </div>
-</div> -->
+</div>
 
 <div class="wrapper">
   <!-- end loader -->
@@ -61,17 +61,23 @@
                             <ul>
                                 <li class="dinone">
                                     <!-- <img style="margin-right: 15px; width: 25px;" class="mt-2" src="assets/images/client/search_icon.png" alt="#"> -->
-                                    <input class="form-control" matInput name="searchxl" [(ngModel)]="searchData.q"
-                                            (ngModelChange)="searchUpdated$.next(searchData.q)" type="text" placeholder="Rechercher"
-                                        >
+                                    <input 
+                                        class="form-control mb-0" 
+                                        matInput name="searchxl" 
+                                        [(ngModel)]="searchData.q"
+                                        (ngModelChange)="searchUpdated$.next(searchData.q)" 
+                                        type="text" 
+                                        placeholder="Rechercher"
+                                        style="height: 40px;"
+                                    >
                                 </li>
-                                <li class="btn btn-link" *ngIf="userData && userData.role">
+                                <li class="btn btn-link">
                                     <a class="button text-primary" [routerLink]="['/client/home']">
                                         Acceuil
                                     </a>
                                 </li>
-                                <li class="btn btn-link" *ngIf="userData && userData.role">
-                                    <a class="button text-primary" [routerLink]="['/client/services']">
+                                <li class="btn btn-link">
+                                    <a class="button text-primary active-front" [routerLink]="['/client/services']">
                                         Services
                                     </a>
                                 </li>
@@ -138,7 +144,14 @@
                             </div>
                         </div>
 
+                        <div *ngIf="!dataSource.length">
+                            <div class="alert alert-danger">
+                                Aucune service pour cette rechercher!
+                            </div>
+                        </div>
+
                         <mat-paginator 
+                            *ngIf="dataSource.length"
                             [length]="listing.total"
                             [pageSize]="listing.limit"
                             [pageSizeOptions]="listing.pageSizeOptions"
