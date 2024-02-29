@@ -17,7 +17,11 @@ export class ConfirmationDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public message: string) { }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+    onYesClick(): void {
+      this.dialogRef.close(true);
+    }
+    
 }

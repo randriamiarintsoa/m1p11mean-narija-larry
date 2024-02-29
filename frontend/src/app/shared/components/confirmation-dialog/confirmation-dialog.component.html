@@ -1,9 +1,9 @@
-<div mat-dialog-content>
+<div class="px-4 py-4">
+  <div mat-dialog-content>
   {{message || 'Voulez-vous vraiment continuer?'}}
  </div>
- <div mat-dialog-actions>
-   <!-- <button mat-button (click)="onNoClick()">Non</button>
-   <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Oui</button> -->
-   <button class="btn btn-danger mx-1" (click)="onNoClick()">Non</button>
-   <button class="btn btn-primary mx-1" cdkFocusInitial>Oui</button>
+ <div class="mt-4" mat-dialog-actions align="end">
+   <button class="btn btn-danger mx-1 btn-sm" (click)="onNoClick()">Non</button>
+   <button class="btn btn-primary mx-1 btn-sm" (click)="onYesClick()">Oui</button>
   </div>
+</div>

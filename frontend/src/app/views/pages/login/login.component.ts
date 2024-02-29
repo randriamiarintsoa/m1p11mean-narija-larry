@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from 'src/app/shared/providers/session.service';
 import { User } from 'src/app/shared/models/user.model';
+import { UtilsService } from 'src/app/shared/providers/utils.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   messageError: string = '';
   constructor(
     private router: Router,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private utils: UtilsService
   ) {
     this.isLoading = false;
   }
@@ -27,9 +29,9 @@ export class LoginComponent implements OnInit {
   async onSubmit() {
     try {
       this.isError = false;
-      console.log('auth')
       this.isLoading = true;
       const data = await this.sessionService.signin(this.user);
+      this.utils.toastSuccess('Vous êtes maintenant connecté');
       if (data.user.role == 'manager') {
         this.router.navigateByUrl('/user/listing');
       } else {
@@ -38,8 +40,8 @@ export class LoginComponent implements OnInit {
 
       this.isLoading = false;
     } catch (e: any) {
-      console.log('############## ', e)
       this.isError = true;
+      this.utils.toastError('Login ou mot de passe incorrect');
       this.messageError = 'Login ou mot de passe incorrect';
       this.isLoading = false;
     }

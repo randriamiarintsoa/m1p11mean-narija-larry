@@ -18,7 +18,7 @@ import { RendezVous } from 'src/app/shared/models/rendezVous.model';
 })
 export class VoirComponent implements OnInit {
   id!: any;
-  rendezVous!: RendezVous;
+  rendezVous!: any;
   userData: any;
   isLoading!: boolean;
   tokenData!: string;
@@ -35,8 +35,6 @@ ngOnInit() {
     this.id = p.id;
     if (this.id !== 'new') {
       this.loadData(this.id);
-    } else {
-      this.rendezVous = new RendezVous();
     }
     this.userData = this.sessionService.userData;
     this.tokenData = this.sessionService.tokenData;
@@ -47,6 +45,7 @@ async loadData(id) {
   try {
       this.isLoading = true;
       this.rendezVous = await this.rendezVousService.load(id);
+      console.log(this.rendezVous.service.nom)
       this.isLoading = false;
   } catch (e) {
       console.error(e);

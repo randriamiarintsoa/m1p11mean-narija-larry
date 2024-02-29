@@ -18,6 +18,7 @@ import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent 
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { ToastrModule } from 'ngx-toastr';
 
 import {
   AvatarModule,
@@ -43,6 +44,7 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { UtilsService } from './shared/providers/utils.service';
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
@@ -83,7 +85,14 @@ const APP_CONTAINERS = [
     ReactiveFormsModule,
     MatDialogModule,
     NgSelectModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    ToastrModule.forRoot(
+      {
+        positionClass: 'toast-top-right', // Définissez la position par défaut ici
+        preventDuplicates: true,
+        closeButton: true,
+      }
+    ),
     // CommonModule
   ],
   providers: [
@@ -93,6 +102,7 @@ const APP_CONTAINERS = [
     },
     IconSetService,
     Title,
+    UtilsService,
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

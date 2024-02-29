@@ -75,14 +75,14 @@ export class ListingComponent implements OnInit {
     }
     async delete(row) {
       try {
-      const p = await this.utils.confirm('Voulez vous supprimer vraiment?');
+      const p = await this.utils.confirm('Voulez vous supprimer vraiment ?');
       if (p) {
         try {
           await this.userService.delete(row._id);
-          // this.utils.toastSuccess();
+          this.utils.toastSuccess();
           this.loadData();
         } catch (e) {
-            // this.utils.toastError();
+          this.utils.toastError();
         }
       }
     } catch (e) {

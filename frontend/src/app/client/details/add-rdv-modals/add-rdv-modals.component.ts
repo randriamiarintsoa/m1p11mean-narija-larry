@@ -103,7 +103,7 @@ export class AddRdvModalsComponent implements OnInit {
   
   async onSubmitSave() {
     this.rendezVous.employer = this.selectedUser;
-    this.rendezVous.client = this.userData.id;
+    this.rendezVous.client = this.userData ? this.userData.id  : null;
     this.rendezVous.service = this.serviceCurrent._id;
     this.rendezVous.tarifs = this.serviceCurrent.prix;
     this.rendezVous.payement = 'OK';

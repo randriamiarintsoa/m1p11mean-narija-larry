@@ -122,17 +122,13 @@ export class AddRdvModalsComponent implements OnInit {
     this.rendezVous.notifictionId = '12345678';
     
     var val = this.rendezVous;
-    console.log("vavavav    ",val)
-
 
     try {
       await this.rendezVousService.add(this.rendezVous);
 
     } catch (e) {
       console.error(e);
-    //  this.isLoading = false;
     }
-
     this.dialogRef.close(val);
   }
 

@@ -2,7 +2,7 @@
   <div class="card-body">
    <div class="row">
       <div class="col-md-8 col-lg-9">
-        <div class="left" colspan="3" [hidden]="isLoading">
+        <div class="left" colspan="3">
           <a (click)="back()" class="">
             <i class="fa fa-arrow-left back" aria-hidden="true"></i>
           </a>
@@ -15,16 +15,21 @@
   </div>
 </div>
    
-<div class="card mt-2 mb-2">
+<div class="card mt-2 mb-2" *ngIf="!isLoading">
   <div class="card-body">
     <div class="">
-      
         <input class="form-control" matInput name="searchxl" [(ngModel)]="searchData.q"
             (ngModelChange)="searchUpdated$.next(searchData.q)" type="text" placeholder="Rechercher"
         >
     </div>
   </div>
 </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col-4 offset-4 alert alert-primary text-center mb-5">
+      <img src="assets/images/loading.gif" class="loading" alt="loading" />
+    </div>
+  </div>
 
   <div class="row">
     <!-- Cards with rounded style and full width on small screens -->
@@ -61,6 +66,7 @@
         Aucune service trouvé !
       </div>
     </div>
+    
   </div>
 
   <mat-paginator 

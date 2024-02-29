@@ -124,13 +124,9 @@ export class DetailsComponent implements OnInit {
   
     const dialogRef = this.dialog.open(PayerRdvModalsComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(async (result: {}) => {
-      // if (result) {
-      //   const dat = await this.serviceService.add(service);
-      //   if (dat) {
-      //    // this.utils.toastSuccess();
-      //     // this.loadData();
-      //   }
-      // }
+      if (result) {
+        this.utils.toastSuccess('L\'enregistrement du rendez-vous a été effectué avec succès.');
+      }
     });
   }
 

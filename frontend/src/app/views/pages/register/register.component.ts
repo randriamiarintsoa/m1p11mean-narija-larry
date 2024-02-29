@@ -2,6 +2,7 @@ import { Component ,OnInit} from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
+import { UtilsService } from 'src/app/shared/providers/utils.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -24,6 +25,7 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
+    private utils: UtilsService
   ) { 
     
   }
@@ -53,18 +55,22 @@ async onSubmitregister() {
         || this.user.password === '' || this.repassword === '' ) 
       {
         this.isError = true;
+        this.utils.toastError('Merci de remplir tous les champs requis.');
         this.messageError = "Merci de remplir tous les champs requis.";
         this.isLoading = false;
       } else if (this.repassword != this.user.password) {
         this.isError = true;
+        this.utils.toastError('Les deux mots de passe ne sont pas identiques');
         this.messageError = "Les deux mots de passe ne sont pas identiques";
         this.isLoading = false;
       } else if (!this.isValidEmail(this.user.email)){
         this.isError = true;
+        this.utils.toastError('Email invalide');
         this.messageError = "Email invalide";
         this.isLoading = false;
       }else if (!this.isValidPhoneNumber(this.user.telephone)){
         this.isError = true;
+        this.utils.toastError('Téléphone invalide');
         this.messageError = "Téléphone invalide";
         this.isLoading = false;
       } 
@@ -72,6 +78,7 @@ async onSubmitregister() {
         this.user.role = this.selectedRole;
         let data = await this.userService.add(this.user);
         if (data) {
+          this.utils.toastSuccess('Inscription terminée avec succès."');
           this.router.navigate(['/login']);
           this.isLoading = false;
         }

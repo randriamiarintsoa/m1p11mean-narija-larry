@@ -8,6 +8,12 @@
  @import url(owl.carousel.min.css);
 /*--------------------------------------------------------------------- basic ---------------------------------------------------------------------*/
 
+@import '~ngx-toastr/toastr.css';
+@import '~ngx-toastr/toastr-bs4-alert.css';
+@import '~bootstrap/scss/functions.css';
+@import '~bootstrap/scss/variables.css';
+@import '~bootstrap/scss/mixins.css';
+@import '~ngx-toastr/toastr-bs4-alert.css';
 @import "~@ng-select/ng-select/themes/material.theme.css";
 
 body {

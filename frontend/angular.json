@@ -44,7 +44,8 @@
               "src/client/css/owl.carousel.min.css",
               "src/client/css/style.css",
               "src/client/css/responsive.css",
-              "src/client/css/font-awesome.min.css"
+              "src/client/css/font-awesome.min.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "src/assets/js/jquery.min.js",

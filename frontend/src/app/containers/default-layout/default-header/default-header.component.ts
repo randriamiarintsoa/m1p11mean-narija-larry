@@ -5,6 +5,7 @@ import { ClassToggleService, HeaderComponent } from '@coreui/angular';
 import { SessionService } from 'src/app/shared/providers/session.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
+import { UtilsService } from 'src/app/shared/providers/utils.service';
 
 @Component({
   selector: 'app-default-header',
@@ -29,7 +30,8 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     private router: Router,
     private sessionService: SessionService,
     private userService: UserService,
-     private route: ActivatedRoute,
+    private route: ActivatedRoute,
+    private utils: UtilsService
    
   ) {
     super();
@@ -44,21 +46,23 @@ export class DefaultHeaderComponent extends HeaderComponent implements OnInit {
     this.isLoading = false;  
     this.id = this.user.id;
     this.loadData(this.id);
-}
-
-async loadData(id) {
-  try {
-      this.isLoading = true;
-      this.user = await this.userService.load(id);
-      this.isLoading = false;
-  } catch (e) {
-      console.error(e);
-      this.isLoading = false;
   }
-}  
+
+  async loadData(id) {
+    try {
+        this.isLoading = true;
+        this.user = await this.userService.load(id);
+        this.isLoading = false;
+    } catch (e) {
+        console.error(e);
+        this.isLoading = false;
+    }
+  }  
 
   logout() {
     this.sessionService.signout(() => {
+      this.utils.toastSuccess('Vous êtes maintenant déconnecté');
+      window.location.reload();
       this.router.navigateByUrl('/login');
     });
   }

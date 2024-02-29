@@ -96,6 +96,13 @@
             </tbody>
           </table>
 
+
+          <div class="row" *ngIf="isLoading">
+            <div class="col-4 offset-4 alert alert-primary text-center mb-5">
+              <img src="assets/images/loading.gif" class="loading" alt="loading" />
+            </div>
+          </div>
+
           <mat-paginator 
             [length]="listing.total"
             [pageSize]="listing.limit"
