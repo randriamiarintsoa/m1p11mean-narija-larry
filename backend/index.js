@@ -88,19 +88,19 @@ app.post('/login', async (req, res) => {
     
         const user = await User.findOne({email});
         if (!user) {
-            res.status(404).send({message :"Login ou mot de passe incorrect"});
+            return res.status(404).send({message :"Login ou mot de passe incorrect"});
         } 
         
         const passwordMacth = await bcrypt.compare(password, user.password);
         if (!passwordMacth) {
-            res.status(404).send({message : "Login ou mot de passe incorrect"});
+            return res.status(404).send({message : "Login ou mot de passe incorrect"});
         } else {
             const token = jwt.sign({ userId: user.id, nom: user.nom, prenom:user.prenom, telephone:user.telephone, email:user.email, role:user.role  }, 'your_secret_key', { expiresIn: '1h' });
             const tokenExpiration = new Date().getTime() + 3600 * 1000; 
-            res.json({ token, tokenExpiration, user });
+            return res.json({ token, tokenExpiration, user });
         }
     } catch(err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 });
 
@@ -172,7 +172,7 @@ app.post('/forgot-password', async (req, res) => {
             }
         });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 });
 
@@ -197,7 +197,7 @@ app.post('/reset-password', async (req, res) => {
         return res.status(200).json({ message: 'User update success.' });
 
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 });
 
@@ -236,13 +236,13 @@ app.post('/users', async (req, res) => {
 
         const newUser = new User({ nom, nom, prenom, telephone, email, role, password: hashedPassword });
         await newUser.save();
-        res.status(201).json(newUser);
+        return res.status(201).json(newUser);
     } catch (err) {
         // erreur email dupliqué
         if (err.code === 11000 && err.keyPattern.email) {
             return res.status(400).json({ message: 'L\'email existe déjà.', code: err.code });
         }
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 });
 
@@ -307,7 +307,7 @@ app.get('/users', async (req, res) => {
         }
         
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 });
 
@@ -318,9 +318,9 @@ app.get('/user/:id', async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        res.json(user);
+        return res.json(user);
     } catch (err) {
-        res.status(404).json({ message: 'User not found'  });
+        return res.status(404).json({ message: 'User not found'  });
     }
 });
 
@@ -375,9 +375,9 @@ app.post('/service', async (req, res) => {
 
         const newService = new Service({ nom, prenom, description, delai, prix, image });
         await newService.save();
-        res.status(201).json(newService);
+        return res.status(201).json(newService);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 });
 
@@ -399,7 +399,7 @@ app.get('/services', async (req, res) => {
                 .skip((page - 1) * limit)
                 .limit(limit);
 
-            res.json({
+            return res.json({
                 rows: services,
                 total: total.length,
                 page
@@ -411,7 +411,7 @@ app.get('/services', async (req, res) => {
                 .skip((page - 1) * limit)
                 .limit(limit);
 
-            res.json({
+            return res.json({
                 rows: services,
                 total: total.length,
                 page
@@ -420,7 +420,7 @@ app.get('/services', async (req, res) => {
         }
 
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 });
 
@@ -433,7 +433,7 @@ app.get('/service/:id', async (req, res) => {
         }
         res.json(service);
     } catch (err) {
-        res.status(404).json({ message: 'Service not found'  });
+        return res.status(404).json({ message: 'Service not found'  });
     }
 });
 // Delete user endpoint
@@ -527,18 +527,18 @@ app.post('/rendezvous', async (req, res) => {
 
             let newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId});
             await newRendezvous.save();
-            res.status(201).json(newRendezvous);
+            return res.status(201).json(newRendezvous);
 
         } else { // Ajouter depuis BO
             let {client, employer, service, date, heure, status, tarifs, payement, note, notifictionId } = req.body;
 
             let newRendezvous = new Rendezvous({ client, employer, service, date, heure, note, status, tarifs, payement, notifictionId});
             await newRendezvous.save();
-            res.status(201).json(newRendezvous);
+            return res.status(201).json(newRendezvous);
         }
         
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 });
 
@@ -576,26 +576,29 @@ app.get('/rendezvous', async (req, res) => {
                 .limit(limit);
         }
 
-        res.json({
+        return res.json({
             rows: rendezvous,
             total: total.length,
             page
         });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 });
 
 // Get rendez vous by id
 app.get('/rendezvous/:id', async (req, res) => {
     try {
-        const rendezvous = await Rendezvous.findById(req.params.id);
+        const rendezvous = await Rendezvous
+            .findById(req.params.id)
+            .populate(['client','service','employer']);
+
         if (!rendezvous) {
             return res.status(404).json({ message: 'Rendez vous not found' });
         }
-        res.json(rendezvous);
+        return res.json(rendezvous);
     } catch (err) {
-        res.status(404).json({ message: 'Rendez vous not found'  });
+        return res.status(404).json({ message: 'Rendez vous not found'  });
     }
 });
 
